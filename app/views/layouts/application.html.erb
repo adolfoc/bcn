@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bcn</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+	<head>
+		<title>Bcn</title>
+		<%= stylesheet_link_tag    "application" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		</head>
+	<body>
+		<div id="main_wrapper" class="container">
+			<h1>Biblioteca del Congreso Nacional</h1>
+			<% if user_signed_in? %>
+				<h3>Usuario: <%= current_user.user_name %> como: <%= current_user.role.name %></h3>
+				<%= link_to("Sign out", destroy_user_session_path, :method => :delete) %>
+			<% else %>
+				<%= link_to("Sign in", new_user_session_path) %>
+			<% end %>
+			<% if flash[:notice] %>
+				<div class="span-24">
+					<p class="notice"><%= flash[:notice] %></p>
+				</div>
+			<% end %>
+			<% if flash[:alert] %>
+				<div class="span-24 last">
+					<p class="alert"><%= flash[:alert] %></p>
+				</div>
+			<% end %>
+			<%= yield %>
+		</div>
+	</body>
 </html>

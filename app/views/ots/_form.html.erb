@@ -1,0 +1,49 @@
+<%= form_for(@ot) do |f| %>
+	<% if @ot.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@ot.errors.count, "error") %> prohibited this ot from being saved:</h2>
+			<ul>
+				<% @ot.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+	    <%= f.label(:ot_type_id, 'Tipo') %><br />
+	    <%= collection_select(:ot, :ot_type_id, OtType.order("name ASC"), :id, :name) %>
+	</div>
+
+	<div class="field">
+	    <%= f.label(:priority, 'Prioridad') %><br />
+	    <%= collection_select(:ot, :priority, Priority.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+	    <%= f.label(:created_by, 'Creada por') %><br />
+	    <%= collection_select(:ot, :created_by, User.all, :id, :email) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :created_on %><br />
+		<%= f.datetime_select :created_on %>
+	</div>
+
+	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="ot-tabs">
+		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-tasks">Tasks</a></li>
+			<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Log</a></li>
+		</ul>
+		<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-tasks">
+			<p>Tasks</p>
+		</div>
+		<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-log">
+			<p>Log</p>
+		</div>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

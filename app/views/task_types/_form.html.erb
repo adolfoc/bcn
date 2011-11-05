@@ -1,0 +1,26 @@
+<%= form_for(@task_type) do |f| %>
+	<% if @task_type.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@task_type.errors.count, "error") %> prohibited this task_type from being saved:</h2>
+			<ul>
+				<% @task_type.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+
+	<div class="field">
+	    <%= f.label(:role_id, 'Rol') %><br />
+	    <%= collection_select(:task_type, :role_id, Role.order("name ASC"), :id, :name) %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

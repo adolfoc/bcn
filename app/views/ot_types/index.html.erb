@@ -1,0 +1,23 @@
+<h1>Listing ot_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ot_types.each do |ot_type| %>
+  <tr>
+    <td><%= ot_type.name %></td>
+    <td><%= link_to 'Show', ot_type %></td>
+    <td><%= link_to 'Edit', edit_ot_type_path(ot_type) %></td>
+    <td><%= link_to 'Destroy', ot_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ot type', new_ot_type_path %>

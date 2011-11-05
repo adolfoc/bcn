@@ -1,0 +1,23 @@
+<p>
+  <b>Prioridad:</b>
+  <%= @ot.priority.name %>
+</p>
+
+<p>
+  <b>Creada por:</b>
+  <%= @ot.owner.user_name %>
+</p>
+
+<p>
+  <b>Creada el:</b>
+  <%= @ot.created_on %>
+</p>
+
+<p>
+  <b>Completada el:</b>
+  <%= @ot.completed_on %>
+</p>
+
+
+<%= link_to 'Edit', edit_ot_path(@ot) %> |
+<%= link_to 'Back', ots_path %>

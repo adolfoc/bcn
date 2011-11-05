@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  priority: 1
+  created_by: 1
+  created_on: 2011-11-03 16:00:14
+  completed_on: 2011-11-03 16:00:14
+
+two:
+  name: MyString
+  priority: 1
+  created_by: 1
+  created_on: 2011-11-03 16:00:14
+  completed_on: 2011-11-03 16:00:14
