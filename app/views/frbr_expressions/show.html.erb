@@ -1,0 +1,13 @@
+<p>
+  <b>Frbr work:</b>
+  <%= @frbr_expression.frbr_work.name %>
+</p>
+
+<p>
+  <b>Frbr document type:</b>
+  <%= @frbr_expression.frbr_document_type.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_frbr_expression_path(@frbr_expression) %> |
+<%= link_to 'Back', frbr_expressions_path %>

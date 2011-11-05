@@ -1,0 +1,28 @@
+<p>
+  <b>Expresión FRBR:</b>
+  <%= @frbr_manifestation.frbr_expression.name %>
+</p>
+
+<p>
+  <b>Fichero:</b>
+  <%= @frbr_manifestation.document_file_name %>
+</p>
+
+<p>
+  <b>Tipo de contenido:</b>
+  <%= @frbr_manifestation.document_content_type %>
+</p>
+
+<p>
+  <b>Tamaño:</b>
+  <%= @frbr_manifestation.document_file_size %>
+</p>
+
+<p>
+  <b>Actualizado el:</b>
+  <%= @frbr_manifestation.document_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_frbr_manifestation_path(@frbr_manifestation) %> |
+<%= link_to 'Back', frbr_manifestations_path %>

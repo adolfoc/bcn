@@ -2,11 +2,11 @@
 
 <table>
   <tr>
-	<th>Type</th>
-    <th>Priority</th>
-    <th>Created by</th>
-    <th>Created on</th>
-    <th>Completed on</th>
+	<th>Tipo</th>
+    <th>Prioridad</th>
+    <th>Creada por</th>
+    <th>Creada el</th>
+    <th>Completada el</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,7 +15,7 @@
 <% @ots.each do |ot| %>
   <tr>
     <td><%= ot.ot_type.name %></td>
-    <td><%= ot.priority %></td>
+    <td><%= ot.priority.name %></td>
     <td><%= ot.owner.user_name %></td>
     <td><%= ot.created_on %></td>
     <td><%= ot.completed_on %></td>

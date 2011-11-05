@@ -11,7 +11,7 @@
 	<% end %>
 
 	<div class="field">
-		<%= f.label :ot_id, "Pertenece a" %><br />
+		<%= f.label :ot_id, "OT a que pertenece a" %><br />
 	    <%= collection_select(:task, :ot_id, Ot.all, :id, :name) %>
 	</div>
 
@@ -21,8 +21,8 @@
 	</div>
 
 	<div class="field">
-		<%= f.label :priority, "Prioridad" %><br />
-	    <%= collection_select(:task, :priority, Priority.all, :id, :name) %>
+		<%= f.label :priority_id, "Prioridad" %><br />
+	    <%= collection_select(:task, :priority_id, Priority.all, :id, :name) %>
 	</div>
 
 	<div class="field">

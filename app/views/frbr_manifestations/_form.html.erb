@@ -1,0 +1,26 @@
+<%= form_for(@frbr_manifestation) do |f| %>
+	<% if @frbr_manifestation.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@frbr_manifestation.errors.count, "error") %> prohibited this frbr_manifestation from being saved:</h2>
+			<ul>
+				<% @frbr_manifestation.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :frbr_expression_id %><br />
+	    <%= collection_select(:frbr_manifestation, :frbr_expression_id, FrbrExpression.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :document, "Documento" %><br />
+		<%= f.file_field :document %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

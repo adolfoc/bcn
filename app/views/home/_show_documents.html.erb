@@ -1,0 +1,21 @@
+<table>
+	<thead>
+		<tr>
+			<th>Documento</th>
+			<th>Origen</th>
+			<th>Tamaño</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= link_to @ot.source_frbr_manifestation.name, mostrar_documento_path(@ot.source_frbr_manifestation.id) %></td>
+			<td><%= @ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name %></td>
+			<td><%= @ot.source_frbr_manifestation.document_file_size %></td>
+		</tr>
+		<tr>
+			<td><%= link_to @ot.target_frbr_manifestation.name, mostrar_documento_path(@ot.target_frbr_manifestation.id) %></td>
+			<td><%= @ot.target_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name %></td>
+			<td><%= @ot.target_frbr_manifestation.document_file_size %></td>
+		</tr>
+	</tbody>
+</table>

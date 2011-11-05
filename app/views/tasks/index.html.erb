@@ -2,12 +2,13 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Priority</th>
-    <th>Created by</th>
-    <th>Created on</th>
-    <th>Completed on</th>
-    <th>Current user</th>
+    <th>Tarea</th>
+    <th>Prioridad</th>
+    <th>Creada por</th>
+    <th>Creada el</th>
+    <th>Completada el</th>
+    <th>Usuario asignado</th>
+    <th>Estado</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,14 +17,15 @@
 <% @tasks.each do |task| %>
   <tr>
     <td><%= task.name %></td>
-    <td><%= task.priority %></td>
-    <td><%= task.created_by %></td>
+    <td><%= task.priority.name %></td>
+    <td><%= task.owner.user_name %></td>
     <td><%= task.created_on %></td>
     <td><%= task.completed_on %></td>
-    <td><%= task.current_user_id %></td>
-    <td><%= link_to 'Show', task %></td>
+    <td><%= task.current_user.user_name %></td>
+    <td><%= task.workflow_state.to_s %></td>
+    <td><%= link_to 'Show', task_path(task.id) %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', tasks_path(task.id), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

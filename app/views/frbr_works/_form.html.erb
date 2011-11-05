@@ -1,0 +1,36 @@
+<%= form_for(@frbr_work) do |f| %>
+	<% if @frbr_work.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@frbr_work.errors.count, "error") %> prohibited this frbr_work from being saved:</h2>
+			<ul>
+				<% @frbr_work.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+	    <%= f.label(:frbr_bcn_type_id, 'Tipo de documento') %><br />
+	    <%= collection_select(:frbr_work, :frbr_bcn_type_id, FrbrBcnType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :frbr_entity_id, "Origen" %><br />
+	    <%= collection_select(:frbr_work, :frbr_entity_id, FrbrEntity.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+	<%= f.label :session %><br />
+	<%= f.number_field :session %>
+	</div>
+
+	<div class="field">
+	<%= f.label :publication_date %><br />
+	<%= f.date_select :publication_date %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

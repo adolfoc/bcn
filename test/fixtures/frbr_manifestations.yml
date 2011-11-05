@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  frbr_expression_id: 1
+  document_file_name: MyString
+  document_content_type: MyString
+  document_file_size: 1
+  document_updated_at: 2011-11-05 14:11:03
+
+two:
+  frbr_expression_id: 1
+  document_file_name: MyString
+  document_content_type: MyString
+  document_file_size: 1
+  document_updated_at: 2011-11-05 14:11:03

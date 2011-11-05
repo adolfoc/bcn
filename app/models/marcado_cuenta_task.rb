@@ -16,9 +16,10 @@ class MarcadoCuentaTask < Task
       event :termina_marcaje_automatico, :transitions_to => :evaluando_resultados
     end
     state :enviada_a_qa
-    on_transition do |from, to, triggering_event, *event_args|
-      puts("STATE TRANSITION #{from} -> #{to}")
-    end
+  end
+
+  def initial_task
+    :asignada
   end
 end
 

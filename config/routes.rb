@@ -1,15 +1,21 @@
 Bcn::Application.routes.draw do
+  resources :frbr_manifestations
+  resources :frbr_expressions
+  resources :frbr_document_types
+  resources :frbr_works
+  resources :frbr_bcn_types
+  resources :frbr_entities
   resources :task_types
-
   resources :roles
-
   resources :priorities
-
   resources :ot_types
   resources :ots
   resources :tasks
   devise_for :users
+
   get "home/index"
+  match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
+  match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,23 @@
+<h1>Listing frbr_entities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @frbr_entities.each do |frbr_entity| %>
+  <tr>
+    <td><%= frbr_entity.name %></td>
+    <td><%= link_to 'Show', frbr_entity %></td>
+    <td><%= link_to 'Edit', edit_frbr_entity_path(frbr_entity) %></td>
+    <td><%= link_to 'Destroy', frbr_entity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Frbr entity', new_frbr_entity_path %>

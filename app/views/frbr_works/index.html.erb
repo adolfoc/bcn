@@ -1,0 +1,29 @@
+<h1>Listing frbr_works</h1>
+
+<table>
+  <tr>
+    <th>Tipo de documento</th>
+    <th>Origen</th>
+    <th>Sesión</th>
+    <th>Fecha de publicación</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @frbr_works.each do |frbr_work| %>
+  <tr>
+    <td><%= frbr_work.frbr_bcn_type.name %></td>
+    <td><%= frbr_work.frbr_entity.name %></td>
+    <td><%= frbr_work.session %></td>
+    <td><%= frbr_work.publication_date %></td>
+    <td><%= link_to 'Show', frbr_work %></td>
+    <td><%= link_to 'Edit', edit_frbr_work_path(frbr_work) %></td>
+    <td><%= link_to 'Destroy', frbr_work, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Frbr work', new_frbr_work_path %>

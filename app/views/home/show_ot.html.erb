@@ -1,0 +1,52 @@
+<p>
+  <b>Tipo de OT:</b>
+  <%= @ot.name %>
+</p>
+
+<p>
+  <b>Prioridad:</b>
+  <%= @ot.priority.name %>
+</p>
+
+<p>
+  <b>Documento fuente:</b>
+  <%= @ot.source_frbr_manifestation.name %>
+</p>
+
+<p>
+  <b>Documento marcado:</b>
+  <%= @ot.target_frbr_manifestation.name %>
+</p>
+
+<p>
+  <b>Creada por:</b>
+  <%= @ot.owner.user_name %>
+</p>
+
+<p>
+  <b>Creada el:</b>
+  <%= @ot.created_on %>
+</p>
+
+<p>
+  <b>Completada el:</b>
+  <%= @ot.completed_on %>
+</p>
+
+<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="ot-tabs">
+	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-tasks">Tareas</a></li>
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-documents">Documentos</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Log</a></li>
+	</ul>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-tasks">
+		<%= render "show_tasks", :locals => {:ot => @ot } %>
+	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-documents">
+		<%= render "show_documents", :locals => {:ot => @ot } %>
+	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-log">
+		<%= render "show_log" %>
+	</div>
+</div>
+

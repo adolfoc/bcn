@@ -1,0 +1,23 @@
+<p>
+  <b>Tipo de documento:</b>
+  <%= @frbr_work.frbr_bcn_type.name %>
+</p>
+
+<p>
+  <b>Origen:</b>
+  <%= @frbr_work.frbr_entity.name %>
+</p>
+
+<p>
+  <b>Sesión:</b>
+  <%= @frbr_work.session %>
+</p>
+
+<p>
+  <b>Fecha de publicación:</b>
+  <%= @frbr_work.publication_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_frbr_work_path(@frbr_work) %> |
+<%= link_to 'Back', frbr_works_path %>

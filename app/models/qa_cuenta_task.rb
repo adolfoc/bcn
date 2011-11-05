@@ -12,9 +12,10 @@ class QaCuentaTask < Task
     state :devuelve_a_analista
     state :devuelve_a_planificador
     state :guarda_documento
-    on_transition do |from, to, triggering_event, *event_args|
-      puts("STATE TRANSITION #{from} -> #{to}")
-    end
+  end
+
+  def initial_task
+    :por_validar_qa
   end
 end
 

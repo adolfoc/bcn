@@ -11,7 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111105005410) do
+ActiveRecord::Schema.define(:version => 20111105182150) do
+
+  create_table "frbr_bcn_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frbr_document_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frbr_entities", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frbr_expressions", :force => true do |t|
+    t.integer  "frbr_work_id"
+    t.integer  "frbr_document_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frbr_manifestations", :force => true do |t|
+    t.integer  "frbr_expression_id"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frbr_works", :force => true do |t|
+    t.integer  "frbr_bcn_type_id"
+    t.integer  "frbr_entity_id"
+    t.integer  "session"
+    t.date     "publication_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ot_types", :force => true do |t|
     t.string   "name"
@@ -27,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20111105005410) do
     t.datetime "updated_at"
     t.integer  "ot_type_id"
     t.integer  "priority_id"
+    t.string   "source_frbr_manifestation_id"
+    t.string   "target_frbr_manifestation_id"
   end
 
   create_table "priorities", :force => true do |t|
@@ -50,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20111105005410) do
   end
 
   create_table "tasks", :force => true do |t|
-    t.integer  "priority"
     t.integer  "created_by"
     t.datetime "created_on"
     t.datetime "completed_on"
@@ -61,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20111105005410) do
     t.integer  "task_type_id"
     t.string   "workflow_state"
     t.string   "type"
+    t.integer  "priority_id"
   end
 
   create_table "users", :force => true do |t|

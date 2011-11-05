@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  frbr_work_id: 1
+  frbr_document_type_id: 1
+
+two:
+  frbr_work_id: 1
+  frbr_document_type_id: 1
