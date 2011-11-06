@@ -1,0 +1,22 @@
+<h1>Bandeja de entrada</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>OT</th>
+			<th>Prioridad</th>
+			<th>Creada el</th>
+			<th>Completada el</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @ots.each do |ot| %>
+		<tr>
+			<td><%= link_to ot.name, mostrar_ot_path(ot.id) %></td>
+			<td><%= ot.priority.name %></td>
+			<td><%= ot.created_on %></td>
+			<td><%= ot.completed_on %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

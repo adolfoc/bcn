@@ -1,29 +1,32 @@
-<h1>Listing ots</h1>
+<h1>Ordenes de Trabajo</h1>
 
 <table>
-  <tr>
-	<th>Tipo</th>
-    <th>Prioridad</th>
-    <th>Creada por</th>
-    <th>Creada el</th>
-    <th>Completada el</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ots.each do |ot| %>
-  <tr>
-    <td><%= ot.ot_type.name %></td>
-    <td><%= ot.priority.name %></td>
-    <td><%= ot.owner.user_name %></td>
-    <td><%= ot.created_on %></td>
-    <td><%= ot.completed_on %></td>
-    <td><%= link_to 'Show', ot %></td>
-    <td><%= link_to 'Edit', edit_ot_path(ot) %></td>
-    <td><%= link_to 'Destroy', ot, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Tipo</th>
+			<th>Prioridad</th>
+			<th>Creada por</th>
+			<th>Creada el</th>
+			<th>Completada el</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @ots.each do |ot| %>
+		<tr>
+			<td><%= ot.ot_type.name %></td>
+			<td><%= ot.priority.name %></td>
+			<td><%= ot.owner.user_name %></td>
+			<td><%= ot.created_on %></td>
+			<td><%= ot.completed_on %></td>
+			<td><%= link_to 'Show', ot %></td>
+			<td><%= link_to 'Edit', edit_ot_path(ot) %></td>
+			<td><%= link_to 'Destroy', ot, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />

@@ -1,4 +1,10 @@
 class TasksController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 3
+  end
+
   # GET /tasks
   # GET /tasks.json
   def index

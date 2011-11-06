@@ -14,8 +14,23 @@ Bcn::Application.routes.draw do
   devise_for :users
 
   get "home/index"
+  match "home/show_empty" => "home#show_empty", :as => :mostrar_vacio
+  match "home/show_admin" => "home#show_admin", :as => :mostrar_admin
+  match "home/show_analist" => "home#show_analist", :as => :mostrar_analista
+  match "home/show_qa_analist" => "home#show_qa_analist", :as => :mostrar_analista_qa
+  match "home/show_planner" => "home#show_planner", :as => :mostrar_planificador
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
+
+  match "marcado_cuenta/perform_work/:task_id" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
+  match "marcado_cuenta/comienza_evaluar/:task_id" => "marcado_cuenta#comienza_evaluar", :as => :marcado_cuenta_perform_comienza_evaluar
+  match "marcado_cuenta/requiere_modificaciones/:task_id" => "marcado_cuenta#requiere_modificaciones", :as => :marcado_cuenta_perform_requiere_modificaciones
+  match "marcado_cuenta/no_requiere_modificaciones/:task_id" => "marcado_cuenta#no_requiere_modificaciones", :as => :marcado_cuenta_perform_no_requiere_modificaciones
+  match "marcado_cuenta/termina_correcciones/:task_id" => "marcado_cuenta#termina_correcciones", :as => :marcado_cuenta_perform_termina_correcciones
+  match "marcado_cuenta/verifica_correcciones/:task_id" => "marcado_cuenta#verifica_correcciones", :as => :marcado_cuenta_perform_verifica_correcciones
+  match "marcado_cuenta/termina_marcaje_automatico/:task_id" => "marcado_cuenta#termina_marcaje_automatico", :as => :marcado_cuenta_perform_termina_marcaje_automatico
+
+  match "users/index" => "users#index", :as => :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -2,8 +2,8 @@
 	<thead>
 		<tr>
 			<th>Tarea</th>
-			<th>Asignada a</th>
 			<th>Estado</th>
+			<th>Asignada a</th>
 			<th>Actualización</th>
 		</tr>
 	</thead>
@@ -11,8 +11,8 @@
 	<% @ot.tasks.each do |task| %>
 		<tr>
 			<td><%= task.name %></td>
-			<td><%= task.current_user.user_name %></td>
 			<td><%= task.workflow_state %></td>
+			<td><%= task.current_user.user_name %></td>
 			<td><%= task.updated_at %></td>
 		</tr>
 	<% end %>

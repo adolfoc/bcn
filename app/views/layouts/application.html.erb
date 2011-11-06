@@ -5,16 +5,14 @@
 		<%= stylesheet_link_tag    "application" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
-		</head>
+		<%= tag :meta, :name=> 'accordion_section', :content=> @accordion_section %>
+	</head>
 	<body>
 		<div id="main_wrapper" class="container">
-			<h1>Biblioteca del Congreso Nacional</h1>
-			<% if user_signed_in? %>
-				<h3>Usuario: <%= current_user.user_name %> como: <%= current_user.role.name %></h3>
-				<%= link_to("Sign out", destroy_user_session_path, :method => :delete) %>
-			<% else %>
-				<%= link_to("Sign in", new_user_session_path) %>
-			<% end %>
+			<div class="span-24">
+				<%= render "shared/header" %>
+			</div>
+
 			<% if flash[:notice] %>
 				<div class="span-24">
 					<p class="notice"><%= flash[:notice] %></p>
@@ -25,7 +23,17 @@
 					<p class="alert"><%= flash[:alert] %></p>
 				</div>
 			<% end %>
-			<%= yield %>
+
+			<div id="sidebar" class="span-4">
+				<%= render 'shared/main_menu' %>
+			</div> <!-- "sidebar" -->
+			<div class="span-20 last">
+				<%= yield %>
+			</div>
+
+			<div class="span-24">
+				<%= render "shared/footer" %>
+			</div>
 		</div>
 	</body>
 </html>

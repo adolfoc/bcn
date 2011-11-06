@@ -1,0 +1,12 @@
+<div id="header">
+	<h1>Biblioteca del Congreso Nacional</h1>
+	<div id="signon">
+		<% if user_signed_in? %>
+			<h3 id="user-id">Usuario: <%= current_user.user_name %> como: <%= current_user.role.name %></h3>
+			<%= link_to("Sign out", destroy_user_session_path, :method => :delete) %>
+		<% else %>
+			<%= link_to("Sign in", new_user_session_path) %>
+		<% end %>
+	</div>
+	<div class="clear">
+</div>

@@ -1,0 +1,22 @@
+<table>
+	<tbody>
+		<tr>
+			<th>Actividad</th>
+			<td><%= @task.name %></td>
+		</tr>
+		<tr>
+			<th>Estado</th>
+			<td><%= @task.workflow_state.to_s %></td>
+		</tr>
+	</tbody>
+</table>
+
+<% if @task.current_state.events.count > 0 %>
+	|&nbsp;
+<% end %>
+<% @task.current_state.events.each do |event| %>
+	<%= link_to event[1].name, "/marcado_cuenta/#{event[1].name}/#{@task.id}" %>&nbsp;|&nbsp;
+<% end %>
+
+<br />
+<%= link_to "Volver a bandeja", root_path%>

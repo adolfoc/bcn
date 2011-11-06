@@ -1,0 +1,26 @@
+<h1>Bandeja de entrada</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Actividad</th>
+			<th>Prioridad</th>
+			<th>OT</th>
+			<th>Estado</th>
+			<th>Actualizada</th>
+			<th>Completada</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tasks.each do |task| %>
+		<tr>
+			<td><%= link_to task.name, marcado_cuenta_perform_work_path(task.id) %></td>
+			<td><%= task.priority.name %></td>
+			<td><%= task.ot.name %>
+			<td><%= task.workflow_state.to_s %>
+			<td><%= task.updated_at %>
+			<td><%= task.completed_on %>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

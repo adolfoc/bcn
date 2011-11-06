@@ -1,29 +1,32 @@
-<h1>Listing frbr_manifestations</h1>
+<h1>Manifestaciones FRBR</h1>
 
 <table>
-  <tr>
-    <th>Expresión FRBR</th>
-    <th>Fichero</th>
-    <th>Contenido</th>
-    <th>Tamaño</th>
-    <th>Actualizado</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @frbr_manifestations.each do |frbr_manifestation| %>
-  <tr>
-    <td><%= frbr_manifestation.frbr_expression.name %></td>
-    <td><%= frbr_manifestation.document_file_name %></td>
-    <td><%= frbr_manifestation.document_content_type %></td>
-    <td><%= frbr_manifestation.document_file_size %></td>
-    <td><%= frbr_manifestation.document_updated_at %></td>
-    <td><%= link_to 'Show', frbr_manifestation %></td>
-    <td><%= link_to 'Edit', edit_frbr_manifestation_path(frbr_manifestation) %></td>
-    <td><%= link_to 'Destroy', frbr_manifestation, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Expresión FRBR</th>
+			<th>Fichero</th>
+			<th>Contenido</th>
+			<th>Tamaño</th>
+			<th>Actualizado</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @frbr_manifestations.each do |frbr_manifestation| %>
+		<tr>
+			<td><%= frbr_manifestation.frbr_expression.name %></td>
+			<td><%= frbr_manifestation.document_file_name %></td>
+			<td><%= frbr_manifestation.document_content_type %></td>
+			<td><%= frbr_manifestation.document_file_size %></td>
+			<td><%= frbr_manifestation.document_updated_at %></td>
+			<td><%= link_to 'Show', frbr_manifestation %></td>
+			<td><%= link_to 'Edit', edit_frbr_manifestation_path(frbr_manifestation) %></td>
+			<td><%= link_to 'Destroy', frbr_manifestation, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />

@@ -9,5 +9,11 @@
 //= require jquery_ujs
 //= require_tree .
 $(function() {
+	var active_section = parseInt($('meta[name=accordion_section]').attr('content'));
+	var options = {
+		active: active_section,
+		autoHeight: false
+	}
+	$("#menu-accordion" ).accordion(options);
 	$( "#ot-tabs" ).tabs();
 });

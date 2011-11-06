@@ -1,4 +1,10 @@
 class TaskTypesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 3
+  end
+
   # GET /task_types
   # GET /task_types.json
   def index

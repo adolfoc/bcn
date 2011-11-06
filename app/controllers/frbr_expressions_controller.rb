@@ -1,4 +1,10 @@
 class FrbrExpressionsController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 2
+  end
+
   # GET /frbr_expressions
   # GET /frbr_expressions.json
   def index

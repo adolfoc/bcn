@@ -1,33 +1,36 @@
-<h1>Listing tasks</h1>
+<h1>Tareas</h1>
 
 <table>
-  <tr>
-    <th>Tarea</th>
-    <th>Prioridad</th>
-    <th>Creada por</th>
-    <th>Creada el</th>
-    <th>Completada el</th>
-    <th>Usuario asignado</th>
-    <th>Estado</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.name %></td>
-    <td><%= task.priority.name %></td>
-    <td><%= task.owner.user_name %></td>
-    <td><%= task.created_on %></td>
-    <td><%= task.completed_on %></td>
-    <td><%= task.current_user.user_name %></td>
-    <td><%= task.workflow_state.to_s %></td>
-    <td><%= link_to 'Show', task_path(task.id) %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', tasks_path(task.id), confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Tarea</th>
+			<th>Prioridad</th>
+			<th>Creada por</th>
+			<th>Creada el</th>
+			<th>Completada el</th>
+			<th>Usuario asignado</th>
+			<th>Estado</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @tasks.each do |task| %>
+		<tr>
+			<td><%= task.name %></td>
+			<td><%= task.priority.name %></td>
+			<td><%= task.owner.user_name %></td>
+			<td><%= task.created_on %></td>
+			<td><%= task.completed_on %></td>
+			<td><%= task.current_user.user_name %></td>
+			<td><%= task.workflow_state.to_s %></td>
+			<td><%= link_to 'Show', task_path(task.id) %></td>
+			<td><%= link_to 'Edit', edit_task_path(task) %></td>
+			<td><%= link_to 'Destroy', tasks_path(task.id), confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />

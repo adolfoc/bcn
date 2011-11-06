@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="field">
-	    <%= f.label(:priority, 'Prioridad') %><br />
-	    <%= collection_select(:ot, :priority, Priority.all, :id, :name) %>
+	    <%= f.label(:priority_id, 'Prioridad') %><br />
+	    <%= collection_select(:ot, :priority_id, Priority.all, :id, :name) %>
 	</div>
 
 	<div class="field">

@@ -1,4 +1,10 @@
 class FrbrDocumentTypesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 2
+  end
+
   # GET /frbr_document_types
   # GET /frbr_document_types.json
   def index

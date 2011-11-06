@@ -1,4 +1,10 @@
 class PrioritiesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 3
+  end
+
   # GET /priorities
   # GET /priorities.json
   def index

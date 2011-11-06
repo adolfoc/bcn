@@ -1,0 +1,26 @@
+<h1>Usuarios</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Rol</th>
+			<th>Email</th>
+			<th>Último signin</th>
+			<th>Último ip</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.user_name %></td>
+			<td><%= user.role.name %></td>
+			<td><%= user.email %></td>
+			<td><%= user.last_sign_in_at %></td>
+			<td><%= user.last_sign_in_ip %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<br />

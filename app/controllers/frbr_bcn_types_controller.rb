@@ -1,4 +1,10 @@
 class FrbrBcnTypesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 2
+  end
+
   # GET /frbr_bcn_types
   # GET /frbr_bcn_types.json
   def index

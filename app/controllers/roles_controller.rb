@@ -1,4 +1,10 @@
 class RolesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 1
+  end
+
   # GET /roles
   # GET /roles.json
   def index

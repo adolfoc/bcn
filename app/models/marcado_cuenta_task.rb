@@ -21,5 +21,9 @@ class MarcadoCuentaTask < Task
   def initial_task
     :asignada
   end
+
+  def final_task
+    :enviada_a_qa
+  end
 end
 

@@ -1,21 +1,24 @@
-<h1>Listing frbr_bcn_types</h1>
+<h1>Tipos FRBR BCN</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @frbr_bcn_types.each do |frbr_bcn_type| %>
-  <tr>
-    <td><%= frbr_bcn_type.name %></td>
-    <td><%= link_to 'Show', frbr_bcn_type %></td>
-    <td><%= link_to 'Edit', edit_frbr_bcn_type_path(frbr_bcn_type) %></td>
-    <td><%= link_to 'Destroy', frbr_bcn_type, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @frbr_bcn_types.each do |frbr_bcn_type| %>
+		<tr>
+		<td><%= frbr_bcn_type.name %></td>
+		<td><%= link_to 'Show', frbr_bcn_type %></td>
+		<td><%= link_to 'Edit', edit_frbr_bcn_type_path(frbr_bcn_type) %></td>
+		<td><%= link_to 'Destroy', frbr_bcn_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />

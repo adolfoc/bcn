@@ -1,0 +1,40 @@
+<div id="menu-accordion">
+	<% if !current_user.nil? %>
+		<h3><a href="#"><%=t "Bandeja" %></a></h3>
+		<div>
+			<ul class="menu-list">
+			  <li><%= link_to(t('Bandeja de entrada'), root_path) %>
+			</ul>
+		</div>
+		<% if current_user.role.id == 5 %>
+			<h3><a href="#"><%=t 'Usuarios' %></a></h3>
+			<div>
+				<ul class="menu-list">
+				  <li><%= link_to(t('Roles'), roles_path) %>
+				  <li><%= link_to(t('Usuarios'), users_path) %>
+				</ul>
+			</div>
+			<h3><a href="#"><%=t "Documentos" %></a></h3>
+			<div>
+				<ul class="menu-list">
+				  <li><%= link_to(t('Entidades FRBR'), frbr_entities_path) %>
+				  <li><%= link_to(t('Tipos FRBR BCN'), frbr_bcn_types_path) %>
+				  <li><%= link_to(t('Tipos de Documento FRBR'), frbr_document_types_path) %>
+				  <li><%= link_to(t('Manifestaciones FRBR'), frbr_manifestations_path) %>
+				  <li><%= link_to(t('Expresiones FRBR'), frbr_expressions_path) %>
+				  <li><%= link_to(t('Obras FRBR'), frbr_works_path) %>
+				</ul>
+			</div>
+			<h3><a href="#"><%=t 'OTs' %></a></h3>
+			<div>
+				<ul class="menu-list">
+				  <li><%= link_to(t('Prioridades'), priorities_path) %>
+				  <li><%= link_to(t('Tipos de tarea'), task_types_path) %>
+				  <li><%= link_to(t('Tareas'), tasks_path) %>
+				  <li><%= link_to(t('Tipos de OT'), ot_types_path) %>
+				  <li><%= link_to(t('OTs'), ots_path) %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+</div>

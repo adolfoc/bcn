@@ -1,23 +1,26 @@
-<h1>Listing frbr_expressions</h1>
+<h1>Expresiones FRBR</h1>
 
 <table>
-  <tr>
-    <th>Frbr work</th>
-    <th>Frbr document type</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @frbr_expressions.each do |frbr_expression| %>
-  <tr>
-    <td><%= frbr_expression.frbr_work.name %></td>
-    <td><%= frbr_expression.frbr_document_type.name %></td>
-    <td><%= link_to 'Show', frbr_expression %></td>
-    <td><%= link_to 'Edit', edit_frbr_expression_path(frbr_expression) %></td>
-    <td><%= link_to 'Destroy', frbr_expression, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Obra FRBR</th>
+			<th>Tipo documento FRBR</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @frbr_expressions.each do |frbr_expression| %>
+		<tr>
+			<td><%= frbr_expression.frbr_work.name %></td>
+			<td><%= frbr_expression.frbr_document_type.name %></td>
+			<td><%= link_to 'Show', frbr_expression %></td>
+			<td><%= link_to 'Edit', edit_frbr_expression_path(frbr_expression) %></td>
+			<td><%= link_to 'Destroy', frbr_expression, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />
