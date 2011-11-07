@@ -22,8 +22,13 @@ class MarcadoCuentaTask < Task
     :asignada
   end
 
-  def final_task
-    :enviada_a_qa
+  def final_task?(task)
+    Rails.logger.info("$$$ MarcadoCuentaTask::final_task(#{task})")
+    if task.to_sym == :enviada_a_qa
+      true
+    else
+      false
+    end
   end
 end
 

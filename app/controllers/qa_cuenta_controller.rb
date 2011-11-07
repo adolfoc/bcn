@@ -1,4 +1,4 @@
-class MarcadoCuentaController < ApplicationController
+class QaCuentaController < ApplicationController
   before_filter :set_menu_section
 
   def set_menu_section
@@ -14,8 +14,10 @@ class MarcadoCuentaController < ApplicationController
   def perform_call_next_task
     next_wf = Task.where("id <> #{@task.id} AND ot_id = #{@task.ot_id}").first
     if !next_wf.nil?
-      event = next_wf.current_state.events.first[1].name
-      next_wf.send(event.to_s + "!")
+      if next_wf.current_state.events.count > 0
+        event = next_wf.current_state.events.first[1].name
+        next_wf.send(event.to_s + "!")
+      end
     end
   end
 

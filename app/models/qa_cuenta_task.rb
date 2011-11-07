@@ -1,6 +1,9 @@
 class QaCuentaTask < Task
   include Workflow
   workflow do
+    state :esperando_notificacion_analista do
+      event :recibe_notificacion, :transitions_to => :por_validar_qa
+    end
     state :por_validar_qa do
       event :comienza_validar, :transitions_to => :evalua_qa
     end
@@ -15,7 +18,15 @@ class QaCuentaTask < Task
   end
 
   def initial_task
-    :por_validar_qa
+    :esperando_notificacion_analista
+  end
+
+  def final_task?(task)
+    if task.to_sym == :devuelve_a_analista || task.to_sym == :devuelve_a_planificador || task.to_sym == :guarda_documento
+      true
+    else
+      false
+    end
   end
 end
 
