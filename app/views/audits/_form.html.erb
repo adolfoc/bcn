@@ -1,0 +1,46 @@
+<%= form_for(@audit) do |f| %>
+	<% if @audit.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@audit.errors.count, "error") %> prohibited this audit from being saved:</h2>
+			<ul>
+				<% @audit.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :user_id %><br />
+	    <%= collection_select(:audit, :user_id, User.order("user_name ASC"), :id, :user_name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :role_id %><br />
+	    <%= collection_select(:audit, :role_id, Role.order("name ASC"), :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :ot_id %><br />
+	    <%= collection_select(:audit, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :task_id %><br />
+	    <%= collection_select(:audit, :task_id, Task.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :description %><br />
+		<%= f.text_field :description %>
+	</div>
+
+	<div class="field">
+		<%= f.label :created_at %><br />
+		<%= f.datetime_select :created_at %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

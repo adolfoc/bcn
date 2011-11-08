@@ -1,0 +1,36 @@
+<h1>Traza</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Usuario</th>
+			<th>Rol</th>
+			<th>OT</th>
+			<th>Tarea</th>
+			<th>Descripción</th>
+			<th>Fecha</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @audits.each do |audit| %>
+		<tr>
+			<td><%= audit.user.user_name %></td>
+			<td><%= audit.role.name %></td>
+			<td><%= audit.ot.name %></td>
+			<td><%= audit.task.name %></td>
+			<td><%= audit.description %></td>
+			<td><%= audit.created_at %></td>
+			<td><%= link_to 'Show', audit %></td>
+			<td><%= link_to 'Edit', edit_audit_path(audit) %></td>
+			<td><%= link_to 'Destroy', audit, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Audit', new_audit_path %>

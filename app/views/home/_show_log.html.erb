@@ -1,1 +1,24 @@
-<p>Log</p>
+<table>
+	<thead>
+		<tr>
+			<th>Usuario</th>
+			<th>Rol</th>
+			<th>OT</th>
+			<th>Tarea</th>
+			<th>Descripción</th>
+			<th>Fecha</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @log.each do |audit| %>
+			<tr>
+				<td><%= audit.user.user_name %></td>
+				<td><%= audit.role.name %></td>
+				<td><%= audit.ot.name %></td>
+				<td><%= audit.task.name %></td>
+				<td><%= audit.description %></td>
+				<td><%= audit.created_at %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

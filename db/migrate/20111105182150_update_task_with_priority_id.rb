@@ -9,7 +9,7 @@ class UpdateTaskWithPriorityId < ActiveRecord::Migration
   def down
     change_table :tasks do |t|
       t.remove :priority_id
-      t.integer priority
+      t.integer :priority
     end
   end
 end

@@ -1,4 +1,5 @@
 Bcn::Application.routes.draw do
+  resources :audits
   resources :frbr_manifestations
   resources :frbr_expressions
   resources :frbr_document_types

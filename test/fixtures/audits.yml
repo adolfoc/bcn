@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  role_id: 1
+  task_id: 1
+  description: MyString
+  log_date: 2011-11-07 19:29:07
+
+two:
+  user_id: 1
+  role_id: 1
+  task_id: 1
+  description: MyString
+  log_date: 2011-11-07 19:29:07

@@ -1,0 +1,33 @@
+<p>
+  <b>Usuario:</b>
+  <%= @audit.user.user_name %>
+</p>
+
+<p>
+  <b>Rol:</b>
+  <%= @audit.role.name %>
+</p>
+
+<p>
+  <b>OT:</b>
+  <%= @audit.ot.name %>
+</p>
+
+<p>
+  <b>Tarea:</b>
+  <%= @audit.task.name %>
+</p>
+
+<p>
+  <b>Descripción:</b>
+  <%= @audit.description %>
+</p>
+
+<p>
+  <b>Fecha:</b>
+  <%= @audit.created_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_audit_path(@audit) %> |
+<%= link_to 'Back', audits_path %>

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111105182150) do
+ActiveRecord::Schema.define(:version => 20111107231904) do
+
+  create_table "audits", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.integer  "task_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ot_id"
+  end
 
   create_table "frbr_bcn_types", :force => true do |t|
     t.string   "name"

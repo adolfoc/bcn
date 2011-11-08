@@ -63,6 +63,7 @@ class HomeController < ApplicationController
   def show_ot
     ot_id = params[:ot_id]
     @ot = Ot.find(ot_id)
+    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
   end
 
   def show_document
