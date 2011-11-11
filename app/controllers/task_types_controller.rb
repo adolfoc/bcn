@@ -8,6 +8,7 @@ class TaskTypesController < ApplicationController
   # GET /task_types
   # GET /task_types.json
   def index
+    screen_name("Admin-Indice-Tipos-Tarea")
     @task_types = TaskType.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class TaskTypesController < ApplicationController
   # GET /task_types/1
   # GET /task_types/1.json
   def show
+    screen_name("Admin-Mostrar-Tipo-Tarea")
     @task_type = TaskType.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class TaskTypesController < ApplicationController
   # GET /task_types/new
   # GET /task_types/new.json
   def new
+    screen_name("Admin-Nuevo-Tipo-Tarea")
     @task_type = TaskType.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class TaskTypesController < ApplicationController
 
   # GET /task_types/1/edit
   def edit
+    screen_name("Admin-Editar-Tipo-Tarea")
     @task_type = TaskType.find(params[:id])
   end
 

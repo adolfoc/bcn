@@ -8,6 +8,7 @@ class FrbrBcnTypesController < ApplicationController
   # GET /frbr_bcn_types
   # GET /frbr_bcn_types.json
   def index
+    screen_name("Admin-Indice-Tipos-FRBR-BCN")
     @frbr_bcn_types = FrbrBcnType.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrBcnTypesController < ApplicationController
   # GET /frbr_bcn_types/1
   # GET /frbr_bcn_types/1.json
   def show
+    screen_name("Admin-Mostrar-Tipo-FRBR-BCN")
     @frbr_bcn_type = FrbrBcnType.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrBcnTypesController < ApplicationController
   # GET /frbr_bcn_types/new
   # GET /frbr_bcn_types/new.json
   def new
+    screen_name("Admin-Nuevo-Tipo-FRBR-BCN")
     @frbr_bcn_type = FrbrBcnType.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrBcnTypesController < ApplicationController
 
   # GET /frbr_bcn_types/1/edit
   def edit
+    screen_name("Admin-Editar-Tipo-FRBR-BCN")
     @frbr_bcn_type = FrbrBcnType.find(params[:id])
   end
 

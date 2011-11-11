@@ -8,6 +8,7 @@ class AuditsController < ApplicationController
   # GET /audits
   # GET /audits.json
   def index
+    screen_name("Admin-Indice-Traza")
     @audits = Audit.all
 
     respond_to do |format|

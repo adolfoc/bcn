@@ -8,6 +8,7 @@ class OtTypesController < ApplicationController
   # GET /ot_types
   # GET /ot_types.json
   def index
+    screen_name("Admin-Indice-Tipos-OT")
     @ot_types = OtType.order("name ASC")
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class OtTypesController < ApplicationController
   # GET /ot_types/1
   # GET /ot_types/1.json
   def show
+    screen_name("Admin-Mostrar-Tipo-OT")
     @ot_type = OtType.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class OtTypesController < ApplicationController
   # GET /ot_types/new
   # GET /ot_types/new.json
   def new
+    screen_name("Admin-Nueva-Tipo-OT")
     @ot_type = OtType.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class OtTypesController < ApplicationController
 
   # GET /ot_types/1/edit
   def edit
+    screen_name("Admin-Editar-Tipo-OT")
     @ot_type = OtType.find(params[:id])
   end
 

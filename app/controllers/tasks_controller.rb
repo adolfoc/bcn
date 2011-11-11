@@ -8,6 +8,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    screen_name("Admin-Indice-Tareas")
     @tasks = Task.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    screen_name("Admin-Mostrar-Tarea")
     @task = Task.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.json
   def new
+    screen_name("Admin-Nueva-Tarea")
     @task = Task.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    screen_name("Admin-Editar-Tarea")
     @task = Task.find(params[:id])
   end
 

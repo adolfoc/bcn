@@ -8,6 +8,7 @@ class ObservationsController < ApplicationController
   # GET /observations
   # GET /observations.json
   def index
+    screen_name("Admin-Indice-Observaciones")
     @observations = Observation.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class ObservationsController < ApplicationController
   # GET /observations/1
   # GET /observations/1.json
   def show
+    screen_name("Admin-Mostrar-Observacion")
     @observation = Observation.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class ObservationsController < ApplicationController
   # GET /observations/new
   # GET /observations/new.json
   def new
+    screen_name("Admin-Nueva-Observacion")
     @observation = Observation.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class ObservationsController < ApplicationController
 
   # GET /observations/1/edit
   def edit
+    screen_name("Admin-Editar-Observacion")
     @observation = Observation.find(params[:id])
   end
 

@@ -8,6 +8,7 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
+    screen_name("Admin-Indice-Roles")
     @roles = Role.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.json
   def show
+    screen_name("Admin-Mostrar-Rol")
     @role = Role.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class RolesController < ApplicationController
   # GET /roles/new
   # GET /roles/new.json
   def new
+    screen_name("Admin-Nuevo-Rol")
     @role = Role.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class RolesController < ApplicationController
 
   # GET /roles/1/edit
   def edit
+    screen_name("Admin-Editar-Rol")
     @role = Role.find(params[:id])
   end
 

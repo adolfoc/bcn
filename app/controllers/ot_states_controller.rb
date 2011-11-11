@@ -1,7 +1,14 @@
 class OtStatesController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 3
+  end
+
   # GET /ot_states
   # GET /ot_states.json
   def index
+    screen_name("Admin-Indice-Estados-OT")
     @ot_states = OtState.all
 
     respond_to do |format|
@@ -13,6 +20,7 @@ class OtStatesController < ApplicationController
   # GET /ot_states/1
   # GET /ot_states/1.json
   def show
+    screen_name("Admin-Mostrar-Estado-OT")
     @ot_state = OtState.find(params[:id])
 
     respond_to do |format|
@@ -24,6 +32,7 @@ class OtStatesController < ApplicationController
   # GET /ot_states/new
   # GET /ot_states/new.json
   def new
+    screen_name("Admin-Nuevo-Estado-OT")
     @ot_state = OtState.new
 
     respond_to do |format|
@@ -34,6 +43,7 @@ class OtStatesController < ApplicationController
 
   # GET /ot_states/1/edit
   def edit
+    screen_name("Admin-Editar-Estado-OT")
     @ot_state = OtState.find(params[:id])
   end
 

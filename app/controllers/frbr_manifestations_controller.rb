@@ -8,6 +8,7 @@ class FrbrManifestationsController < ApplicationController
   # GET /frbr_manifestations
   # GET /frbr_manifestations.json
   def index
+    screen_name("Admin-Indice-Manifestaciones-FRBR")
     @frbr_manifestations = FrbrManifestation.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrManifestationsController < ApplicationController
   # GET /frbr_manifestations/1
   # GET /frbr_manifestations/1.json
   def show
+    screen_name("Admin-Mostrar-Manifestacion-FRBR")
     @frbr_manifestation = FrbrManifestation.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrManifestationsController < ApplicationController
   # GET /frbr_manifestations/new
   # GET /frbr_manifestations/new.json
   def new
+    screen_name("Admin-Nuevo-Manifestacion-FRBR")
     @frbr_manifestation = FrbrManifestation.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrManifestationsController < ApplicationController
 
   # GET /frbr_manifestations/1/edit
   def edit
+    screen_name("Admin-Editar-Manifestacion-FRBR")
     @frbr_manifestation = FrbrManifestation.find(params[:id])
   end
 

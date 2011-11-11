@@ -27,6 +27,13 @@
 	font-size: 1em;
 }
 
+#screen-id {
+	margin-top: 1em;
+	border: 1px solid black;
+	padding: 0.6em;
+	background-color: #CCC;
+	font-size: 0.9em;
+}
 #footer {
 	border: 1px solid #CCC;
 	padding: 1em;

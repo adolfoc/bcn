@@ -8,6 +8,7 @@ class FrbrExpressionsController < ApplicationController
   # GET /frbr_expressions
   # GET /frbr_expressions.json
   def index
+    screen_name("Admin-Indice-Expresiones-FRBR")
     @frbr_expressions = FrbrExpression.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrExpressionsController < ApplicationController
   # GET /frbr_expressions/1
   # GET /frbr_expressions/1.json
   def show
+    screen_name("Admin-Mostrar-Expresion-FRBR")
     @frbr_expression = FrbrExpression.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrExpressionsController < ApplicationController
   # GET /frbr_expressions/new
   # GET /frbr_expressions/new.json
   def new
+    screen_name("Admin-Nuevo-Expresion-FRBR")
     @frbr_expression = FrbrExpression.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrExpressionsController < ApplicationController
 
   # GET /frbr_expressions/1/edit
   def edit
+    screen_name("Admin-Editar-Expresion-FRBR")
     @frbr_expression = FrbrExpression.find(params[:id])
   end
 

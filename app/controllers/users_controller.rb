@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    screen_name("Indice-Usuarios")
     @users = User.all
   end
 end

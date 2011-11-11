@@ -8,6 +8,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities
   # GET /priorities.json
   def index
+    screen_name("Admin-Indice-Prioridades")
     @priorities = Priority.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/1
   # GET /priorities/1.json
   def show
+    screen_name("Admin-Mostrar-Prioridad")
     @priority = Priority.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/new
   # GET /priorities/new.json
   def new
+    screen_name("Admin-Nueva-Prioridad")
     @priority = Priority.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class PrioritiesController < ApplicationController
 
   # GET /priorities/1/edit
   def edit
+    screen_name("Admin-Editar-Prioridad")
     @priority = Priority.find(params[:id])
   end
 

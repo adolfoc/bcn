@@ -22,6 +22,7 @@ class HomeController < ApplicationController
   end
 
   def show_empty
+    screen_name("Inicial")
     respond_to do |format|
       format.html { render action: "show_empty" }
       format.json { head :ok }
@@ -29,6 +30,7 @@ class HomeController < ApplicationController
   end
 
   def show_admin
+    screen_name("Inicial-Admin")
     @ots_incoming = Ot.where("ot_state_id < 3")
     @ots_work = Ot.where("ot_state_id > 2 AND ot_state_id < 6")
     @ots_sent = Ot.where("ot_state_id > 5")
@@ -39,6 +41,7 @@ class HomeController < ApplicationController
   end
 
   def show_analist
+    screen_name("Inicial-Analista")
     @tasks = Task.where("current_user_id = #{current_user.id}")
     respond_to do |format|
       format.html { render action: "show_analist" }
@@ -47,6 +50,7 @@ class HomeController < ApplicationController
   end
 
   def show_qa_analist
+    screen_name("Inicial-Analista-QA")
     @tasks = Task.where("current_user_id = #{current_user.id}")
     respond_to do |format|
       format.html { render action: "show_qa_analist" }
@@ -55,6 +59,7 @@ class HomeController < ApplicationController
   end
 
   def show_planner
+    screen_name("Inicial-Planificador")
     @ots = Ot.all
     respond_to do |format|
       format.html { render action: "show_planner" }
@@ -63,12 +68,14 @@ class HomeController < ApplicationController
   end
 
   def show_ot
+    screen_name("Mostrar-OT")
     ot_id = params[:ot_id]
     @ot = Ot.find(ot_id)
     @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
   end
 
   def show_document
+    screen_name("Mostrar-Documento")
     frbr_manifestation_id = params[:frbr_manifestation_id]
     @document = FrbrManifestation.find(frbr_manifestation_id)
   end

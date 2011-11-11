@@ -8,6 +8,7 @@ class FrbrEntitiesController < ApplicationController
   # GET /frbr_entities
   # GET /frbr_entities.json
   def index
+    screen_name("Admin-Indice-Entidades-FRBR")
     @frbr_entities = FrbrEntity.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrEntitiesController < ApplicationController
   # GET /frbr_entities/1
   # GET /frbr_entities/1.json
   def show
+    screen_name("Admin-Mostrar-Entidad-FRBR")
     @frbr_entity = FrbrEntity.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrEntitiesController < ApplicationController
   # GET /frbr_entities/new
   # GET /frbr_entities/new.json
   def new
+    screen_name("Admin-Nueva-Entidad-FRBR")
     @frbr_entity = FrbrEntity.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrEntitiesController < ApplicationController
 
   # GET /frbr_entities/1/edit
   def edit
+    screen_name("Admin-Editar-Entidad-FRBR")
     @frbr_entity = FrbrEntity.find(params[:id])
   end
 

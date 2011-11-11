@@ -8,6 +8,7 @@ class OtsController < ApplicationController
   # GET /ots
   # GET /ots.json
   def index
+    screen_name("Admin-Indice-OTs")
     @ots = Ot.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class OtsController < ApplicationController
   # GET /ots/1
   # GET /ots/1.json
   def show
+    screen_name("Admin-Mostrar-OT")
     @ot = Ot.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class OtsController < ApplicationController
   # GET /ots/new
   # GET /ots/new.json
   def new
+    screen_name("Admin-Nueva-OT")
     @ot = Ot.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class OtsController < ApplicationController
 
   # GET /ots/1/edit
   def edit
+    screen_name("Admin-Editar-OT")
     @ot = Ot.find(params[:id])
   end
 

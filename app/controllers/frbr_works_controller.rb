@@ -8,6 +8,7 @@ class FrbrWorksController < ApplicationController
   # GET /frbr_works
   # GET /frbr_works.json
   def index
+    screen_name("Admin-Indice-Obras-FRBR")
     @frbr_works = FrbrWork.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrWorksController < ApplicationController
   # GET /frbr_works/1
   # GET /frbr_works/1.json
   def show
+    screen_name("Admin-Mostrar-Obra-FRBR")
     @frbr_work = FrbrWork.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrWorksController < ApplicationController
   # GET /frbr_works/new
   # GET /frbr_works/new.json
   def new
+    screen_name("Admin-Nueva-Obra-FRBR")
     @frbr_work = FrbrWork.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrWorksController < ApplicationController
 
   # GET /frbr_works/1/edit
   def edit
+    screen_name("Admin-Editar-Obra-FRBR")
     @frbr_work = FrbrWork.find(params[:id])
   end
 

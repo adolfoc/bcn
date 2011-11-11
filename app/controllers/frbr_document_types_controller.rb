@@ -8,6 +8,7 @@ class FrbrDocumentTypesController < ApplicationController
   # GET /frbr_document_types
   # GET /frbr_document_types.json
   def index
+    screen_name("Admin-Indice-Tipos-Documento-FRBR")
     @frbr_document_types = FrbrDocumentType.all
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class FrbrDocumentTypesController < ApplicationController
   # GET /frbr_document_types/1
   # GET /frbr_document_types/1.json
   def show
+    screen_name("Admin-Mostrar-Tipo-Documento-FRBR")
     @frbr_document_type = FrbrDocumentType.find(params[:id])
 
     respond_to do |format|
@@ -30,6 +32,7 @@ class FrbrDocumentTypesController < ApplicationController
   # GET /frbr_document_types/new
   # GET /frbr_document_types/new.json
   def new
+    screen_name("Admin-Nuevo-Tipo-Documento-FRBR")
     @frbr_document_type = FrbrDocumentType.new
 
     respond_to do |format|
@@ -40,6 +43,7 @@ class FrbrDocumentTypesController < ApplicationController
 
   # GET /frbr_document_types/1/edit
   def edit
+    screen_name("Admin-Editar-Tipo-Documento-FRBR")
     @frbr_document_type = FrbrDocumentType.find(params[:id])
   end
 
