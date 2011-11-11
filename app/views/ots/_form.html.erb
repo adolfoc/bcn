@@ -11,6 +11,11 @@
 	<% end %>
 
 	<div class="field">
+	    <%= f.label(:ot_type_id, 'Número de serie') %><br />
+		<%= f.text_field :serial_number %>
+	</div>
+
+	<div class="field">
 	    <%= f.label(:ot_type_id, 'Tipo') %><br />
 	    <%= collection_select(:ot, :ot_type_id, OtType.order("name ASC"), :id, :name) %>
 	</div>
@@ -21,13 +26,23 @@
 	</div>
 
 	<div class="field">
+	    <%= f.label(:ot_state_id, 'Estado') %><br />
+	    <%= collection_select(:ot, :ot_state_id, OtState.all, :id, :name) %>
+	</div>
+
+	<div class="field">
 	    <%= f.label(:created_by, 'Creada por') %><br />
 	    <%= collection_select(:ot, :created_by, User.all, :id, :email) %>
 	</div>
 
 	<div class="field">
-		<%= f.label :created_on %><br />
+		<%= f.label :created_on, "Creada el" %><br />
 		<%= f.datetime_select :created_on %>
+	</div>
+
+	<div class="field">
+		<%= f.label :target_date, "Fecha de entrega" %><br />
+		<%= f.datetime_select :target_date %>
 	</div>
 
 	<div class="actions">

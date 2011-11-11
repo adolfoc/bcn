@@ -1,0 +1,26 @@
+<h1>Estados de la OT</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @ot_states.each do |ot_state| %>
+			<tr>
+				<td><%= ot_state.name %></td>
+				<td><%= link_to 'Show', ot_state %></td>
+				<td><%= link_to 'Edit', edit_ot_state_path(ot_state) %></td>
+				<td><%= link_to 'Destroy', ot_state, confirm: 'Are you sure?', method: :delete %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Ot state', new_ot_state_path %>

@@ -8,14 +8,18 @@
 	</thead>
 	<tbody>
 		<tr>
+			<% if !@ot.source_frbr_manifestation.nil? %>
 			<td><%= link_to @ot.source_frbr_manifestation.name, mostrar_documento_path(@ot.source_frbr_manifestation.id) %></td>
 			<td><%= @ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name %></td>
 			<td><%= @ot.source_frbr_manifestation.document_file_size %></td>
+			<% end %>
 		</tr>
 		<tr>
+			<% if !@ot.target_frbr_manifestation.nil? %>
 			<td><%= link_to @ot.target_frbr_manifestation.name, mostrar_documento_path(@ot.target_frbr_manifestation.id) %></td>
 			<td><%= @ot.target_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name %></td>
 			<td><%= @ot.target_frbr_manifestation.document_file_size %></td>
+			<% end %>
 		</tr>
 	</tbody>
 </table>

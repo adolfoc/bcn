@@ -23,7 +23,13 @@
 			<td><%= task.owner.user_name %></td>
 			<td><%= task.created_on %></td>
 			<td><%= task.completed_on %></td>
-			<td><%= task.current_user.user_name %></td>
+			<td>
+				<% if !task.current_user.nil? %>
+					<%= task.current_user.user_name %>
+				<% else %>
+					Sin asignar
+				<% end %>
+			</td>
 			<td><%= task.workflow_state.to_s %></td>
 			<td><%= link_to 'Show', task_path(task.id) %></td>
 			<td><%= link_to 'Edit', edit_task_path(task) %></td>

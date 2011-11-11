@@ -52,6 +52,9 @@ class TasksController < ApplicationController
     elsif params[:task][:task_type_id] == "5"
       @task = QaCuentaTask.new(params[:task])
       @task.workflow_state = @task.initial_task
+    elsif params[:task][:task_type_id] == "4"
+      @task = PlanCuentaTask.new(params[:task])
+      @task.workflow_state = @task.initial_task
     end
 
     respond_to do |format|

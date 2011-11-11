@@ -1,16 +1,31 @@
 <p>
+  <b>Número de serie:</b>
+  <%= @ot.serial_number %>
+</p>
+
+<p>
   <b>Prioridad:</b>
   <%= @ot.priority.name %>
 </p>
 
 <p>
+  <b>Tipo:</b>
+  <%= @ot.ot_type.name %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @ot.ot_state.name %>
+</p>
+
+<p>
   <b>Documento fuente:</b>
-  <%= @ot.source_frbr_manifestation.name %>
+  <%= @ot.source_frbr_manifestation.name if !@ot.source_frbr_manifestation.nil? %>
 </p>
 
 <p>
   <b>Documento marcado:</b>
-  <%= @ot.target_frbr_manifestation.name %>
+  <%= @ot.target_frbr_manifestation.name if !@ot.target_frbr_manifestation.nil? %>
 </p>
 
 <p>
@@ -22,6 +37,12 @@
   <b>Creada el:</b>
   <%= @ot.created_on %>
 </p>
+
+<p>
+  <b>Fecha de entrega:</b>
+  <%= @ot.target_date %>
+</p>
+
 
 <p>
   <b>Completada el:</b>

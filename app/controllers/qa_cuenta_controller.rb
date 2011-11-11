@@ -38,7 +38,7 @@ class QaCuentaController < ApplicationController
       @task.completed_on = DateTime.now
       @task.save
 
-      perform_call_next_task
+#      perform_call_next_task
     end
   end
 

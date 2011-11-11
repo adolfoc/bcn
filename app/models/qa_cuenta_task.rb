@@ -28,5 +28,31 @@ class QaCuentaTask < Task
       false
     end
   end
+
+  def reset_state
+    Rails.logger.info("$$$ QaCuentaTask::reset_state")
+    params = Hash.new
+    params[:workflow_state] = initial_task.to_s
+    params[:completed_on] = nil
+    update_attributes(params)
+  end
+
+  # We're transitioning to Analist. Reset the Analist task and invoke
+  def to_devuelve_a_analista
+    Rails.logger.info("$$$ QaCuentaTask::to_devuelve_a_analista")
+    ot = Ot.find(ot_id)
+    Rails.logger.info("$$$ QaCuentaTask::to_devuelve_a_analista ot = #{ot.inspect}")
+    if !ot.nil?
+      a = ot.tasks.select { |task| true if task.task_type_id == 1 }
+      Rails.logger.info("$$$ QaCuentaTask::to_devuelve_a_analista a = #{a.inspect}")
+      if a.count > 0
+        a.first.reset_state
+      end
+    end
+  end
+
+  def rechaza
+    to_devuelve_a_analista
+  end
 end
 

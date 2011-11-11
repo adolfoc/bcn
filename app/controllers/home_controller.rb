@@ -29,7 +29,9 @@ class HomeController < ApplicationController
   end
 
   def show_admin
-    @ots = Ot.all
+    @ots_incoming = Ot.where("ot_state_id < 3")
+    @ots_work = Ot.where("ot_state_id > 2 AND ot_state_id < 6")
+    @ots_sent = Ot.where("ot_state_id > 5")
     respond_to do |format|
       format.html { render action: "show_admin" }
       format.json { head :ok }
@@ -69,5 +71,10 @@ class HomeController < ApplicationController
   def show_document
     frbr_manifestation_id = params[:frbr_manifestation_id]
     @document = FrbrManifestation.find(frbr_manifestation_id)
+  end
+
+  def choose_document
+    ot_id = params[:ot_id]
+    @ot = Ot.find(ot_id)
   end
 end

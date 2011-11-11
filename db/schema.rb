@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107231904) do
+ActiveRecord::Schema.define(:version => 20111111024714) do
 
   create_table "audits", :force => true do |t|
     t.integer  "user_id"
@@ -67,6 +67,20 @@ ActiveRecord::Schema.define(:version => 20111107231904) do
     t.datetime "updated_at"
   end
 
+  create_table "observations", :force => true do |t|
+    t.integer  "ot_id"
+    t.integer  "user_id"
+    t.text     "contents"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ot_states", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ot_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -83,6 +97,9 @@ ActiveRecord::Schema.define(:version => 20111107231904) do
     t.integer  "priority_id"
     t.string   "source_frbr_manifestation_id"
     t.string   "target_frbr_manifestation_id"
+    t.string   "serial_number"
+    t.integer  "ot_state_id"
+    t.datetime "target_date"
   end
 
   create_table "priorities", :force => true do |t|

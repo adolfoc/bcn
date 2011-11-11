@@ -1,11 +1,26 @@
 <table>
 	<tbody>
+		<tr><th>Número de serie</th><td><%= @ot.serial_number %></td></tr>
 		<tr><th>Tipo de OT</th><td><%= @ot.name %></td></tr>
 		<tr><th>Prioridad</th><td><%= @ot.priority.name %></td></tr>
-		<tr><th>Documento fuente</th><td><%= @ot.source_frbr_manifestation.name %></td></tr>
-		<tr><th>Documento marcado</th><td><%= @ot.target_frbr_manifestation.name %></td></tr>
+		<tr><th>Estado</th><td><%= @ot.ot_state.name %></td></tr>
+		<tr><th>Documento fuente</th><td>
+			<% if !@ot.source_frbr_manifestation.nil? %>
+				<%= @ot.source_frbr_manifestation.name %>
+			<% else %>
+				Aún no se ha seleccionado <%= link_to "seleccionar documento fuente", elegir_documento_path(@ot.id) %>
+			<% end %>
+		</td></tr>
+		<tr><th>Documento marcado</th><td>
+			<% if !@ot.target_frbr_manifestation.nil? %>
+				<%= @ot.target_frbr_manifestation.name %>
+			<% else %>
+				Aún no se ha generado
+			<% end %>
+		</td></tr>
 		<tr><th>Creada por</th><td><%= @ot.owner.user_name %></td></tr>
 		<tr><th>Creada el</th><td><%= @ot.created_on %></td></tr>
+		<tr><th>Fecha de entrega</th><td><%= @ot.target_date %></td></tr>
 		<tr><th>Completada el</th><td><%= @ot.completed_on %></td></tr>
 	</tbody>
 </table>
@@ -26,4 +41,5 @@
 		<%= render "show_log" %>
 	</div>
 </div>
+
 

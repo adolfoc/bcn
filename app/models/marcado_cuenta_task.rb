@@ -23,12 +23,38 @@ class MarcadoCuentaTask < Task
   end
 
   def final_task?(task)
-    Rails.logger.info("$$$ MarcadoCuentaTask::final_task(#{task})")
-    if task.to_sym == :enviada_a_qa
-      true
-    else
-      false
+    return true if task.to_sym == :enviada_a_qa
+    false
+  end
+
+  def reset_state
+    Rails.logger.info("$$$ MarcadoCuentaTask::reset_state")
+    params = Hash.new
+    params[:workflow_state] = initial_task.to_s
+    params[:completed_on] = nil
+    update_attributes(params)
+  end
+
+  def to_enviada_a_qa
+    Rails.logger.info("$$$ MarcadoCuentaTask::to_enviada_a_qa")
+    ot = Ot.find(ot_id)
+    Rails.logger.info("$$$ MarcadoCuentaTask::to_enviada_a_qa ot = #{ot.inspect}")
+    if !ot.nil?
+      a = ot.tasks.select { |task| true if task.task_type_id == 5 }
+      Rails.logger.info("$$$ MarcadoCuentaTask::to_enviada_a_qa a = #{a.inspect}")
+      if a.count > 0
+        a.first.reset_state
+      end
     end
+  end
+
+  # We're transitioning to QA. Reset the QA task and invoke
+  def no_requiere_modificaciones
+    to_enviada_a_qa
+  end
+
+  def termina_correcciones
+    to_enviada_a_qa
   end
 end
 

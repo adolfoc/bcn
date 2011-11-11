@@ -12,10 +12,19 @@
 		<tr>
 			<td><%= task.name %></td>
 			<td><%= task.workflow_state %></td>
-			<td><%= task.current_user.user_name %></td>
+			<td>
+			<% if !task.current_user.nil? %>
+			<%= task.current_user.user_name %></td>
+			<% else %>
+			Sin asignar
+			<% end %>
+			</td>
 			<td><%= task.updated_at %></td>
 		</tr>
 	<% end %>
 	</tbody>
 </table>
-	
+
+<% if @ot.tasks.empty? && !@ot.source_frbr_manifestation.nil? %>
+<%= link_to "Asignar tareas", asignar_tareas_path(@ot.id) %>
+<% end %>

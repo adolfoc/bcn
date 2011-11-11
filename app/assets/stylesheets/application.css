@@ -57,6 +57,14 @@
 	margin-top: 200px;
 	margin-bottom: 200px;
 }
+
 table, th, td {
 	border: 1px solid #CCC;
+}
+
+.actions {
+	border-top: 1px solid black;
+	padding-top: 0.5em;
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
