@@ -1,6 +1,6 @@
 require 'workflow_controller'
 
-class QaCuentaController < ApplicationController
+class PlanCuentaController < ApplicationController
   include WorkflowController
 
   before_filter :set_menu_section

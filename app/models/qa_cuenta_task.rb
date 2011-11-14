@@ -54,5 +54,48 @@ class QaCuentaTask < Task
   def rechaza
     to_devuelve_a_analista
   end
+
+  # Notifications to clients
+  def on_esperando_notificacion_analista_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "esperando_notificacion_analista")
+  end
+
+  def on_esperando_notificacion_analista_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_por_validar_qa_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "por_validar_qa")
+  end
+
+  def on_por_validar_qa_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_evalua_qa_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "evalua_qa")
+  end
+
+  def on_evalua_qa_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_devuelve_a_analista_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "devuelve_a_analista")
+  end
+
+  def on_devuelve_a_analista_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_devuelve_a_planificador_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "devuelve_a_planificador")
+  end
+
+  def on_devuelve_a_planificador_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_guarda_documento_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "guarda_documento")
+  end
+
+  def on_guarda_documento_exit(prior_state, triggering_event, *event_args)
+  end
 end
 

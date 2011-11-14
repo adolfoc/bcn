@@ -1,9 +1,11 @@
-<h2>Trabajo</h2>
+<h2>Obra</h2>
 <table>
 	<tbody>
 		<tr><th>Tipo</th><td><%= @document.frbr_expression.frbr_work.frbr_bcn_type.name %></td></tr>
 		<tr><th>Origen</th><td><%= @document.frbr_expression.frbr_work.frbr_entity.name %></td></tr>
+		<tr><th>Legislatura</th><td><%= @document.frbr_expression.frbr_work.legislature.to_s %></td></tr>
 		<tr><th>Sesión</th><td><%= @document.frbr_expression.frbr_work.session.to_s %></td></tr>
+		<tr><th>Fecha del evento</th><td><%= @document.frbr_expression.frbr_work.event_date %></td></tr>
 		<tr><th>Fecha de publicación</th><td><%= @document.frbr_expression.frbr_work.publication_date %></td></tr>
 	</tbody>
 </table>
@@ -12,6 +14,8 @@
 <table>
 	<tbody>
 		<tr><th>Tipo</th><td><%= @document.frbr_expression.frbr_document_type.name %></td></tr>
+		<tr><th>Versión</th><td><%= @document.frbr_expression.version %></td></tr>
+		<tr><th>Idioma</th><td><%= @document.frbr_expression.language %></td></tr>
 	</tbody>
 </table>
 

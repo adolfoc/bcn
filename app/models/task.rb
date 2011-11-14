@@ -9,4 +9,12 @@ class Task < ActiveRecord::Base
   def name
     task_type.name
   end
+
+  def state
+    "Indefinido"
+  end
+
+  def workflow_name
+    self.class.to_s
+  end
 end

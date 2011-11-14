@@ -47,39 +47,6 @@ class OtsController < ApplicationController
     @ot = Ot.find(params[:id])
   end
 
-  def get_basic_task_params
-    task_params = Hash.new
-    task_params[:created_by] = current_user.id
-    task_params[:created_on] = DateTime.now
-    task_params[:ot_id] = @ot.id
-    task_params[:priority_id] = @ot.priority_id
-    task_params
-  end
-
-  def create_plan_marcado_cuenta_task
-    task_params = get_basic_task_params
-    task_params[:task_type_id] = 4
-    plan_cuenta_task = PlanCuentaTask.new(task_params)
-    plan_cuenta_task.workflow_state = plan_cuenta_task.initial_task
-    plan_cuenta_task.save
-  end
-
-  def create_marcado_cuenta_task
-    task_params = get_basic_task_params
-    task_params[:task_type_id] = 1
-    marcado_cuenta_task = MarcadoCuentaTask.new(task_params)
-    marcado_cuenta_task.workflow_state = marcado_cuenta_task.initial_task
-    marcado_cuenta_task.save
-  end
-
-  def create_qa_cuenta_task
-    task_params = get_basic_task_params
-    task_params[:task_type_id] = 5
-    qa_cuenta_task = QaCuentaTask.new(task_params)
-    qa_cuenta_task.workflow_state = qa_cuenta_task.initial_task
-    qa_cuenta_task.save
-  end
-
   # POST /ots
   # POST /ots.json
   def create
@@ -87,11 +54,7 @@ class OtsController < ApplicationController
 
     respond_to do |format|
       if @ot.save
-        if @ot.ot_type_id == 1
-          create_plan_marcado_cuenta_task
-          create_marcado_cuenta_task
-          create_qa_cuenta_task
-        end
+        @ot.create_tasks(current_user)
         format.html { redirect_to @ot, notice: 'Ot was successfully created.' }
         format.json { render json: @ot, status: :created, location: @ot }
       else

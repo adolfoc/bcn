@@ -37,5 +37,27 @@ class PlanCuentaTask < Task
       end
     end
   end
+
+  # Notifications to clients
+  def on_eligiendo_documento_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "eligiendo_documento")
+  end
+
+  def on_eligiendo_documento_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_asignando_tareas_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "asignando_tareas")
+  end
+
+  def on_asignando_tareas_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_notificar_analista_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "notificar_analista")
+  end
+
+  def on_notificar_analista_exit(prior_state, triggering_event, *event_args)
+  end
 end
 

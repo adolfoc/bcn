@@ -65,6 +65,10 @@
 	margin-bottom: 200px;
 }
 
+.current-task td {
+	color: #358;
+	font-weight: bold;
+}
 table, th, td {
 	border: 1px solid #CCC;
 }

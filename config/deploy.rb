@@ -34,8 +34,6 @@ namespace :deploy do
   end
 end
 
-
-
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 

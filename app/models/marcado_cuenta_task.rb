@@ -56,5 +56,41 @@ class MarcadoCuentaTask < Task
   def termina_correcciones
     to_enviada_a_qa
   end
+
+  # Notifications to clients
+  def on_asignada_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "asignada")
+  end
+
+  def on_asignada_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_evaluando_resultados_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "evaluando_resultados")
+  end
+
+  def on_evaluando_resultados_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_corrigiendo_manualmente_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "corrigiendo_manualmente")
+  end
+
+  def on_corrigiendo_manualmente_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_en_marcaje_automatico_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "marcaje_automatico")
+  end
+
+  def on_en_marcaje_automatico_exit(prior_state, triggering_event, *event_args)
+  end
+
+  def on_enviada_a_qa_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "enviada_a_qa")
+  end
+
+  def on_enviada_a_qa_exit(prior_state, triggering_event, *event_args)
+  end
 end
 

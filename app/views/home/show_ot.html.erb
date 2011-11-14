@@ -3,7 +3,7 @@
 		<tr><th>Número de serie</th><td><%= @ot.serial_number %></td></tr>
 		<tr><th>Tipo de OT</th><td><%= @ot.name %></td></tr>
 		<tr><th>Prioridad</th><td><%= @ot.priority.name %></td></tr>
-		<tr><th>Estado</th><td><%= @ot.ot_state.name %></td></tr>
+		<tr><th>Estado</th><td><%= @ot.current_task_name + "/" + @ot.current_step %></td></tr>
 		<tr><th>Documento fuente</th><td>
 			<% if !@ot.source_frbr_manifestation.nil? %>
 				<%= @ot.source_frbr_manifestation.name %>
@@ -42,4 +42,11 @@
 	</div>
 </div>
 
-
+<% if current_user.role.id == 3 || current_user.role.id == 5 %>
+	<% if @task.current_state.events.count > 0 %>
+		|&nbsp;
+	<% end %>
+	<% @task.current_state.events.each do |event| %>
+		<%= link_to event[1].name, "/plan_cuenta/perform_work/#{@task.id}/#{event[1].name}" %>&nbsp;|&nbsp;
+	<% end %>
+<% end %>

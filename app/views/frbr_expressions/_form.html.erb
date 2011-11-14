@@ -11,13 +11,23 @@
 	<% end %>
 
 	<div class="field">
-		<%= f.label :frbr_work_id %><br />
+		<%= f.label :frbr_work_id, "Obra" %><br />
 	    <%= collection_select(:frbr_expression, :frbr_work_id, FrbrWork.all, :id, :name) %>
 	</div>
 
 	<div class="field">
-		<%= f.label :frbr_document_type_id %><br />
+		<%= f.label :frbr_document_type_id, "Tipo de documento" %><br />
 	    <%= collection_select(:frbr_expression, :frbr_document_type_id, FrbrDocumentType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :version, "Versión" %><br />
+	    <%= f.text_field :version %>
+	</div>
+
+	<div class="field">
+		<%= f.label :language, "Idioma" %><br />
+	    <%= f.text_field :language %>
 	</div>
 
 	<div class="actions">

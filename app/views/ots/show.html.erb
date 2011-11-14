@@ -1,6 +1,6 @@
 <p>
   <b>Número de serie:</b>
-  <%= @ot.serial_number %>
+  <%= "%05d" % @ot.id %>
 </p>
 
 <p>
@@ -11,11 +11,6 @@
 <p>
   <b>Tipo:</b>
   <%= @ot.ot_type.name %>
-</p>
-
-<p>
-  <b>Estado:</b>
-  <%= @ot.ot_state.name %>
 </p>
 
 <p>

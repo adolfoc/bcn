@@ -14,9 +14,15 @@
 	<tbody>
 	<% ots.each do |ot| %>
 		<tr>
-			<td><%= ot.serial_number %></td>
-			<td><%= link_to ot.name, mostrar_ot_path(ot.id) %></td>
-			<td><%= ot.ot_state.name %></td>
+			<td><%= link_to ot.serial_number, mostrar_ot_path(ot.id) %></td>
+			<td><%= ot.name %></td>
+			<td>
+				<% if !ot.current_task.nil? %>
+					<%= ot.current_task_name + "/" + ot.current_step %>
+				<% else %>
+					Estado desconocido
+				<% end %>
+			</td>
 			<td><%= ot.priority.name %></td>
 			<td><%= ot.created_on %></td>
 			<td><%= ot.completed_on %></td>

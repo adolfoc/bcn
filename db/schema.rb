@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111111024714) do
+ActiveRecord::Schema.define(:version => 20111113031331) do
 
   create_table "audits", :force => true do |t|
     t.integer  "user_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20111111024714) do
     t.integer  "frbr_document_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "version"
+    t.string   "language"
   end
 
   create_table "frbr_manifestations", :force => true do |t|
@@ -65,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20111111024714) do
     t.date     "publication_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "event_date"
+    t.integer  "legislature"
   end
 
   create_table "observations", :force => true do |t|
@@ -97,9 +101,9 @@ ActiveRecord::Schema.define(:version => 20111111024714) do
     t.integer  "priority_id"
     t.string   "source_frbr_manifestation_id"
     t.string   "target_frbr_manifestation_id"
-    t.string   "serial_number"
-    t.integer  "ot_state_id"
     t.datetime "target_date"
+    t.string   "current_step"
+    t.integer  "current_task_id"
   end
 
   create_table "priorities", :force => true do |t|
