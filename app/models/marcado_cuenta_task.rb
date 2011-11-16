@@ -57,6 +57,12 @@ class MarcadoCuentaTask < Task
     to_enviada_a_qa
   end
 
+  # marcado_cuenta/perform_work/:task_id/(:event)
+  def controller_action(event = nil)
+    return "marcado_cuenta/perform_work/#{id}/#{event}" if !event.nil?
+    "marcado_cuenta/perform_work/#{id}"
+  end
+
   # Notifications to clients
   def on_asignada_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "asignada")

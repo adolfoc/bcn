@@ -34,6 +34,10 @@
 	background-color: #CCC;
 	font-size: 0.9em;
 }
+
+.screen-title {
+	font-weight: bold;
+}
 #footer {
 	border: 1px solid #CCC;
 	padding: 1em;

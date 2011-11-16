@@ -34,6 +34,8 @@ class OtsController < ApplicationController
   def new
     screen_name("Admin-Nueva-OT")
     @ot = Ot.new
+    @ot.created_by = current_user.id
+    @ot.target_date = DateTime.now + 2
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,0 +1,18 @@
+<%= form_tag(crear_asignar_tareas_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<table>
+	<% @tasks.each do |task| %>
+	<tr>
+		<td><%= task.name %></td>
+		<td>
+			<%= select_tag "tarea[#{task.id.to_s}]", options_from_collection_for_select(User.all, :id, :user_name) %>
+		</td>
+	</tr>
+	<% end %>
+	</table>
+
+	<div class="actions">
+		<%= submit_tag "Asignar tareas" %>
+	</div>
+</form>

@@ -8,7 +8,7 @@
 			<% if !@ot.source_frbr_manifestation.nil? %>
 				<%= @ot.source_frbr_manifestation.name %>
 			<% else %>
-				Aún no se ha seleccionado <%= link_to "seleccionar documento fuente", elegir_documento_path(@ot.id) %>
+				Aún no se ha seleccionado
 			<% end %>
 		</td></tr>
 		<tr><th>Documento marcado</th><td>
@@ -29,6 +29,7 @@
 	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-tasks">Tareas</a></li>
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-documents">Documentos</a></li>
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-observations">Observaciones</a></li>
 		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Traza</a></li>
 	</ul>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-tasks">
@@ -37,16 +38,10 @@
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-documents">
 		<%= render "show_documents", :locals => {:ot => @ot } %>
 	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-observations">
+		<%= render "show_observations", :locals => {:observations => @observations } %>
+	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-log">
 		<%= render "show_log" %>
 	</div>
 </div>
-
-<% if current_user.role.id == 3 || current_user.role.id == 5 %>
-	<% if @task.current_state.events.count > 0 %>
-		|&nbsp;
-	<% end %>
-	<% @task.current_state.events.each do |event| %>
-		<%= link_to event[1].name, "/plan_cuenta/perform_work/#{@task.id}/#{event[1].name}" %>&nbsp;|&nbsp;
-	<% end %>
-<% end %>

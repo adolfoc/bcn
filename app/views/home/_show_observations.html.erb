@@ -1,0 +1,18 @@
+<table>
+	<thead>
+		<tr>
+			<th>Usuario</th>
+			<th>Fecha</th>
+			<th>Observación</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @observations.each do |observation| %>
+			<tr>
+				<td><%= observation.user.user_name %></td>
+				<td><%= observation.created_at %></td>
+				<td><%= observation.contents %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

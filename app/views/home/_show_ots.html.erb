@@ -5,8 +5,9 @@
 		<tr>
 			<th>Número de serie</th>
 			<th>OT</th>
-			<th>Estado</th>
 			<th>Prioridad</th>
+			<th>Estado</th>
+			<th>Tarea</th>
 			<th>Creada el</th>
 			<th>Completada el</th>
 		</tr>
@@ -14,16 +15,23 @@
 	<tbody>
 	<% ots.each do |ot| %>
 		<tr>
-			<td><%= link_to ot.serial_number, mostrar_ot_path(ot.id) %></td>
-			<td><%= ot.name %></td>
+			<td><%= ot.serial_number %></td>
+			<td><%= link_to ot.name, mostrar_ot_path(ot.id) %></td>
+			<td><%= ot.priority.name %></td>
 			<td>
 				<% if !ot.current_task.nil? %>
-					<%= ot.current_task_name + "/" + ot.current_step %>
+					<%= ot.current_task_name + " / " + ot.current_step %>
 				<% else %>
 					Estado desconocido
 				<% end %>
 			</td>
-			<td><%= ot.priority.name %></td>
+			<td>
+				<% if ot.current_task.current_user_id == current_user.id %>
+					<%= link_to ot.current_step, ot.current_task.controller_action(ot.current_step) %>
+				<% else %>
+					<%= ot.current_task.name %>
+				<% end %>
+			</td>
 			<td><%= ot.created_on %></td>
 			<td><%= ot.completed_on %></td>
 		</tr>

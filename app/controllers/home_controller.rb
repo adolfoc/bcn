@@ -60,7 +60,7 @@ class HomeController < ApplicationController
   def show_planner
     screen_name("Inicial-Planificador")
 
-    @tasks = Task.where("current_user_id = #{current_user.id}")
+    @ots = Ot.all
 
     respond_to do |format|
       format.html { render action: "show_planner" }
@@ -77,8 +77,10 @@ class HomeController < ApplicationController
     @ots_sent = Array.new
     Ot.all.each do |ot|
       if !ot.current_task.nil?
-        if ot.current_task.current_user_id == current_user.id
+        if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot
+        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
+          @ots_work << ot
         elsif ot.created_by == current_user.id
           @ots_sent << ot
         end
@@ -96,47 +98,13 @@ class HomeController < ApplicationController
     screen_name("Mostrar-OT")
 
     @ot = Ot.find(params[:ot_id])
+    @ot.mark_read
+
+    @observations = Observation.where("ot_id = #{@ot.id}")
     @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
 
     if current_user.role.id == 3 || current_user.role.id == 5
       @task = @ot.current_task
-    end
-  end
-
-  # Show document's detail
-  def show_document
-    screen_name("Mostrar-Documento")
-
-    frbr_manifestation_id = params[:frbr_manifestation_id]
-    @document = FrbrManifestation.find(frbr_manifestation_id)
-  end
-
-  def choose_document
-    ot_id = params[:ot_id]
-    @ot = Ot.find(ot_id)
-
-    @frbr_work = FrbrWork.new
-    frbr_expression = FrbrExpression.new({ :frbr_document_type_id => 3, :version => 1, :language => 'es' })
-    @frbr_work.frbr_expressions << frbr_expression
-    frbr_manifestation = FrbrManifestation.new
-    frbr_expression.frbr_manifestations << frbr_manifestation
-  end
-
-  def create_document
-    @ot = Ot.find(params[:ot_id])
-    @frbr_work = FrbrWork.new(params[:frbr_work])
-
-    respond_to do |format|
-      if @frbr_work.save
-        # Associate ot to new manifestation
-        @ot.source_frbr_manifestation_id = @frbr_work.frbr_expressions[0].frbr_manifestations[0].id
-        @ot.save
-        # Bump task to next step
-
-        format.html { redirect_to show_ot(@ot.id), notice: 'Frbr document was successfully created.' }
-      else
-        format.html { render action: "choose_document" }
-      end
     end
   end
 end

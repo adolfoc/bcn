@@ -55,6 +55,12 @@ class QaCuentaTask < Task
     to_devuelve_a_analista
   end
 
+  # qa_cuenta/perform_work/:task_id/(:event)
+  def controller_action(event = nil)
+    return "qa_cuenta/perform_work/#{id}/#{event}" if !event.nil?
+    "qa_cuenta/perform_work/#{id}"
+  end
+
   # Notifications to clients
   def on_esperando_notificacion_analista_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "esperando_notificacion_analista")

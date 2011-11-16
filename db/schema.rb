@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111113031331) do
+ActiveRecord::Schema.define(:version => 20111116014455) do
 
   create_table "audits", :force => true do |t|
     t.integer  "user_id"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(:version => 20111113031331) do
     t.datetime "target_date"
     t.string   "current_step"
     t.integer  "current_task_id"
+    t.integer  "parent_ot_id"
+    t.boolean  "read",                         :default => false
   end
 
   create_table "priorities", :force => true do |t|

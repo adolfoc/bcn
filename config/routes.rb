@@ -25,11 +25,11 @@ Bcn::Application.routes.draw do
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
 
-  match "home/choose_document/:ot_id" => "home#choose_document", :as => :elegir_documento
-  match "home/create_document" => "home#create_document", :as => :crear_documento, :method => :post
-  match "home/assign_tasks/:ot_id" => "home#assign_tasks", :as => :asignar_tareas
-
   match "plan_cuenta/perform_work/:task_id/(:event)" => "plan_cuenta#perform_work", :as => :plan_cuenta_perform_work
+  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_documento, :method => :post
+  match "plan_cuenta/create_asignar_tareas" => "plan_cuenta#create_asignar_tareas", :as => :crear_asignar_tareas, :method => :post
+  match "plan_cuenta/create_notificar_analista" => "plan_cuenta#create_notificar_analista", :as => :crear_notificar_analista, :method => :post
+
   match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
   match "qa_cuenta/perform_work/:task_id/(:event)" => "qa_cuenta#perform_work", :as => :qa_cuenta_perform_work
 

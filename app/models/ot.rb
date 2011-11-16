@@ -12,6 +12,14 @@ class Ot < ActiveRecord::Base
     ot_type.name
   end
 
+  def mark_read
+    if read == false || read == 0
+      params = Hash.new
+      params[:read] = true
+      update_attributes(params)
+    end
+  end
+
   # Task calls us with task info on every state transition
   def begin_task_execution(task, step)
     params = Hash.new

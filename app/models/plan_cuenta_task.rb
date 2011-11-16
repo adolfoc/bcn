@@ -38,6 +38,12 @@ class PlanCuentaTask < Task
     end
   end
 
+  # plan_cuenta/perform_work/:task_id/(:event)
+  def controller_action(event = nil)
+    return "plan_cuenta/perform_work/#{id}/#{event}" if !event.nil?
+    "plan_cuenta/perform_work/#{id}"
+  end
+
   # Notifications to clients
   def on_eligiendo_documento_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "eligiendo_documento")
