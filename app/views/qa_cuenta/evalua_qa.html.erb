@@ -1,0 +1,5 @@
+<%= render "shared/work_header" %>
+
+|&nbsp;<%= link_to "Rechaza", rechaza_event_path(@task.id) %>&nbsp;
+|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;
+|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|

@@ -20,6 +20,21 @@ class Ot < ActiveRecord::Base
     end
   end
 
+  def mark_complete
+    params = Hash.new
+    params[:completed_on] = DateTime.now
+    update_attributes(params)
+  end
+
+  def has_been_worked_on_by(user_id)
+    tasks.each do |task|
+      if task.current_user_id = user_id
+        return true
+      end
+      false
+    end
+  end
+
   # Task calls us with task info on every state transition
   def begin_task_execution(task, step)
     params = Hash.new

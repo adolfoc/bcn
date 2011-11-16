@@ -45,7 +45,7 @@ class HomeController < ApplicationController
           @ots_incoming << ot
         elsif ot.current_task.current_user_id == current_user.id && ot.read == true
           @ots_work << ot
-        elsif ot.created_by == current_user.id
+        elsif ot.created_by == current_user.id || ot.has_been_worked_on_by(current_user.id)
           @ots_sent << ot
         end
       end
