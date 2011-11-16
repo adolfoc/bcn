@@ -116,6 +116,8 @@ class PlanCuentaController < ApplicationController
     @ot.current_step = next_task.initial_task.to_s
     @ot.save
 
+    create_log_entry_for_workflow(@task.name, next_task.name)
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'El analista fue notificado.' }
       format.json { head :ok }

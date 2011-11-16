@@ -36,7 +36,20 @@ class HomeController < ApplicationController
   def show_analist
     screen_name("Inicial-Analista")
 
-    @tasks = Task.where("current_user_id = #{current_user.id}")
+    @ots_incoming = Array.new
+    @ots_work = Array.new
+    @ots_sent = Array.new
+    Ot.all.each do |ot|
+      if !ot.current_task.nil?
+        if ot.current_task.current_user_id == current_user.id && ot.read == false
+          @ots_incoming << ot
+        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
+          @ots_work << ot
+        elsif ot.created_by == current_user.id
+          @ots_sent << ot
+        end
+      end
+    end
 
     respond_to do |format|
       format.html { render action: "show_analist" }
@@ -48,7 +61,20 @@ class HomeController < ApplicationController
   def show_qa_analist
     screen_name("Inicial-Analista-QA")
 
-    @tasks = Task.where("current_user_id = #{current_user.id}")
+    @ots_incoming = Array.new
+    @ots_work = Array.new
+    @ots_sent = Array.new
+    Ot.all.each do |ot|
+      if !ot.current_task.nil?
+        if ot.current_task.current_user_id == current_user.id && ot.read == false
+          @ots_incoming << ot
+        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
+          @ots_work << ot
+        elsif ot.created_by == current_user.id
+          @ots_sent << ot
+        end
+      end
+    end
 
     respond_to do |format|
       format.html { render action: "show_qa_analist" }
@@ -60,7 +86,20 @@ class HomeController < ApplicationController
   def show_planner
     screen_name("Inicial-Planificador")
 
-    @ots = Ot.all
+    @ots_incoming = Array.new
+    @ots_work = Array.new
+    @ots_sent = Array.new
+    Ot.all.each do |ot|
+      if !ot.current_task.nil?
+        if ot.current_task.current_user_id == current_user.id && ot.read == false
+          @ots_incoming << ot
+        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
+          @ots_work << ot
+        elsif ot.created_by == current_user.id
+          @ots_sent << ot
+        end
+      end
+    end
 
     respond_to do |format|
       format.html { render action: "show_planner" }
@@ -106,5 +145,11 @@ class HomeController < ApplicationController
     if current_user.role.id == 3 || current_user.role.id == 5
       @task = @ot.current_task
     end
+  end
+
+  def show_document
+    screen_name("Mostrar-Documento")
+
+    @document = FrbrManifestation.find(params[:frbr_manifestation_id])
   end
 end
