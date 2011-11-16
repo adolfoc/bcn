@@ -1,4 +1,26 @@
 <%= render "shared/work_header" %>
 
+<table>
+	<thead>
+		<tr>
+			<th>Tipo</th>
+			<th>Línea</th>
+			<th>Descripcion</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Advertencia</td>
+			<td>23</td>
+			<td>La entidad no está confirmada</td>
+		</tr>
+		<tr>
+			<td>Error</td>
+			<td>54</td>
+			<td>El marcador no pudo reconocer la entidad</td>
+		</tr>
+	</tbody>
+</table>
+
 |&nbsp;<%= link_to "Requiere Modificaciones", requiere_modificaciones_event_path(@task.id) %>&nbsp;
 |&nbsp;<%= link_to "No Requiere_Modificaciones", no_requiere_modificaciones_event_path(@task.id) %>&nbsp;|

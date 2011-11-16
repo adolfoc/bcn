@@ -19,9 +19,9 @@ end
 gem 'execjs'
 gem 'therubyracer'
 gem 'jquery-rails'
-gem "devise"
-gem "workflow"
-gem "paperclip", "~> 2.4"
+gem 'devise'
+gem 'workflow'
+gem 'paperclip', "~> 2.4"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

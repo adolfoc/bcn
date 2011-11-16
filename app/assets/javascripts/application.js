@@ -7,10 +7,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require ace/ace.js
-//  = require_tree .
 $(function() {
-	var editor = ace.edit("ace-editor");
 	var active_section = parseInt($('meta[name=accordion_section]').attr('content'));
 	var options = {
 		active: active_section,

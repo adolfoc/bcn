@@ -50,6 +50,15 @@ class MarcadoCuentaController < ApplicationController
   def corrigiendo_manualmente
     screen_name("#{@task.class.to_s}/corrigiendo_manualmente")
 
+    @xml_text = '<?xml version="1.0" encoding="UTF-8"?>
+    <?xml-stylesheet type="text/css" href="diario.css"?>
+    <akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="http://www.akomantoso.org/2.0 ./akomantoso20.xsd" 
+        xmlns="http://www.akomantoso.org/2.0">
+    	<debate>
+    	</debate>
+    </akomaNtoso>'
+
     respond_to do |format|
       format.html { render action: "corrigiendo_manualmente" }
       format.json { head :ok }
