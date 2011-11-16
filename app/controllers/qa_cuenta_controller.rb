@@ -91,7 +91,8 @@ class QaCuentaController < ApplicationController
     perform_transition
 
     # Refresh task with new state
-    @task = Task.find(params[:task_id])
+    @task = Task.find(@task.id)
+    @ot = Ot.find(@task.ot_id)
   end
 
   def recibe_notificacion_event

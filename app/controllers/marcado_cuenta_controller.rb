@@ -80,7 +80,8 @@ class MarcadoCuentaController < ApplicationController
     perform_transition
 
     # Refresh task with new state
-    @task = Task.find(params[:task_id])
+    @task = Task.find(@task.id)
+    @ot = Ot.find(@task.ot_id)
   end
 
   def comienza_evaluar_event
@@ -153,6 +154,18 @@ class MarcadoCuentaController < ApplicationController
   end
 
   def termina_marcaje_automatico_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition("termina_marcaje_automatico")
+
+    respond_to do |format|
+      format.html { render action: "evaluando_resultados" }
+      format.json { head :ok }
+    end
+  end
+
+  def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 

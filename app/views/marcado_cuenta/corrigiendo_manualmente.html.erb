@@ -1,4 +1,8 @@
 <%= render "shared/work_header" %>
 
+<div id="ace-editor">
+	Some text
+</div>
+
 |&nbsp;<%= link_to "Terminar correcciones", termina_correcciones_event_path(@task.id) %>&nbsp;
 |&nbsp;<%= link_to "Verificar correcciones", verifica_correcciones_event_path(@task.id) %>&nbsp;|

@@ -38,6 +38,7 @@ Bcn::Application.routes.draw do
   match "marcado_cuenta/termina_correcciones_event/:task_id" => "marcado_cuenta#termina_correcciones_event", :as => :termina_correcciones_event
   match "marcado_cuenta/verifica_correcciones_event/:task_id" => "marcado_cuenta#verifica_correcciones_event", :as => :verifica_correcciones_event
   match "marcado_cuenta/termina_marcaje_automatico_event/:task_id" => "marcado_cuenta#termina_marcaje_automatico_event", :as => :termina_marcaje_automatico_event
+  match "marcado_cuenta/realizar_marcaje_automatico/:task_id" => "marcado_cuenta#realizar_marcaje_automatico", :as => :realizar_marcaje_automatico, :method => :post
 
   # QA Marcado Cuenta workflow
   match "qa_cuenta/perform_work/:task_id/(:event)" => "qa_cuenta#perform_work", :as => :qa_cuenta_perform_work
