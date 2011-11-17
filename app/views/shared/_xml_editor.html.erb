@@ -1,7 +1,9 @@
 <%= form_tag(crear_asignar_tareas_path) %>
 	<%= hidden_field_tag(:ot_id, @ot.id) %>
 
-	<%= text_area_tag "xml_text", @xml_text %>
+	<div class="xml-editor">
+		<%= text_area_tag "xml_text", @xml_text %>
+	</div>
 
 	<div class="actions">
 		<%= submit_tag "Guardar" %>

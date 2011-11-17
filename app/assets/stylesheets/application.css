@@ -83,3 +83,8 @@ table, th, td {
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
+
+.xml-editor textarea {
+	width: 750px;
+	height: 512px;
+}

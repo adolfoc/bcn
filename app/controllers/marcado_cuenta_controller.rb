@@ -50,14 +50,8 @@ class MarcadoCuentaController < ApplicationController
   def corrigiendo_manualmente
     screen_name("#{@task.class.to_s}/corrigiendo_manualmente")
 
-    @xml_text = '<?xml version="1.0" encoding="UTF-8"?>
-    <?xml-stylesheet type="text/css" href="diario.css"?>
-    <akomaNtoso xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:schemaLocation="http://www.akomantoso.org/2.0 ./akomantoso20.xsd" 
-        xmlns="http://www.akomantoso.org/2.0">
-    	<debate>
-    	</debate>
-    </akomaNtoso>'
+    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
+    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
 
     respond_to do |format|
       format.html { render action: "corrigiendo_manualmente" }
@@ -111,6 +105,9 @@ class MarcadoCuentaController < ApplicationController
 
     do_perform_transition("requiere_modificaciones")
 
+    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
+    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+
     respond_to do |format|
       format.html { render action: "corrigiendo_manualmente" }
       format.json { head :ok }
@@ -162,9 +159,17 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  def termina_marcaje_automatico_event
+  def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
+
+    # If we don't have an XML file, create one
+    if @ot.target_frbr_manifestation_id.nil?
+      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
+      params = Hash.new
+      params[:target_frbr_manifestation_id] = target_frbr.id
+      @ot.update_attributes(params)
+    end
 
     do_perform_transition("termina_marcaje_automatico")
 
@@ -174,7 +179,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  def realizar_marcaje_automatico
+  def termina_marcaje_automatico_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
