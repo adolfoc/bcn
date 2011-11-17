@@ -50,6 +50,9 @@ Bcn::Application.routes.draw do
 
   match "users/index" => "users#index", :as => :users
 
+  match "work_load/index" => "work_load#index", :as => :work_load
+  match "work_load/select" => "work_load#select", :as => :select_work_load, :method => :post
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

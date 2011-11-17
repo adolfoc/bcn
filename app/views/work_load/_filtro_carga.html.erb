@@ -1,0 +1,4 @@
+<%= form_tag(select_work_load_path) %>
+	<%= select_tag "user_id", options_from_collection_for_select(User.all, :id, :user_name) %>&nbsp;
+	<%= submit_tag "Seleccionar" %>
+</form>

@@ -1,0 +1,28 @@
+<h1>Carga de Trabajo</h1>
+
+<%= render "filtro_carga" %>
+
+<table>
+	<thead>
+		<tr>
+			<th>Usuario</th>
+			<th>Rol</th>
+			<th>OT</th>
+			<th>Prioridad</th>
+			<th>Tarea</th>
+			<th>Fecha de entrega</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tasks.each do |task| %>
+		<tr>
+			<td><%= task.current_user.user_name %></td>
+			<td><%= task.current_user.role.name %></td>
+			<td><%= task.ot.name %></td>
+			<td><%= task.ot.priority.name %></td>
+			<td><%= task.name %></td>
+			<td><%= task.ot.target_date %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
