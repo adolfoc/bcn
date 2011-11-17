@@ -87,6 +87,16 @@ class MarcadoCuentaController < ApplicationController
     @ot = Ot.find(@task.ot_id)
   end
 
+  def check_for_target_document
+    # If we don't have an XML file, create one
+    if @ot.target_frbr_manifestation_id.nil?
+      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
+      params = Hash.new
+      params[:target_frbr_manifestation_id] = target_frbr.id
+      @ot.update_attributes(params)
+    end
+  end
+
   def comienza_evaluar_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
@@ -105,6 +115,7 @@ class MarcadoCuentaController < ApplicationController
 
     do_perform_transition("requiere_modificaciones")
 
+    check_for_target_document
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
 
@@ -163,13 +174,7 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    # If we don't have an XML file, create one
-    if @ot.target_frbr_manifestation_id.nil?
-      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
-      params = Hash.new
-      params[:target_frbr_manifestation_id] = target_frbr.id
-      @ot.update_attributes(params)
-    end
+    check_for_target_document
 
     do_perform_transition("termina_marcaje_automatico")
 
