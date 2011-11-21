@@ -1,5 +1,7 @@
 <h1><%= table_title %></h1>
 
+<%= render :partial => "ot_filter", :locals => { :show_button_id => show_button_id, :filter_selector_id => filter_selector_id } %>
+
 <table>
 	<thead>
 		<tr>

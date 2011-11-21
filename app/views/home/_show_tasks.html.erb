@@ -30,5 +30,5 @@
 </table>
 
 <% if @ot.tasks.empty? && !@ot.source_frbr_manifestation.nil? %>
-<%= link_to "Asignar tareas", asignar_tareas_path(@ot.id) %>
+	<%= link_to "Asignar tareas", asignar_tareas_path(@ot.id) %>
 <% end %>

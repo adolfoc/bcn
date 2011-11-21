@@ -15,4 +15,23 @@ $(function() {
 	}
 	$("#menu-accordion" ).accordion(options);
 	$( "#ot-tabs" ).tabs();
+	// Filters
+	$( "#show-button-incoming" ).click(function() {
+		var selectedEffect = "blind";
+		var effect_options = {};
+		$( "#ot-filter-incoming" ).toggle(selectedEffect, effect_options, 500);
+		return false;
+	})
+	$( "#show-button-work" ).click(function() {
+		var selectedEffect = "blind";
+		var effect_options = {};
+		$( "#ot-filter-work" ).toggle(selectedEffect, effect_options, 500);
+		return false;
+	})
+	$( "#show-button-sent" ).click(function() {
+		var selectedEffect = "blind";
+		var effect_options = {};
+		$( "#ot-filter-sent" ).toggle(selectedEffect, effect_options, 500);
+		return false;
+	})
 });

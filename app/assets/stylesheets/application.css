@@ -88,3 +88,12 @@ table, th, td {
 	width: 750px;
 	height: 512px;
 }
+
+#ot-filter-incoming, #ot-filter-work, #ot-filter-sent {
+	display: none;
+}
+
+#show-button-incoming, #show-button-work, #show-button-sent {
+	padding: 5px;
+	margin-bottom: 1em;
+}

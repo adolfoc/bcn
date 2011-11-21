@@ -1,0 +1,31 @@
+<div class="toggler">
+	<a href="#" id="<%= show_button_id %>" class="ui-state-default ui-corner-all">Filtro</a>
+	<div id="<%= filter_selector_id %>">
+		<%= form_tag(filter_ots_path) %>
+			<div class="field">
+				<%= label_tag :serial_number, "Número de serie: " %>&nbsp;
+				<%= text_field_tag "filter[serial_number]" %>
+			</div>
+			<div class="field">
+				<%= label_tag :priority, "Prioridad: " %>&nbsp;
+				<%= select_tag "filter[priority]", options_from_collection_for_select(Priority.all, :id, :name) %>
+			</div>
+			<div class="field">
+				<%= label_tag :assigned_to, "Asignada a: " %>&nbsp;
+				<%= select_tag "filter[assigned_to]", options_from_collection_for_select(User.all, :id, :user_name) %>
+			</div>
+			<div class="field">
+				<%= label_tag :state, "Estado: " %>&nbsp;
+				<%= select_tag "filter[state]", options_for_select([['En proceso', 1], ['Suspendida', 2], ['Completa', 3]]) %>
+			</div>
+			<div class="field">
+				<%= check_box_tag "filter[completed]" %>&nbsp;
+				<%= label_tag :priority, "Completada" %>
+			</div>
+			<div class="actions">
+				<%= submit_tag "Filtrar" %>
+			</div>
+		</form>
+	</div>
+</div>
+
