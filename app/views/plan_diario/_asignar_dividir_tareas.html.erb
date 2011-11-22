@@ -1,0 +1,36 @@
+<%= form_tag(submit_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="xml-editor">
+		<%= text_area_tag "xml_text", @xml_text %>
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Tarea</th>
+				<th>Sección</th>
+				<th>Usuario</th>
+				<th></th>
+			<tr>
+		</thead>
+		<tbody>
+	<% @tasks.each do |task| %>
+	<tr>
+		<td><%= task.name %></td>
+		<td><%= text_field_tag "tarea[#{task.id.to_s}][xpath]"%></td>
+		<td>
+			<%= select_tag "tarea[#{task.id.to_s}][user]", options_from_collection_for_select(User.all, :id, :user_name) %>
+		</td>
+		<td><%= link_to("Eliminar", root_path)%>
+	</tr>
+	<% end %>
+		</tbody>
+	</table>
+
+	<%= link_to("Agregar tarea", agregar_tarea_marcado_diario_path) %>
+
+	<div class="actions">
+		<%= submit_tag "Asignar tareas" %>
+	</div>
+</form>

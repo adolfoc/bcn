@@ -35,6 +35,10 @@ class Ot < ActiveRecord::Base
     end
   end
 
+  def is_multiple_task?
+    tasks.count > 3
+  end
+
   # Task calls us with task info on every state transition
   def begin_task_execution(task, step)
     params = Hash.new
@@ -65,9 +69,9 @@ class Ot < ActiveRecord::Base
     task_params
   end
 
-  def create_plan_marcado_cuenta_task(current_user)
+  def create_plan_marcado_cuenta_senado_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = 4
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_CUENTA_SENATE_MARKUP).id
     task_params[:current_user_id] = current_user.id
     plan_cuenta_task = PlanCuentaTask.new(task_params)
     plan_cuenta_task.workflow_state = plan_cuenta_task.initial_task
@@ -75,9 +79,9 @@ class Ot < ActiveRecord::Base
     plan_cuenta_task
   end
 
-  def create_marcado_cuenta_task(current_user)
+  def create_marcado_cuenta_senado_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = 1
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_CUENTA_SENATE_MARKUP).id
     marcado_cuenta_task = MarcadoCuentaTask.new(task_params)
     marcado_cuenta_task.workflow_state = marcado_cuenta_task.initial_task
     marcado_cuenta_task.save
@@ -85,22 +89,60 @@ class Ot < ActiveRecord::Base
     
   end
 
-  def create_qa_cuenta_task(current_user)
+  def create_qa_cuenta_senado_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = 5
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_CUENTA_SENATE_MARKUP).id
     qa_cuenta_task = QaCuentaTask.new(task_params)
     qa_cuenta_task.workflow_state = qa_cuenta_task.initial_task
     qa_cuenta_task.save
     qa_cuenta_task
   end
 
+  def create_plan_marcado_diario_senado_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_DS_SENATE_MARKUP).id
+    task_params[:current_user_id] = current_user.id
+    plan_diario_task = PlanDiarioTask.new(task_params)
+    plan_diario_task.workflow_state = plan_diario_task.initial_task
+    plan_diario_task.save
+    plan_diario_task
+  end
+
+  def create_marcado_diario_senado_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_DS_SENATE_MARKUP).id
+    marcado_diario_task = MarcadoCuentaTask.new(task_params)
+    marcado_diario_task.workflow_state = marcado_diario_task.initial_task
+    marcado_diario_task.save
+    marcado_diario_task
+    
+  end
+
+  def create_qa_diario_senado_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_DS_SENATE_MARKUP).id
+    qa_diario_task = QaCuentaTask.new(task_params)
+    qa_diario_task.workflow_state = qa_diario_task.initial_task
+    qa_diario_task.save
+    qa_diario_task
+  end
+
   def create_tasks(current_user)
     if ot_type_id == 1
-      first_task = create_plan_marcado_cuenta_task(current_user)
-      create_marcado_cuenta_task(current_user)
-      create_qa_cuenta_task(current_user)
+      first_task = create_plan_marcado_cuenta_senado_task(current_user)
+      create_marcado_cuenta_senado_task(current_user)
+      create_qa_cuenta_senado_task(current_user)
+    elsif ot_type_id == 3
+      first_task = create_plan_marcado_diario_senado_task(current_user)
+      create_marcado_diario_senado_task(current_user)
+      create_qa_diario_senado_task(current_user)
     end
 
     begin_task_execution(first_task, first_task.initial_task.to_s) if !first_task.nil?
+  end
+
+  def add_markup_diario_tasks(current_user)
+    create_marcado_diario_senado_task(current_user)
+    create_qa_diario_senado_task(current_user)
   end
 end

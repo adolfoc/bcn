@@ -17,6 +17,12 @@ class QaCuentaTask < Task
     state :guarda_documento
   end
 
+  def is_active?
+    return false if workflow_state.to_sym == :esperando_notificacion_analista
+    return false if workflow_state.to_sym == :devuelve_a_analista ||  workflow_state.to_sym == :devuelve_a_planificador ||  workflow_state.to_sym == :guarda_documento
+    true
+  end
+
   def initial_task
     :esperando_notificacion_analista
   end

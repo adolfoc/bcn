@@ -1,6 +1,9 @@
 class MarcadoCuentaTask < Task
   include Workflow
   workflow do
+    state :por_asignar do
+      event :asignacion, :transitions_to => :asignada
+    end
     state :asignada do
       event :comienza_evaluar, :transitions_to => :evaluando_resultados
     end
@@ -18,8 +21,14 @@ class MarcadoCuentaTask < Task
     state :enviada_a_qa
   end
 
+  def is_active?
+    return false if workflow_state.to_sym == :por_asignar
+    return false if workflow_state.to_sym == :enviada_a_qa
+    true
+  end
+
   def initial_task
-    :asignada
+    :por_asignar
   end
 
   def final_task?(task)

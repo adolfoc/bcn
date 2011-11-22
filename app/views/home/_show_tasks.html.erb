@@ -9,7 +9,7 @@
 	</thead>
 	<tbody>
 	<% @ot.tasks.each do |task| %>
-		<% if task.id == @ot.current_task_id %>
+		<% if task.is_active? %>
 			<tr class="current-task">
 		<% else %>
 			<tr>

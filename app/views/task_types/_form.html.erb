@@ -16,6 +16,11 @@
 	</div>
 
 	<div class="field">
+		<%= f.label :ordinal %><br />
+		<%= f.number_field :ordinal %>
+	</div>
+
+	<div class="field">
 	    <%= f.label(:role_id, 'Rol') %><br />
 	    <%= collection_select(:task_type, :role_id, Role.order("name ASC"), :id, :name) %>
 	</div>

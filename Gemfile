@@ -22,6 +22,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'workflow'
 gem 'paperclip', "~> 2.4"
+gem 'will_paginate', '~> 3.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -20,9 +20,14 @@
 	    <%= collection_select(:ot, :priority_id, Priority.all, :id, :name) %>
 	</div>
 
-	<div class="field">
+	<div class="field invisible">
 	    <%= f.label(:created_by, 'Creada por') %><br />
 	    <%= collection_select(:ot, :created_by, User.all, :id, :email) %>
+	</div>
+
+	<div class="field">
+	    <%= f.label(:by_request_of, 'A pedido de') %><br />
+	    <%= f.text_field(:by_request_of) %>
 	</div>
 
 	<div class="field">

@@ -105,3 +105,8 @@ table, th, td {
 .inline-field {
 	float: left;
 }
+
+.ot-overdue td {
+	color: #F00;
+	font-weight: bold;
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116014455) do
+ActiveRecord::Schema.define(:version => 20111122180126) do
 
   create_table "audits", :force => true do |t|
     t.integer  "user_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20111116014455) do
     t.integer  "current_task_id"
     t.integer  "parent_ot_id"
     t.boolean  "read",                         :default => false
+    t.string   "by_request_of"
   end
 
   create_table "priorities", :force => true do |t|
@@ -126,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20111116014455) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
+    t.integer  "ordinal"
   end
 
   create_table "tasks", :force => true do |t|
@@ -140,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20111116014455) do
     t.string   "workflow_state"
     t.string   "type"
     t.integer  "priority_id"
+    t.string   "xpath_section"
   end
 
   create_table "users", :force => true do |t|

@@ -140,7 +140,7 @@ class HomeController < ApplicationController
     @ot.mark_read
 
     @observations = Observation.where("ot_id = #{@ot.id}")
-    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
+    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
 
     if current_user.role.id == 3 || current_user.role.id == 5
       @task = @ot.current_task
@@ -159,7 +159,7 @@ class HomeController < ApplicationController
 
     @ot = Ot.find(params[:observation][:ot_id])
     @observations = Observation.where("ot_id = #{@ot.id}")
-    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
+    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       if @observation.save
@@ -169,6 +169,20 @@ class HomeController < ApplicationController
         format.html { render action: "show_ot" }
         format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def clear_database
+    Audit.delete_all
+    FrbrManifestation.delete_all
+    FrbrExpression.delete_all
+    FrbrWork.delete_all
+    Task.delete_all
+    Observation.delete_all
+    Ot.delete_all
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Base de datos limpiada.' }
     end
   end
 end

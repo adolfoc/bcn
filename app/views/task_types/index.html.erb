@@ -4,6 +4,7 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
+			<th>Ordinal</th>
 			<th>Rol</th>
 			<th></th>
 			<th></th>
@@ -14,6 +15,7 @@
 	<% @task_types.each do |task_type| %>
 		<tr>
 			<td><%= task_type.name %></td>
+			<td><%= task_type.ordinal.to_s %></td>
 			<td><%= task_type.role.name %></td>
 			<td><%= link_to 'Show', task_type %></td>
 			<td><%= link_to 'Edit', edit_task_type_path(task_type) %></td>

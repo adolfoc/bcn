@@ -10,6 +10,12 @@ class PlanCuentaTask < Task
     state :notificar_analista
   end
 
+  def is_active?
+    return false if workflow_state.to_sym == :eligiendo_documento
+    return false if workflow_state.to_sym == :notificar_analista
+    true
+  end
+
   def initial_task
     :eligiendo_documento
   end

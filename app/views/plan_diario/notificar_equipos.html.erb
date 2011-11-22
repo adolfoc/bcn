@@ -4,6 +4,7 @@
 	<thead>
 		<tr>
 			<th>Tarea</th>
+			<th>Sección</th>
 			<th>Usuario</th>
 		</tr>
 	</thead>
@@ -12,6 +13,7 @@
 		<% if task.current_user_id != @ot.created_by %>
 			<tr>
 				<td><%= task.name %></td>
+				<td><%= task.xpath_section %></td>
 				<td><%= task.current_user.user_name %></td>
 			</tr>
 		<% end %>
@@ -19,4 +21,5 @@
 	</tbody>
 </table>
 
-<%= render 'notificar_analista_form' %>
+
+<%= render 'notificar_equipos_form' %>

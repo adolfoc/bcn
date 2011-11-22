@@ -9,6 +9,27 @@ class MarcadoCuentaController < ApplicationController
     @accordion_section = 0
   end
 
+  # Actions that trigger a change of state
+  def do_perform_transition(event)
+    @event = event
+    perform_transition
+
+    # Refresh task with new state
+    @task = Task.find(@task.id)
+    @ot = Ot.find(@task.ot_id)
+  end
+
+  def check_for_target_document
+    # If we don't have an XML file, create one
+    if @ot.target_frbr_manifestation_id.nil?
+      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
+      params = Hash.new
+      params[:target_frbr_manifestation_id] = target_frbr.id
+      @ot.update_attributes(params)
+    end
+  end
+
+
   def perform_work
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
@@ -77,26 +98,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  # Actions that trigger a change of state
-  def do_perform_transition(event)
-    @event = event
-    perform_transition
-
-    # Refresh task with new state
-    @task = Task.find(@task.id)
-    @ot = Ot.find(@task.ot_id)
-  end
-
-  def check_for_target_document
-    # If we don't have an XML file, create one
-    if @ot.target_frbr_manifestation_id.nil?
-      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
-      params = Hash.new
-      params[:target_frbr_manifestation_id] = target_frbr.id
-      @ot.update_attributes(params)
-    end
-  end
-
+  # Events and transitions
   def comienza_evaluar_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)

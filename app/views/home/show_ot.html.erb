@@ -18,7 +18,9 @@
 				Aún no se ha generado
 			<% end %>
 		</td></tr>
+		<tr><th>OT madre</th><td><%= @ot.parent_ot_id %></td></tr>
 		<tr><th>Creada por</th><td><%= @ot.owner.user_name %></td></tr>
+		<tr><th>A pedido de</th><td><%= @ot.by_request_of %></td></tr>
 		<tr><th>Creada el</th><td><%= @ot.created_on %></td></tr>
 		<tr><th>Fecha de entrega</th><td><%= @ot.target_date %></td></tr>
 		<tr><th>Completada el</th><td><%= @ot.completed_on %></td></tr>

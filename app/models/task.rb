@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  belongs_to :task_type
+  belongs_to :task_type, :class_name => "TaskType", :foreign_key => :task_type_id
   belongs_to :priority, :class_name => "Priority", :foreign_key => :priority_id
   belongs_to :ot
   belongs_to :owner, :class_name => "User", :foreign_key => :created_by
@@ -12,6 +12,10 @@ class Task < ActiveRecord::Base
 
   def state
     "Indefinido"
+  end
+
+  def is_active?
+    false
   end
 
   def workflow_name

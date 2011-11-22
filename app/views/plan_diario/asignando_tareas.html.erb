@@ -1,2 +1,3 @@
-<h1>PlanDiario#asignando_tareas</h1>
-<p>Find me in app/views/plan_diario/asignando_tareas.html.erb</p>
+<%= render "shared/work_header" %>
+
+<%= render :partial => 'plan_cuenta/asignando_tareas_form', :locals => { :path => crear_asignar_tareas_diario_path } %>

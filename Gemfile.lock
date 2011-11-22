@@ -136,6 +136,7 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.0.6)
       rack (>= 1.0)
+    will_paginate (3.0.2)
     workflow (0.8.1)
 
 PLATFORMS
@@ -154,4 +155,5 @@ DEPENDENCIES
   therubyracer
   turn
   uglifier (>= 1.0.3)
+  will_paginate (~> 3.0)
   workflow
