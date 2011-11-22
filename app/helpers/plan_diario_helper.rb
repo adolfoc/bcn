@@ -1,0 +1,2 @@
+module PlanDiarioHelper
+end

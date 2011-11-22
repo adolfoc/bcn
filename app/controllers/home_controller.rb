@@ -152,4 +152,23 @@ class HomeController < ApplicationController
 
     @document = FrbrManifestation.find(params[:frbr_manifestation_id])
   end
+
+  def create_observation
+    params[:observation][:user_id] = current_user.id
+    @observation = Observation.new(params[:observation])
+
+    @ot = Ot.find(params[:observation][:ot_id])
+    @observations = Observation.where("ot_id = #{@ot.id}")
+    @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC")
+
+    respond_to do |format|
+      if @observation.save
+        format.html { render action: "show_ot" }
+        format.json { render json: @observation, status: :created, location: @observation }
+      else
+        format.html { render action: "show_ot" }
+        format.json { render json: @observation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end

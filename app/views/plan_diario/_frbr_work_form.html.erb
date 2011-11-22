@@ -1,0 +1,79 @@
+<%= form_for(@frbr_work, :url => crear_diario_path) do |f| %>
+	<% if @frbr_work.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@frbr_work.errors.count, "error") %> prohibited this frbr_work from being saved:</h2>
+			<ul>
+				<% @frbr_work.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="field">
+	    <%= f.label(:frbr_bcn_type_id, 'Tipo de documento') %><br />
+	    <%= collection_select(:frbr_work, :frbr_bcn_type_id, FrbrBcnType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :frbr_entity_id, "Origen" %><br />
+	    <%= collection_select(:frbr_work, :frbr_entity_id, FrbrEntity.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :session, "Sesión" %><br />
+		<%= f.number_field :session %>
+	</div>
+
+	<div class="field">
+		<%= f.label :legislature, "Legislatura" %><br />
+		<%= f.number_field :legislature %>
+	</div>
+
+	<div class="field">
+		<%= f.label :event_date, "Fecha del evento" %><br />
+		<%= f.date_select :event_date %>
+	</div>
+
+	<div class="field">
+		<%= f.label :publication_date, "Fecha de publicación" %><br />
+		<%= f.date_select :publication_date %>
+	</div>
+
+	<%= f.fields_for :frbr_expressions do | frbr_expression_form | %>
+		<fieldset>
+			<legend>Expresión</legend>
+			<div class="field">
+				<%= frbr_expression_form.label :frbr_document_type_id, "Tipo de documento" %><br />
+			    <%= frbr_expression_form.select(:frbr_document_type_id, options_from_collection_for_select(FrbrDocumentType.all, :id, :name)) %>
+			</div>
+
+			<div class="field">
+				<%= frbr_expression_form.label :version, "Versión" %><br />
+			    <%= frbr_expression_form.text_field :version %>
+			</div>
+
+			<div class="field">
+				<%= frbr_expression_form.label :language, "Idioma" %><br />
+			    <%= frbr_expression_form.text_field :language %>
+			</div>
+
+			<%= frbr_expression_form.fields_for :frbr_manifestations do | frbr_manifestation_form | %>
+				<fieldset>
+					<legend>Manifestación</legend>
+					<div class="field">
+						<%= frbr_manifestation_form.label :document, "Documento" %><br />
+						<%= frbr_manifestation_form.file_field :document %>
+					</div>
+
+				</fieldset>
+			<% end %>
+		</fieldset>
+	<% end %>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

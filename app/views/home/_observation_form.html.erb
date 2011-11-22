@@ -1,0 +1,9 @@
+<%= form_tag(create_observation_path) %>
+	<%= hidden_field_tag("observation[ot_id]", @ot.id) %>
+	<div class="field">
+		<%= text_area_tag "observation[contents]" %>
+	</div>
+	<div class="actions">
+		<%= submit_tag "Añadir" %>
+	</div>
+</form>

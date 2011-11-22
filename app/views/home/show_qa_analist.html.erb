@@ -1,3 +1,21 @@
-<%= render :partial => "show_ots", :locals => {:table_title => "Bandeja de entrada", :ots => @ots_incoming } %>
-<%= render :partial => "show_ots", :locals => {:table_title => "Bandeja de trabajo", :ots => @ots_work } %>
-<%= render :partial => "show_ots", :locals => {:table_title => "Bandeja de enviados", :ots => @ots_sent } %>
+<%= render :partial => "show_ots", 
+	:locals => {
+		:table_title => "Bandeja de entrada", 
+		:ots => @ots_incoming, 
+		:filter_selector_id => "ot-filter-incoming",
+		:show_button_id => "show-button-incoming", 
+	} %>
+<%= render :partial => "show_ots", 
+	:locals => {
+		:table_title => "Bandeja de trabajo", 
+		:ots => @ots_work, 
+		:filter_selector_id => "ot-filter-work",
+		:show_button_id => "show-button-work", 
+	} %>
+<%= render :partial => "show_ots", 
+	:locals => {
+		:table_title => "Bandeja de enviados", 
+		:ots => @ots_sent, 
+		:filter_selector_id => "ot-filter-sent",
+		:show_button_id => "show-button-sent", 
+	} %>

@@ -24,13 +24,23 @@ Bcn::Application.routes.draw do
   match "home/show_planner" => "home#show_planner", :as => :mostrar_planificador
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
+  match "home/create_observation" => "home#create_observation", :as => :create_observation, :method => :post
 
   match "home/filter_ots/" => "home#filter_ots", :as => :filter_ots
 
+  # Plan Marcado Cuenta workflow
   match "plan_cuenta/perform_work/:task_id/(:event)" => "plan_cuenta#perform_work", :as => :plan_cuenta_perform_work
+  match "plan_cuenta/eligiendo_documento" => "plan_cuenta#eligiendo_documento"
   match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_documento, :method => :post
   match "plan_cuenta/create_asignar_tareas" => "plan_cuenta#create_asignar_tareas", :as => :crear_asignar_tareas, :method => :post
   match "plan_cuenta/create_notificar_analista" => "plan_cuenta#create_notificar_analista", :as => :crear_notificar_analista, :method => :post
+
+  # Plan Marcado Diario workflow
+  match "plan_diario/perform_work/:task_id/(:event)"=> "plan_diario#perform_work", :as => :plan_diario_perform_work
+  match "plan_diario/eligiendo_documento" => "plan_diario#eligiendo_documento"
+  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_diario, :method => :post
+  match "plan_diario/asignando_tareas" => "plan_diario#asignando_tareas"
+  match "plan_diario/notificar_analista" => "plan_diario#notificar_analista"
 
   # Marcado Cuenta workflow
   match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
