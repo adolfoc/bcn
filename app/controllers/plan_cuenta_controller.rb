@@ -118,6 +118,12 @@ class PlanCuentaController < ApplicationController
 
     create_log_entry_for_workflow(@task.name, next_task.name)
 
+    # Make first transition
+    @task = next_task
+    @event = :asignacion
+    perform_transition if !@event.nil?
+    perform_end_of_task if !@event.nil?
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'El analista fue notificado.' }
       format.json { head :ok }

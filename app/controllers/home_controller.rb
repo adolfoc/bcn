@@ -39,7 +39,7 @@ class HomeController < ApplicationController
     @ots_incoming = Array.new
     @ots_work = Array.new
     @ots_sent = Array.new
-    Ot.all.each do |ot|
+    Ot.order("updated_at DESC").each do |ot|
       if !ot.current_task.nil?
         if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot
@@ -64,7 +64,7 @@ class HomeController < ApplicationController
     @ots_incoming = Array.new
     @ots_work = Array.new
     @ots_sent = Array.new
-    Ot.all.each do |ot|
+    Ot.order("updated_at DESC").each do |ot|
       if !ot.current_task.nil?
         if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot
@@ -89,7 +89,7 @@ class HomeController < ApplicationController
     @ots_incoming = Array.new
     @ots_work = Array.new
     @ots_sent = Array.new
-    Ot.all.each do |ot|
+    Ot.order("updated_at DESC").each do |ot|
       if !ot.current_task.nil?
         if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot
@@ -114,7 +114,7 @@ class HomeController < ApplicationController
     @ots_incoming = Array.new
     @ots_work = Array.new
     @ots_sent = Array.new
-    Ot.all.each do |ot|
+    Ot.order("updated_at DESC").each do |ot|
       if !ot.current_task.nil?
         if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot

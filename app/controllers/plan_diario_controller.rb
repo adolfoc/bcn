@@ -264,6 +264,16 @@ class PlanDiarioController < ApplicationController
 
     create_log_entry_for_workflow(@task.name, next_task.name)
 
+    @ot.tasks.each do |task|
+      if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_DS_SENATE_MARKUP
+        # Make first transition
+        @task = task
+        @event = :asignacion
+        perform_transition if !@event.nil?
+        perform_end_of_task if !@event.nil?
+      end
+    end
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Los equipos fueron notificados.' }
       format.json { head :ok }
