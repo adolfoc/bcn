@@ -2,9 +2,13 @@
 	<thead>
 		<tr>
 			<th>Tarea</th>
-			<th>Estado</th>
+			<th>Actividad</th>
 			<th>Asignada a</th>
 			<th>Actualización</th>
+			<th>Completada</th>
+			<% if current_user.role.id == 5 || current_user.role.id == 3 %>
+				<th></th>
+			<% end %>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,10 +28,20 @@
 			<% end %>
 			</td>
 			<td><%= task.updated_at %></td>
+			<td><%= task.completed_on %></td>
+			<td>
+				<% if current_user.role.id == 5 || current_user.role.id == 3 %>
+					<%= check_box_tag("#{task.id}") %>
+				<% end %>
+			</td>
 		</tr>
 	<% end %>
 	</tbody>
 </table>
+
+<% if current_user.role.id == 5 || current_user.role.id == 3 %>
+	<%= link_to("Reasignar", root_path) %>
+<% end %>
 
 <% if @ot.tasks.empty? && !@ot.source_frbr_manifestation.nil? %>
 	<%= link_to "Asignar tareas", asignar_tareas_path(@ot.id) %>

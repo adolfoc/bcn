@@ -3,7 +3,7 @@
 		<tr><th>Número de serie</th><td><%= @ot.serial_number %></td></tr>
 		<tr><th>Tipo de OT</th><td><%= @ot.name %></td></tr>
 		<tr><th>Prioridad</th><td><%= @ot.priority.name %></td></tr>
-		<tr><th>Estado</th><td><%= @ot.current_task_name + "/" + @ot.current_step %></td></tr>
+		<tr><th>Actividad</th><td><%= @ot.current_task_name + "/" + @ot.current_step %></td></tr>
 		<tr><th>Documento fuente</th><td>
 			<% if !@ot.source_frbr_manifestation.nil? %>
 				<%= @ot.source_frbr_manifestation.name %>

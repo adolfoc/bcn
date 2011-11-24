@@ -6,8 +6,8 @@
 			<th>Tarea</th>
 			<th>Prioridad</th>
 			<th>Creada por</th>
-			<th>Creada el</th>
-			<th>Completada el</th>
+			<th>Creada</th>
+			<th>Completada</th>
 			<th>Usuario asignado</th>
 			<th>Estado</th>
 			<th></th>
@@ -40,5 +40,7 @@
 </table>
 
 <br />
+
+<%= will_paginate @tasks %>
 
 <%= link_to 'New Task', new_task_path %>

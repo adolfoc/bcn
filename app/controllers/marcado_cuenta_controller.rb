@@ -99,6 +99,28 @@ class MarcadoCuentaController < ApplicationController
   end
 
   # Events and transitions
+  def call_next_workflow
+    # next task is qa
+    next_task = @ot.tasks.select { |task| true if task.task_type_id == 5 }.first
+
+    # update ot
+    ot_params = Hash.new
+    ot_params[:current_task_id] = next_task.id
+    ot_params[:current_step] = next_task.initial_task.to_s
+    @ot.update_attributes(ot_params)
+
+    # update task
+    task_params = Hash.new
+    task_params[:completed_on] = DateTime.now
+    @task.update_attributes(task_params)
+
+    # log the transition
+    create_log_entry_for_workflow(@task.name, next_task.name)
+
+    # Refresh task with new state
+    @task = Task.find(params[:task_id])
+  end
+
   def comienza_evaluar_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
@@ -131,16 +153,8 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    # Call next workflow
-    next_task = @ot.tasks.select { |task| true if task.task_type_id == 5 }.first
-    @ot.current_task_id = next_task.id
-    @ot.current_step = next_task.initial_task.to_s
-    @ot.save
-
-    create_log_entry_for_workflow(@task.name, next_task.name)
-
-    # Refresh task with new state
-    @task = Task.find(params[:task_id])
+    do_perform_transition("no_requiere_modificaciones")
+    call_next_workflow
 
     respond_to do |format|
       format.html { render action: "enviada_a_qa" }
@@ -153,6 +167,7 @@ class MarcadoCuentaController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition("termina_correcciones")
+    call_next_workflow
 
     respond_to do |format|
       format.html { render action: "enviada_a_qa" }

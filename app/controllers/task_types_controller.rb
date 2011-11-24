@@ -9,7 +9,7 @@ class TaskTypesController < ApplicationController
   # GET /task_types.json
   def index
     screen_name("Admin-Indice-Tipos-Tarea")
-    @task_types = TaskType.all
+    @task_types = TaskType.order("name ASC")
 
     respond_to do |format|
       format.html # index.html.erb

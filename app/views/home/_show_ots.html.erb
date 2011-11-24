@@ -8,10 +8,10 @@
 			<th>Número de serie</th>
 			<th>OT</th>
 			<th>Prioridad</th>
-			<th>Estado</th>
-			<th>Tarea</th>
-			<th>Creada el</th>
-			<th>Completada el</th>
+			<th>Flujo</th>
+			<th>Actividad</th>
+			<th>Creada</th>
+			<th>Completada</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,7 +26,7 @@
 			<td><%= ot.priority.name %></td>
 			<td>
 				<% if !ot.current_task.nil? %>
-					<%= ot.current_task_name + " / " + ot.current_step %>
+					<%= ot.current_task_name %>
 				<% else %>
 					Estado desconocido
 				<% end %>
