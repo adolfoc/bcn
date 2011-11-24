@@ -1,3 +1,4 @@
 <%= render "shared/work_header" %>
 
-|&nbsp;<%= link_to "Comienza a Evaluar", comienza_evaluar_event_path(@task.id) %>&nbsp;|
+|&nbsp;<%= link_to "Requiere marcaje automatico", requiere_marcaje_automatico_event_path(@task.id) %>&nbsp;|
+<%= link_to "No requiere marcaje automatico", no_requiere_marcaje_automatico_event_path(@task.id) %>&nbsp;|

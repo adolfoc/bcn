@@ -1,32 +1,53 @@
-<p>
-  <b>Name:</b>
-  <%= @task.name %>
-</p>
-
-<p>
-  <b>Priority:</b>
-  <%= @task.priority.name %>
-</p>
-
-<p>
-  <b>Created by:</b>
-  <%= @task.owner.user_name %>
-</p>
-
-<p>
-  <b>Created on:</b>
-  <%= @task.created_on %>
-</p>
-
-<p>
-  <b>Completed on:</b>
-  <%= @task.completed_on %>
-</p>
-
-<p>
-  <b>Current user:</b>
-  <%= @task.current_user.user_name %>
-</p>
+<table>
+	<tr>
+		<th>Nombre:</th>
+		<td><%= @task.name %></td>
+	</tr>
+	<tr>
+		<th>Tipo de tarea:</th>
+		<td><%= @task.task_type.name %></td>
+	</tr>
+	<tr>
+		<th>OT:</th>
+		<td><%= @task.ot.name %></td>
+	</tr>
+	<tr>
+		<th>XPATH Documento:</th>
+		<td><%= @task.xpath_section %></td>
+	</tr>
+	<tr>
+		<th>Prioridad:</th>
+		<td><%= @task.priority.name %></td>
+	</tr>
+	<tr>
+		<th>Predecesor:</th>
+		<td><%= @task.predecessor.name if !@task.predecessor.nil? %></td>
+	</tr>
+	<tr>
+		<th>Sucesor:</th>
+		<td><%= @task.successor.name if !@task.successor.nil? %></td>
+	</tr>
+	<tr>
+		<th>Creada por:</th>
+		<td><%= @task.owner.user_name %></td>
+	</tr>
+	<tr>
+		<th>Creada el:</th>
+		<td><%= @task.created_on %></td>
+	</tr>
+	<tr>
+		<th>Asignada a:</th>
+		<td><%= @task.current_user.user_name if !@task.current_user.nil? %></td>
+	</tr>
+	<tr>
+		<th>Estado:</th>
+		<td><%= @task.workflow_state %></td>
+	</tr>
+	<tr>
+		<th>Completada el:</th>
+		<td><%= @task.completed_on %></td>
+	</tr>
+</table>
 
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

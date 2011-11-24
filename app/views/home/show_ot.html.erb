@@ -1,9 +1,25 @@
 <table>
 	<tbody>
-		<tr><th>Número de serie</th><td><%= @ot.serial_number %></td></tr>
-		<tr><th>Tipo de OT</th><td><%= @ot.name %></td></tr>
-		<tr><th>Prioridad</th><td><%= @ot.priority.name %></td></tr>
-		<tr><th>Actividad</th><td><%= @ot.current_task_name + "/" + @ot.current_step %></td></tr>
+		<tr>
+			<th>Número de serie</th>
+			<td><%= @ot.serial_number %></td>
+		</tr>
+		<tr>
+			<th>Prioridad</th>
+			<td><%= @ot.priority.name %></td>
+		</tr>
+		<tr>
+			<th>Tipo de OT</th>
+			<td><%= @ot.name %></td>
+		</tr>
+		<tr>
+			<th>A pedido de:</th>
+			<td><%= @ot.by_request_of %></td>
+		</tr>
+		<tr>
+			<th>Generada por/Agrupada en:</th>
+			<td><%= @ot.parent_ot.name if !@ot.parent_ot.nil? %></td>
+		</tr>
 		<tr><th>Documento fuente</th><td>
 			<% if !@ot.source_frbr_manifestation.nil? %>
 				<%= @ot.source_frbr_manifestation.name %>
@@ -18,12 +34,30 @@
 				Aún no se ha generado
 			<% end %>
 		</td></tr>
-		<tr><th>OT madre</th><td><%= @ot.parent_ot_id %></td></tr>
-		<tr><th>Creada por</th><td><%= @ot.owner.user_name %></td></tr>
-		<tr><th>A pedido de</th><td><%= @ot.by_request_of %></td></tr>
-		<tr><th>Creada el</th><td><%= @ot.created_on %></td></tr>
-		<tr><th>Fecha de entrega</th><td><%= @ot.target_date %></td></tr>
-		<tr><th>Completada el</th><td><%= @ot.completed_on %></td></tr>
+		<tr>
+			<th>Creada por</th>
+			<td><%= @ot.owner.user_name %></td>
+		</tr>
+		<tr>
+			<th>Creada el</th>
+			<td><%= @ot.created_on %></td>
+		</tr>
+		<tr>
+			<th>Fecha de entrega</th>
+			<td><%= @ot.target_date %></td>
+		</tr>
+		<tr>
+			<th>Completada el</th>
+			<td><%= @ot.completed_on %></td>
+		</tr>
+		<tr>
+			<th>Tarea actual:</th>
+			<td><%= @ot.current_task.name %></td>
+		</tr>
+		<tr>
+			<th>Actividad actual:</th>
+			<td><%= @ot.current_step %></td>
+		</tr>
 	</tbody>
 </table>
 

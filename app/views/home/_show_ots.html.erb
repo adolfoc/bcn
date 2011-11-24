@@ -25,15 +25,19 @@
 			<td><%= link_to ot.name, mostrar_ot_path(ot.id) %></td>
 			<td><%= ot.priority.name %></td>
 			<td>
-				<% if !ot.current_task.nil? %>
+				<% if !ot.completed_on.nil? %>
+					OT completda
+				<% elsif !ot.current_task.nil? %>
 					<%= ot.current_task_name %>
 				<% else %>
 					Estado desconocido
 				<% end %>
 			</td>
 			<td>
-				<% if ot.current_task.current_user_id == current_user.id %>
+				<% if ot.current_task.current_user_id == current_user.id && ot.current_task.completed_on.nil? %>
 					<%= link_to ot.current_step, ot.current_task.controller_action(ot.current_step) %>
+				<% elsif !ot.current_task.completed_on.nil? %>
+					Actividad completada
 				<% else %>
 					<%= ot.current_task.name %>
 				<% end %>

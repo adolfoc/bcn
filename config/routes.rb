@@ -25,6 +25,8 @@ Bcn::Application.routes.draw do
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
   match "home/create_observation" => "home#create_observation", :as => :create_observation, :method => :post
+  match "home/new_ot" => "home#new_ot", :as => :home_new_ot
+  match "home/create_new_ot" => "home#create_new_ot", :as => :create_new_ot, :method => :post
   match "home/clear_database" => "home#clear_database", :as => :clear_database
 
   match "home/filter_ots/" => "home#filter_ots", :as => :filter_ots
@@ -59,7 +61,8 @@ Bcn::Application.routes.draw do
 
   # Marcado Cuenta workflow
   match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
-  match "marcado_cuenta/comienza_evaluar_event/:task_id" => "marcado_cuenta#comienza_evaluar_event", :as => :comienza_evaluar_event
+  match "marcado_cuenta/requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#requiere_marcaje_automatico_event", :as => :requiere_marcaje_automatico_event
+  match "marcado_cuenta/no_requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#no_requiere_marcaje_automatico_event", :as => :no_requiere_marcaje_automatico_event
   match "marcado_cuenta/requiere_modificaciones_event/:task_id" => "marcado_cuenta#requiere_modificaciones_event", :as => :requiere_modificaciones_event
   match "marcado_cuenta/no_requiere_modificaciones_event/:task_id" => "marcado_cuenta#no_requiere_modificaciones_event", :as => :no_requiere_modificaciones_event
   match "marcado_cuenta/termina_correcciones_event/:task_id" => "marcado_cuenta#termina_correcciones_event", :as => :termina_correcciones_event
@@ -74,6 +77,7 @@ Bcn::Application.routes.draw do
   match "qa_cuenta/rechaza_event/:task_id" => "qa_cuenta#rechaza_event", :as => :rechaza_event
   match "qa_cuenta/aprueba_tarea_event/:task_id" => "qa_cuenta#aprueba_tarea_event", :as => :aprueba_tarea_event
   match "qa_cuenta/aprueba_ot_event/:task_id" => "qa_cuenta#aprueba_ot_event", :as => :aprueba_ot_event
+  match "qa_cuenta/publica_documento_event/:task_id" => "qa_cuenta#publica_documento_event", :as => :publica_documento_event
 
   match "users/index" => "users#index", :as => :users
 

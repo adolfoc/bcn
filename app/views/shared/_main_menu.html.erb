@@ -4,8 +4,8 @@
 		<div>
 			<ul class="menu-list">
 			  <li><%= link_to(t('Bandeja de entrada'), root_path) %>
-			  <li><%= link_to(t('Nueva OT'), new_ot_path) %>
 			  <% if current_user.role.id == 5 || current_user.role.id == 3 %>
+			  	<li><%= link_to(t('Nueva OT'), home_new_ot_path) %>
 			  	<li><%= link_to(t('Carga de trabajo'), work_load_path) %>
 			  	<li><%= link_to(t('Limpiar base de datos'), clear_database_path) %>
 			  <% end %>

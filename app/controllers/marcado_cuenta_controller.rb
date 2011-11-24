@@ -5,18 +5,11 @@ class MarcadoCuentaController < ApplicationController
 
   before_filter :set_menu_section
 
+  ##########################################################
+  # Helpers
+  ##########################################################
   def set_menu_section
     @accordion_section = 0
-  end
-
-  # Actions that trigger a change of state
-  def do_perform_transition(event)
-    @event = event
-    perform_transition
-
-    # Refresh task with new state
-    @task = Task.find(@task.id)
-    @ot = Ot.find(@task.ot_id)
   end
 
   def check_for_target_document
@@ -29,6 +22,9 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  ##########################################################
+  # Controller interface: States
+  ##########################################################
 
   def perform_work
     @task = Task.find(params[:task_id])
@@ -36,6 +32,8 @@ class MarcadoCuentaController < ApplicationController
     @event = params[:event]
 
     case @task.workflow_state
+    when "por_asignar"
+      por_asignar
     when "asignada"
       asignada
     when "evaluando_resultados"
@@ -50,6 +48,15 @@ class MarcadoCuentaController < ApplicationController
   end
 
   # Actions that bring back a state
+  def por_asignar
+    screen_name("#{@task.class.to_s}/por_asignar")
+
+    respond_to do |format|
+      format.html { render action: "por_asignar" }
+      format.json { head :ok }
+    end
+  end
+
   def asignada
     screen_name("#{@task.class.to_s}/asignada")
 
@@ -71,6 +78,10 @@ class MarcadoCuentaController < ApplicationController
   def corrigiendo_manualmente
     screen_name("#{@task.class.to_s}/corrigiendo_manualmente")
 
+    # Need a document
+    check_for_target_document
+
+    # Read it so we can display it
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
 
@@ -98,34 +109,27 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  # Events and transitions
-  def call_next_workflow
-    # next task is qa
-    next_task = @ot.tasks.select { |task| true if task.task_type_id == 5 }.first
+  ##########################################################
+  # Controller interface: Events and transitions
+  ##########################################################
 
-    # update ot
-    ot_params = Hash.new
-    ot_params[:current_task_id] = next_task.id
-    ot_params[:current_step] = next_task.initial_task.to_s
-    @ot.update_attributes(ot_params)
-
-    # update task
-    task_params = Hash.new
-    task_params[:completed_on] = DateTime.now
-    @task.update_attributes(task_params)
-
-    # log the transition
-    create_log_entry_for_workflow(@task.name, next_task.name)
-
-    # Refresh task with new state
-    @task = Task.find(params[:task_id])
-  end
-
-  def comienza_evaluar_event
+  def requiere_marcaje_automatico_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition("comienza_evaluar")
+    do_perform_transition("requiere_marcaje_automatico")
+
+    respond_to do |format|
+      format.html { render action: "en_marcaje_automatico" }
+      format.json { head :ok }
+    end
+  end
+
+  def no_requiere_marcaje_automatico_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition("no_requiere_marcaje_automatico")
 
     respond_to do |format|
       format.html { render action: "evaluando_resultados" }
@@ -139,7 +143,10 @@ class MarcadoCuentaController < ApplicationController
 
     do_perform_transition("requiere_modificaciones")
 
+    # Need a document
     check_for_target_document
+
+    # Read it so we can display it
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
 
@@ -154,7 +161,14 @@ class MarcadoCuentaController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition("no_requiere_modificaciones")
-    call_next_workflow
+
+    # Wrap this task up
+    next_task = @task.successor
+    call_next_workflow(next_task)
+
+    # Make first transition
+    @task = next_task
+    do_perform_transition(:recibe_notificacion)
 
     respond_to do |format|
       format.html { render action: "enviada_a_qa" }
@@ -167,7 +181,14 @@ class MarcadoCuentaController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition("termina_correcciones")
-    call_next_workflow
+
+    # Wrap this task up
+    next_task = @task.successor
+    call_next_workflow(next_task)
+
+    # Make first transition
+    @task = next_task
+    do_perform_transition(:recibe_notificacion)
 
     respond_to do |format|
       format.html { render action: "enviada_a_qa" }
@@ -191,6 +212,7 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    # Need a document
     check_for_target_document
 
     do_perform_transition("termina_marcaje_automatico")

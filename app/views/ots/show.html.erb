@@ -1,49 +1,57 @@
-<p>
-  <b>Número de serie:</b>
-  <%= "%05d" % @ot.id %>
-</p>
-
-<p>
-  <b>Prioridad:</b>
-  <%= @ot.priority.name %>
-</p>
-
-<p>
-  <b>Tipo:</b>
-  <%= @ot.ot_type.name %>
-</p>
-
-<p>
-  <b>Documento fuente:</b>
-  <%= @ot.source_frbr_manifestation.name if !@ot.source_frbr_manifestation.nil? %>
-</p>
-
-<p>
-  <b>Documento marcado:</b>
-  <%= @ot.target_frbr_manifestation.name if !@ot.target_frbr_manifestation.nil? %>
-</p>
-
-<p>
-  <b>Creada por:</b>
-  <%= @ot.owner.user_name %>
-</p>
-
-<p>
-  <b>Creada el:</b>
-  <%= @ot.created_on %>
-</p>
-
-<p>
-  <b>Fecha de entrega:</b>
-  <%= @ot.target_date %>
-</p>
-
-
-<p>
-  <b>Completada el:</b>
-  <%= @ot.completed_on %>
-</p>
-
+<table>
+	<tr>
+		<th>Número de serie:</th>
+		<td><%= @ot.serial_number %></td>
+	</tr>
+	<tr>
+		<th>Prioridad:</th>
+		<td><%= @ot.priority.name %></td>
+	</tr>
+	<tr>
+		<th>Tipo:</th>
+		<td><%= @ot.ot_type.name %></td>
+	</tr>
+	<tr>
+		<th>A pedido de:</th>
+		<td><%= @ot.by_request_of %></td>
+	</tr>
+	<tr>
+		<th>Generada por/Agrupada en:</th>
+		<td><%= @ot.parent_ot.name if !@ot.parent_ot.nil? %></td>
+	</tr>
+	<tr>
+		<th>Documento fuente:</th>
+		<td><%= @ot.source_frbr_manifestation.name if !@ot.source_frbr_manifestation.nil? %></td>
+	</tr>
+	<tr>
+		<th>Documento marcado:</th>
+		<td><%= @ot.target_frbr_manifestation.name if !@ot.target_frbr_manifestation.nil? %></td>
+	</tr>
+	<tr>
+		<th>Creada por:</th>
+		<td><%= @ot.owner.user_name %></td>
+	</tr>
+	<tr>
+		<th>Creada el:</th>
+		<td><%= @ot.created_on %></td>
+	</tr>
+	<tr>
+		<th>Fecha de entrega:</th>
+		<td><%= @ot.target_date %></td>
+	</tr>
+	<tr>
+		<th>Completada el:</th>
+		<td><%= @ot.completed_on %></td>
+	</tr>
+	<tr>
+		<th>Tarea actual:</th>
+		<td><%= @ot.current_task.name %></td>
+	</tr>
+	<tr>
+		<th>Actividad actual:</th>
+		<td><%= @ot.current_step %></td>
+	</tr>
+</table>
 
 <%= link_to 'Edit', edit_ot_path(@ot) %> |
 <%= link_to 'Back', ots_path %>

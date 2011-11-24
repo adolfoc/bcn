@@ -43,34 +43,27 @@
 	</div>
 
 	<%= f.fields_for :frbr_expressions do | frbr_expression_form | %>
-		<fieldset>
-			<legend>Expresión</legend>
+		<div class="field invisible">
+			<%= frbr_expression_form.label :frbr_document_type_id, "Tipo de documento" %><br />
+		    <%= frbr_expression_form.select(:frbr_document_type_id, options_from_collection_for_select(FrbrDocumentType.all, :id, :name)) %>
+		</div>
+
+		<div class="field invisible">
+			<%= frbr_expression_form.label :version, "Versión" %><br />
+		    <%= frbr_expression_form.text_field :version %>
+		</div>
+
+		<div class="field invisible">
+			<%= frbr_expression_form.label :language, "Idioma" %><br />
+		    <%= frbr_expression_form.text_field :language %>
+		</div>
+
+		<%= frbr_expression_form.fields_for :frbr_manifestations do | frbr_manifestation_form | %>
 			<div class="field">
-				<%= frbr_expression_form.label :frbr_document_type_id, "Tipo de documento" %><br />
-			    <%= frbr_expression_form.select(:frbr_document_type_id, options_from_collection_for_select(FrbrDocumentType.all, :id, :name)) %>
+				<%= frbr_manifestation_form.label :document, "Documento" %><br />
+				<%= frbr_manifestation_form.file_field :document %>
 			</div>
-
-			<div class="field">
-				<%= frbr_expression_form.label :version, "Versión" %><br />
-			    <%= frbr_expression_form.text_field :version %>
-			</div>
-
-			<div class="field">
-				<%= frbr_expression_form.label :language, "Idioma" %><br />
-			    <%= frbr_expression_form.text_field :language %>
-			</div>
-
-			<%= frbr_expression_form.fields_for :frbr_manifestations do | frbr_manifestation_form | %>
-				<fieldset>
-					<legend>Manifestación</legend>
-					<div class="field">
-						<%= frbr_manifestation_form.label :document, "Documento" %><br />
-						<%= frbr_manifestation_form.file_field :document %>
-					</div>
-
-				</fieldset>
-			<% end %>
-		</fieldset>
+		<% end %>
 	<% end %>
 
 	<div class="actions">

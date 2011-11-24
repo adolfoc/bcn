@@ -22,6 +22,42 @@ class HomeController < ApplicationController
     end
   end
 
+  def generate_audit(ot)
+    params = Hash.new
+    params[:user_id] = current_user.id
+    params[:role_id] = current_user.role.id
+    params[:ot_id] = ot.id
+    params[:description] = "Creacion de nueva OT tipo #{ot.ot_type.name}"
+    log_entry = Audit.new(params)
+    log_entry.save
+  end
+
+  def new_ot
+    screen_name("Admin-Nueva-OT")
+    @ot = Ot.new
+    @ot.created_by = current_user.id
+    @ot.target_date = DateTime.now + 2
+
+    respond_to do |format|
+      format.html # new_ot.html.erb
+    end
+  end
+
+  # POST /create_new_ot
+  def create_new_ot
+    @ot = Ot.new(params[:ot])
+
+    respond_to do |format|
+      if @ot.save
+        generate_audit(@ot)
+        @ot.create_tasks(current_user)
+        format.html { redirect_to root_path, notice: 'La OT fue creada sin dificultades.' }
+      else
+        format.html { render action: "new_ot" }
+      end
+    end
+  end
+
   # Nobody logged on -- show empty screen
   def show_empty
     screen_name("Inicial")
@@ -32,10 +68,7 @@ class HomeController < ApplicationController
     end
   end
 
-  # Show analist's trays
-  def show_analist
-    screen_name("Inicial-Analista")
-
+  def distribute_ots
     @ots_incoming = Array.new
     @ots_work = Array.new
     @ots_sent = Array.new
@@ -43,13 +76,20 @@ class HomeController < ApplicationController
       if !ot.current_task.nil?
         if ot.current_task.current_user_id == current_user.id && ot.read == false
           @ots_incoming << ot
-        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
+        elsif ot.current_task.current_user_id == current_user.id && ot.read == true && ot.completed_on.nil?
           @ots_work << ot
         elsif ot.created_by == current_user.id || ot.has_been_worked_on_by(current_user.id)
           @ots_sent << ot
         end
       end
     end
+  end
+
+  # Show analist's trays
+  def show_analist
+    screen_name("Inicial-Analista")
+
+    distribute_ots
 
     respond_to do |format|
       format.html { render action: "show_analist" }
@@ -61,20 +101,7 @@ class HomeController < ApplicationController
   def show_qa_analist
     screen_name("Inicial-Analista-QA")
 
-    @ots_incoming = Array.new
-    @ots_work = Array.new
-    @ots_sent = Array.new
-    Ot.order("updated_at DESC").each do |ot|
-      if !ot.current_task.nil?
-        if ot.current_task.current_user_id == current_user.id && ot.read == false
-          @ots_incoming << ot
-        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
-          @ots_work << ot
-        elsif ot.created_by == current_user.id
-          @ots_sent << ot
-        end
-      end
-    end
+    distribute_ots
 
     respond_to do |format|
       format.html { render action: "show_qa_analist" }
@@ -86,20 +113,7 @@ class HomeController < ApplicationController
   def show_planner
     screen_name("Inicial-Planificador")
 
-    @ots_incoming = Array.new
-    @ots_work = Array.new
-    @ots_sent = Array.new
-    Ot.order("updated_at DESC").each do |ot|
-      if !ot.current_task.nil?
-        if ot.current_task.current_user_id == current_user.id && ot.read == false
-          @ots_incoming << ot
-        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
-          @ots_work << ot
-        elsif ot.created_by == current_user.id
-          @ots_sent << ot
-        end
-      end
-    end
+    distribute_ots
 
     respond_to do |format|
       format.html { render action: "show_planner" }

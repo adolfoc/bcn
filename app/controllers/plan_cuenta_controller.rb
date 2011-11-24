@@ -5,9 +5,16 @@ class PlanCuentaController < ApplicationController
 
   before_filter :set_menu_section
 
+  ##########################################################
+  # Helpers
+  ##########################################################
   def set_menu_section
     @accordion_section = 0
   end
+
+  ##########################################################
+  # Controller interface: States
+  ##########################################################
 
   def perform_work
     @task = Task.find(params[:task_id])
@@ -24,14 +31,12 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # Allow planner to choose a document to be processed
+  # Create the FRBR hierarchy
   def eligiendo_documento
     screen_name("#{@task.class.to_s}/eligiendo_documento")
 
-    @frbr_work = FrbrWork.new
-    frbr_expression = FrbrExpression.new({ :frbr_document_type_id => 3, :version => 1, :language => 'es' })
-    @frbr_work.frbr_expressions << frbr_expression
-    frbr_manifestation = FrbrManifestation.new
-    frbr_expression.frbr_manifestations << frbr_manifestation
+    @frbr_work = create_source_document_template
 
     respond_to do |format|
       format.html { render action: "eligiendo_documento" }
@@ -39,6 +44,8 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # POST /plan_cuenta_controller/create_document
+  # Called from eligiendo_documento
   def create_document
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)
@@ -47,12 +54,10 @@ class PlanCuentaController < ApplicationController
     respond_to do |format|
       if @frbr_work.save
         # Associate ot to new manifestation
-        @ot.source_frbr_manifestation_id = @frbr_work.frbr_expressions[0].frbr_manifestations[0].id
-        @ot.save
-        # Bump task to next step
-        @event = :documentos_elegidos
-        perform_transition if !@event.nil?
-        perform_end_of_task if !@event.nil?
+        @ot.assign_source(@frbr_work.frbr_expressions[0].frbr_manifestations[0])
+
+        # Move on
+        do_perform_transition(:documentos_elegidos)
 
         format.html { redirect_to root_path, notice: 'El documento Frbr fue creado sin problemas.' }
       else
@@ -86,10 +91,7 @@ class PlanCuentaController < ApplicationController
       end
     end
 
-    # Bump task to next step
-    @event = :tareas_asignadas
-    perform_transition if !@event.nil?
-    perform_end_of_task if !@event.nil?
+    do_perform_transition(:tareas_asignadas)
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Las tareas fueron asignadas sin dificultades.' }
@@ -97,6 +99,7 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # This is the final state for this workflow.
   def notificar_analista
     screen_name("#{@task.class.to_s}/notificar_analista")
 
@@ -111,18 +114,12 @@ class PlanCuentaController < ApplicationController
     @task = Task.find(@ot.current_task_id)
 
     # Call next workflow
-    next_task = @ot.tasks.select { |task| true if task.task_type_id == 1 }.first
-    @ot.current_task_id = next_task.id
-    @ot.current_step = next_task.initial_task.to_s
-    @ot.save
-
-    create_log_entry_for_workflow(@task.name, next_task.name)
+    next_task = @task.successor
+    call_next_workflow(next_task)
 
     # Make first transition
     @task = next_task
-    @event = :asignacion
-    perform_transition if !@event.nil?
-    perform_end_of_task if !@event.nil?
+    do_perform_transition(:asignacion)
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'El analista fue notificado.' }

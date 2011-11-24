@@ -5,9 +5,16 @@ class QaCuentaController < ApplicationController
 
   before_filter :set_menu_section
 
+  ##########################################################
+  # Helpers
+  ##########################################################
   def set_menu_section
     @accordion_section = 0
   end
+
+  ##########################################################
+  # Controller interface: States
+  ##########################################################
 
   def perform_work
     @task = Task.find(params[:task_id])
@@ -86,20 +93,11 @@ class QaCuentaController < ApplicationController
   end
 
   # Actions that trigger a change of state
-  def do_perform_transition(event)
-    @event = event
-    perform_transition
-
-    # Refresh task with new state
-    @task = Task.find(@task.id)
-    @ot = Ot.find(@task.ot_id)
-  end
-
   def recibe_notificacion_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition("recibe_notificacion")
+    do_perform_transition(:recibe_notificacion)
 
     respond_to do |format|
       format.html { render action: "por_validar_qa" }
@@ -111,7 +109,7 @@ class QaCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition("comienza_validar")
+    do_perform_transition(:comienza_validar)
 
     respond_to do |format|
       format.html { render action: "evalua_qa" }
@@ -124,15 +122,8 @@ class QaCuentaController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     # Call next workflow
-    next_task = @ot.tasks.select { |task| true if task.task_type_id == 1 }.first
-    @ot.current_task_id = next_task.id
-    @ot.current_step = next_task.initial_task.to_s
-    @ot.save
-
-    create_log_entry_for_workflow(@task.name, next_task.name)
-
-    # Refresh task with new state
-    @task = Task.find(params[:task_id])
+    next_task = @task.predecessor
+    call_next_workflow(next_task)
 
     respond_to do |format|
       format.html { render action: "devuelve_a_analista" }
@@ -144,7 +135,7 @@ class QaCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition("aprueba_tarea")
+    do_perform_transition(:aprueba_tarea)
 
     respond_to do |format|
       format.html { render action: "devuelve_a_planificador" }
@@ -156,11 +147,24 @@ class QaCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition("aprueba_ot")
-    @ot.mark_complete
+    do_perform_transition(:aprueba_ot)
 
     respond_to do |format|
       format.html { render action: "guarda_documento" }
+      format.json { head :ok }
+    end
+  end
+
+  def publica_documento_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:publica_documento)
+    @task.mark_complete
+    @ot.mark_complete
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
       format.json { head :ok }
     end
   end

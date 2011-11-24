@@ -15,7 +15,7 @@
 				<td><%= audit.user.user_name %></td>
 				<td><%= audit.role.name %></td>
 				<td><%= audit.ot.name %></td>
-				<td><%= audit.task.name %></td>
+				<td><%= audit.task.name if !audit.task.nil? %></td>
 				<td><%= audit.description %></td>
 				<td><%= audit.created_at %></td>
 			</tr>
