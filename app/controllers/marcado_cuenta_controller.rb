@@ -218,11 +218,11 @@ class MarcadoCuentaController < ApplicationController
   def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
-    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     # Need a document
     check_for_target_document
     mock_up_am_results
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     do_perform_transition("termina_marcaje_automatico")
 
