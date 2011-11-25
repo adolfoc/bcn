@@ -59,6 +59,12 @@ class QaCuentaController < ApplicationController
   def evalua_qa
     screen_name("#{@task.class.to_s}/evalua_qa")
 
+    # Read it so we can display it
+    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
+    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
     respond_to do |format|
       format.html { render action: "evalua_qa" }
       format.json { head :ok }
