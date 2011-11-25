@@ -10,7 +10,8 @@ class Ot < ActiveRecord::Base
   has_many :ot_results
 
   def name
-    ot_type.name + " (#{source_frbr_manifestation.name})"
+    return ot_type.name + " (#{source_frbr_manifestation.name})" if !source_frbr_manifestation.nil?
+    ot_type.name
   end
 
   def parent_ot
