@@ -1,0 +1,26 @@
+<h1>Tipos de observaciones del marcado automático</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @am_run_observation_types.each do |am_run_observation_type| %>
+		<tr>
+			<td><%= am_run_observation_type.name %></td>
+			<td><%= link_to 'Show', am_run_observation_type %></td>
+			<td><%= link_to 'Edit', edit_am_run_observation_type_path(am_run_observation_type) %></td>
+			<td><%= link_to 'Destroy', am_run_observation_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Am run observation type', new_am_run_observation_type_path %>

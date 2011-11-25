@@ -6,6 +6,6 @@ class FrbrExpression < ActiveRecord::Base
   accepts_nested_attributes_for :frbr_manifestations, :allow_destroy => true
 
   def name
-    frbr_work.name + " (#{frbr_document_type.name})"
+    frbr_work.name
   end
 end

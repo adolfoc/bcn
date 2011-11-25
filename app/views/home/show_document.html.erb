@@ -1,30 +1,77 @@
 <h2>Obra</h2>
 <table>
 	<tbody>
-		<tr><th>Tipo</th><td><%= @document.frbr_expression.frbr_work.frbr_bcn_type.name %></td></tr>
-		<tr><th>Origen</th><td><%= @document.frbr_expression.frbr_work.frbr_entity.name %></td></tr>
-		<tr><th>Legislatura</th><td><%= @document.frbr_expression.frbr_work.legislature.to_s %></td></tr>
-		<tr><th>Sesión</th><td><%= @document.frbr_expression.frbr_work.session.to_s %></td></tr>
-		<tr><th>Fecha del evento</th><td><%= @document.frbr_expression.frbr_work.event_date %></td></tr>
-		<tr><th>Fecha de publicación</th><td><%= @document.frbr_expression.frbr_work.publication_date %></td></tr>
+		<tr>
+			<th>Tipo</th>
+			<td><%= @document.frbr_expression.frbr_work.frbr_bcn_type.name %></td>
+		</tr>
+		<tr>
+			<th>Organismo de origen</th>
+			<td><%= @document.frbr_expression.frbr_work.frbr_entity.name %></td>
+		</tr>
+		<tr>
+			<th>Medio de entrega</th>
+			<td><%= @document.delivery_method.name if !@document.delivery_method.nil? %></td>
+		</tr>
+		<tr>
+			<th>Intermediador</th>
+			<td><%= @document.intermediary.name if !@document.intermediary.nil? %></td>
+		</tr>
+		<tr>
+			<th>Legislatura</th>
+			<td><%= @document.frbr_expression.frbr_work.legislature.to_s %></td>
+		</tr>
+		<tr>
+			<th>Sesión</th>
+			<td><%= @document.frbr_expression.frbr_work.session.to_s %></td>
+		</tr>
+		<tr>
+			<th>Fecha del evento</th>
+			<td><%= @document.frbr_expression.frbr_work.event_date %></td>
+		</tr>
+		<tr>
+			<th>Fecha de publicación</th>
+			<td><%= @document.frbr_expression.frbr_work.publication_date %></td>
+		</tr>
 	</tbody>
 </table>
 
 <h2>Expresión</h2>
 <table>
 	<tbody>
-		<tr><th>Tipo</th><td><%= @document.frbr_expression.frbr_document_type.name %></td></tr>
-		<tr><th>Versión</th><td><%= @document.frbr_expression.version %></td></tr>
-		<tr><th>Idioma</th><td><%= @document.frbr_expression.language %></td></tr>
+		<tr>
+			<th>Tipo</th>
+			<td><%= @document.frbr_expression.frbr_document_type.name %></td>
+		</tr>
+		<tr>
+			<th>Versión</th>
+			<td><%= @document.frbr_expression.version %></td>
+		</tr>
+		<tr>
+			<th>Idioma</th>
+			<td><%= @document.frbr_expression.language %></td>
+		</tr>
 	</tbody>
 </table>
 
 <h2>Manifestación</h2>
 <table>
 	<tbody>
-		<tr><th>Fichero</th><td><%= @document.document_file_name %></td></tr>
-		<tr><th>Tipo</th><td><%= @document.document_content_type %></td></tr>
-		<tr><th>Tamaño</th><td><%= @document.document_file_size %></td></tr>
-		<tr><th>Actualizado</th><td><%= @document.document_updated_at %></td></tr>
+		<tr>
+			<th>Fichero</th>
+			<td><%= @document.document_file_name %></td>
+		</tr>
+		<tr>
+			<th>Tipo</th>
+			<td><%= @document.document_content_type %></td>
+		</tr>
+		<tr>
+			<th>Tamaño</th>
+			<td><%= @document.document_file_size %></td>
+		</tr>
+		<tr>
+			<th>Actualizado</th>
+			<td><%= @document.document_updated_at %></td>
+		</tr>
 	</tbody>
 </table>

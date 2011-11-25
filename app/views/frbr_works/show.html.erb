@@ -1,35 +1,39 @@
 <h1>Obra FRBR</h1>
 
-<p>
-  <b>Tipo de documento:</b>
-  <%= @frbr_work.frbr_bcn_type.name %>
-</p>
-
-<p>
-  <b>Origen:</b>
-  <%= @frbr_work.frbr_entity.name %>
-</p>
-
-<p>
-  <b>Sesión:</b>
-  <%= @frbr_work.session %>
-</p>
-
-<p>
-  <b>Legislatura:</b>
-  <%= @frbr_work.legislature %>
-</p>
-
-<p>
-  <b>Fecha del evento:</b>
-  <%= @frbr_work.event_date %>
-</p>
-
-<p>
-  <b>Fecha de publicación:</b>
-  <%= @frbr_work.publication_date %>
-</p>
-
+<table>
+	<tr>
+		<th>Tipo de documento:</th>
+		<td><%= @frbr_work.frbr_bcn_type.name %></td>
+	</tr>
+	<tr>
+		<th>Organismo de origen:</th>
+		<td><%= @frbr_work.frbr_entity.name %></td>
+	</tr>
+	<tr>
+		<th>Medio de entrega:</th>
+		<td><%= @frbr_work.delivery_method.name if !@frbr_work.delivery_method.nil? %></td>
+	</tr>
+	<tr>
+		<th>Intermediador:</th>
+		<td><%= @frbr_work.intermediary.name if !@frbr_work.intermediary.nil? %></td>
+	</tr>
+	<tr>
+		<th>Sesión:</th>
+		<td><%= @frbr_work.session %></td>
+	</tr>
+	<tr>
+		<th>Legislatura:</th>
+		<td><%= @frbr_work.legislature %></td>
+	</tr>
+	<tr>
+		<th>Fecha del evento:</th>
+		<td><%= @frbr_work.event_date %></td>
+	</tr>
+	<tr>
+		<th>Fecha de publicación:</th>
+		<td><%= @frbr_work.publication_date %></td>
+	</tr>
+</table>
 
 <%= link_to 'Edit', edit_frbr_work_path(@frbr_work) %> |
 <%= link_to 'Back', frbr_works_path %>

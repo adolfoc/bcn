@@ -1,0 +1,2 @@
+module AmResultsHelper
+end

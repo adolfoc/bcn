@@ -1,0 +1,26 @@
+<h1>Intermediarios</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @intermediaries.each do |intermediary| %>
+		<tr>
+			<td><%= intermediary.name %></td>
+			<td><%= link_to 'Show', intermediary %></td>
+			<td><%= link_to 'Edit', edit_intermediary_path(intermediary) %></td>
+			<td><%= link_to 'Destroy', intermediary, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Intermediary', new_intermediary_path %>

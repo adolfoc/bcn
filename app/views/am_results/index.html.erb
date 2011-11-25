@@ -1,0 +1,28 @@
+<h1>Resultados marcado automático</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Fecha de ejecución</th>
+			<th>OT</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @am_results.each do |am_result| %>
+		<tr>
+			<td><%= am_result.run_date %></td>
+			<td><%= am_result.ot_id %></td>
+			<td><%= link_to 'Show', am_result %></td>
+			<td><%= link_to 'Edit', edit_am_result_path(am_result) %></td>
+			<td><%= link_to 'Destroy', am_result, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Am result', new_am_result_path %>

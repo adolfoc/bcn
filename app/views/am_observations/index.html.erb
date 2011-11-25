@@ -1,0 +1,32 @@
+<h1>Observaciones del marcado automático</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Ejecución MA</th>
+			<th>Tipo de observación</th>
+			<th>Línea</th>
+			<th>Contenido</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @am_observations.each do |am_observation| %>
+		<tr>
+			<td><%= am_observation.am_results_id %></td>
+			<td><%= am_observation.am_run_observation_type_id %></td>
+			<td><%= am_observation.line %></td>
+			<td><%= am_observation.contents %></td>
+			<td><%= link_to 'Show', am_observation %></td>
+			<td><%= link_to 'Edit', edit_am_observation_path(am_observation) %></td>
+			<td><%= link_to 'Destroy', am_observation, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Am observation', new_am_observation_path %>

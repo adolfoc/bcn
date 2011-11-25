@@ -1,4 +1,9 @@
 Bcn::Application.routes.draw do
+  resources :am_observations
+  resources :am_run_observation_types
+  resources :am_results
+  resources :intermediaries
+  resources :delivery_methods
   resources :observations
   resources :ot_states
   resources :audits

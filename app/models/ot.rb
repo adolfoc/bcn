@@ -7,9 +7,10 @@ class Ot < ActiveRecord::Base
   belongs_to :ot_state
   has_many :tasks
   has_many :audits
+  has_many :ot_results
 
   def name
-    ot_type.name
+    ot_type.name + " (#{source_frbr_manifestation.name})"
   end
 
   def parent_ot

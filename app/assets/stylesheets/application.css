@@ -75,6 +75,7 @@
 }
 table, th, td {
 	border: 1px solid #CCC;
+	font-size: 0.9em;
 }
 
 .actions {

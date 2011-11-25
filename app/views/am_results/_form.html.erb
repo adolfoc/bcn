@@ -1,0 +1,26 @@
+<%= form_for(@am_result) do |f| %>
+	<% if @am_result.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@am_result.errors.count, "error") %> prohibited this am_result from being saved:</h2>
+			<ul>
+				<% @am_result.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :run_date %><br />
+		<%= f.datetime_select :run_date %>
+	</div>
+
+	<div class="field">
+		<%= f.label :ot_id, "OT" %><br />
+	    <%= collection_select(:am_result, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

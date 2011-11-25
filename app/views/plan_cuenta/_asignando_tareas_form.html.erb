@@ -2,14 +2,22 @@
 	<%= hidden_field_tag(:ot_id, @ot.id) %>
 
 	<table>
-	<% @tasks.each do |task| %>
-	<tr>
-		<td><%= task.name %></td>
-		<td>
-			<%= select_tag "tarea[#{task.id.to_s}]", options_from_collection_for_select(User.where("role_id = #{task.task_type.role_id}"), :id, :user_name) %>
-		</td>
-	</tr>
-	<% end %>
+		<thead>
+			<tr>
+				<th>Tarea</th>
+				<th>Usuario</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @tasks.each do |task| %>
+			<tr>
+				<td><%= task.name %></td>
+				<td>
+					<%= select_tag "tarea[#{task.id.to_s}]", options_from_collection_for_select(User.where("role_id = #{task.task_type.role_id}"), :id, :user_name) %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
 	</table>
 
 	<div class="actions">

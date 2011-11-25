@@ -24,6 +24,8 @@
 			<div>
 				<ul class="menu-list">
 				  <li><%= link_to(t('Entidades FRBR'), frbr_entities_path) %>
+				  <li><%= link_to(t('Medios de entrega'), delivery_methods_path) %>
+				  <li><%= link_to(t('Intermediarios'), intermediaries_path) %>
 				  <li><%= link_to(t('Tipos FRBR BCN'), frbr_bcn_types_path) %>
 				  <li><%= link_to(t('Tipos de Documento FRBR'), frbr_document_types_path) %>
 				  <li><%= link_to(t('Manifestaciones FRBR'), frbr_manifestations_path) %>
@@ -41,6 +43,14 @@
 				  <li><%= link_to(t('Tipos de OT'), ot_types_path) %>
 				  <li><%= link_to(t('Observaciones'), observations_path) %>
 				  <li><%= link_to(t('OTs'), ots_path) %>
+				</ul>
+			</div>
+			<h3><a href="#"><%=t 'Marcado Automático' %></a></h3>
+			<div>
+				<ul class="menu-list">
+				  <li><%= link_to(t('Tipos de observaciones'), am_run_observation_types_path) %>
+				  <li><%= link_to(t('Resultados'), am_results_path) %>
+				  <li><%= link_to(t('Observaciones'), am_observations_path) %>
 				</ul>
 			</div>
 		<% end %>

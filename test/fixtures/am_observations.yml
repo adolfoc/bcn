@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  am_results_id: 1
+  am_run_observation_type_id: 1
+  line: 1
+  contents: MyString
+
+two:
+  am_results_id: 1
+  am_run_observation_type_id: 1
+  line: 1
+  contents: MyString

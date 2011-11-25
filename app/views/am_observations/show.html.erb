@@ -1,0 +1,23 @@
+<p>
+  <b>Am results:</b>
+  <%= @am_observation.am_results_id %>
+</p>
+
+<p>
+  <b>Am run observation type:</b>
+  <%= @am_observation.am_run_observation_type_id %>
+</p>
+
+<p>
+  <b>Line:</b>
+  <%= @am_observation.line %>
+</p>
+
+<p>
+  <b>Contents:</b>
+  <%= @am_observation.contents %>
+</p>
+
+
+<%= link_to 'Edit', edit_am_observation_path(@am_observation) %> |
+<%= link_to 'Back', am_observations_path %>

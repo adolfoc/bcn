@@ -1,0 +1,21 @@
+<%= form_for(@am_run_observation_type) do |f| %>
+  <% if @am_run_observation_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@am_run_observation_type.errors.count, "error") %> prohibited this am_run_observation_type from being saved:</h2>
+
+      <ul>
+      <% @am_run_observation_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

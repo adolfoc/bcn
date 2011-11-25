@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124135827) do
+ActiveRecord::Schema.define(:version => 20111124232714) do
+
+  create_table "am_observations", :force => true do |t|
+    t.integer  "am_results_id"
+    t.integer  "am_run_observation_type_id"
+    t.integer  "line"
+    t.string   "contents"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "am_results", :force => true do |t|
+    t.datetime "run_date"
+    t.integer  "ot_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "am_run_observation_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "audits", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +43,12 @@ ActiveRecord::Schema.define(:version => 20111124135827) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ot_id"
+  end
+
+  create_table "delivery_methods", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "frbr_bcn_types", :force => true do |t|
@@ -69,6 +97,14 @@ ActiveRecord::Schema.define(:version => 20111124135827) do
     t.datetime "updated_at"
     t.date     "event_date"
     t.integer  "legislature"
+    t.integer  "delivery_method_id"
+    t.integer  "intermediary_id"
+  end
+
+  create_table "intermediaries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "observations", :force => true do |t|

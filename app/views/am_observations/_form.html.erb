@@ -1,0 +1,36 @@
+<%= form_for(@am_observation) do |f| %>
+	<% if @am_observation.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@am_observation.errors.count, "error") %> prohibited this am_observation from being saved:</h2>
+			<ul>
+				<% @am_observation.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :am_results_id, "Resultados" %><br />
+	    <%= collection_select(:am_observation, :am_results_id, AmResult.all, :id, :name, { :include_blank => true }) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :am_run_observation_type_id, "Tipo de observación" %><br />
+	    <%= collection_select(:am_observation, :am_run_observation_type_id, AmRunObservationType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :line, "Línea" %><br />
+		<%= f.number_field :line %>
+	</div>
+
+	<div class="field">
+		<%= f.label :contents, "Contenido" %><br />
+		<%= f.text_field :contents %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

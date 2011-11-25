@@ -1,0 +1,26 @@
+<h1>Medios de entrega</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @delivery_methods.each do |delivery_method| %>
+		<tr>
+			<td><%= delivery_method.name %></td>
+			<td><%= link_to 'Show', delivery_method %></td>
+			<td><%= link_to 'Edit', edit_delivery_method_path(delivery_method) %></td>
+			<td><%= link_to 'Destroy', delivery_method, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Delivery method', new_delivery_method_path %>
