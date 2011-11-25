@@ -65,6 +65,7 @@
 	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-tasks">Tareas</a></li>
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-documents">Documentos</a></li>
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-automatic_markup">Marcado Automático</a></li>
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-observations">Observaciones</a></li>
 		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Traza</a></li>
 	</ul>
@@ -73,6 +74,9 @@
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-documents">
 		<%= render "show_documents", :locals => {:ot => @ot } %>
+	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-automatic_markup">
+		<%= render "show_am_results", :locals => {:am_results => @am_results } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-observations">
 		<%= render "show_observations", :locals => {:observations => @observations } %>

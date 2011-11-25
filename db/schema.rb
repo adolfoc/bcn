@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124232714) do
+ActiveRecord::Schema.define(:version => 20111125144032) do
 
   create_table "am_observations", :force => true do |t|
-    t.integer  "am_results_id"
     t.integer  "am_run_observation_type_id"
     t.integer  "line"
     t.string   "contents"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "am_result_id"
   end
 
   create_table "am_results", :force => true do |t|

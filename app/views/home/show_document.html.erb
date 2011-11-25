@@ -11,11 +11,11 @@
 		</tr>
 		<tr>
 			<th>Medio de entrega</th>
-			<td><%= @document.delivery_method.name if !@document.delivery_method.nil? %></td>
+			<td><%= @document.frbr_expression.frbr_work.delivery_method.name if !@document.frbr_expression.frbr_work.delivery_method.nil? %></td>
 		</tr>
 		<tr>
 			<th>Intermediador</th>
-			<td><%= @document.intermediary.name if !@document.intermediary.nil? %></td>
+			<td><%= @document.intermediary.name if !@document.frbr_expression.frbr_work.intermediary.nil? %></td>
 		</tr>
 		<tr>
 			<th>Legislatura</th>

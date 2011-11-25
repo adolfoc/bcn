@@ -121,9 +121,15 @@ class QaCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    do_perform_transition(:rechaza)
+
     # Call next workflow
     next_task = @task.predecessor
     call_next_workflow(next_task)
+  
+    # Make first transition
+    @task = next_task
+    do_perform_transition(:asignacion)
 
     respond_to do |format|
       format.html { render action: "devuelve_a_analista" }

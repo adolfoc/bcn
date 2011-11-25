@@ -69,6 +69,8 @@ class MarcadoCuentaController < ApplicationController
   def evaluando_resultados
     screen_name("#{@task.class.to_s}/evaluando_resultados")
 
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
     respond_to do |format|
       format.html { render action: "evaluando_resultados" }
       format.json { head :ok }
@@ -84,6 +86,8 @@ class MarcadoCuentaController < ApplicationController
     # Read it so we can display it
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     respond_to do |format|
       format.html { render action: "corrigiendo_manualmente" }
@@ -150,6 +154,8 @@ class MarcadoCuentaController < ApplicationController
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
 
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
     respond_to do |format|
       format.html { render action: "corrigiendo_manualmente" }
       format.json { head :ok }
@@ -208,12 +214,15 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # Automatic markup returns here after running
   def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     # Need a document
     check_for_target_document
+    mock_up_am_results
 
     do_perform_transition("termina_marcaje_automatico")
 

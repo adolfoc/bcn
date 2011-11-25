@@ -1,4 +1,15 @@
 <table>
+	<tr>
+		<th>Fecha de ejecución:</th>
+		<td><%= @am_result.run_date %></td>
+	</tr>
+	<tr>
+		<th>OT:</th>
+		<td><%= @am_result.ot.name %></td>
+	</tr>
+</table>
+
+<table>
 	<thead>
 		<tr>
 			<th>Tipo</th>
@@ -7,16 +18,13 @@
 		</tr>
 	</thead>
 	<tbody>
+		<% @am_result.am_observations.each do |am_obs| %>
 		<tr>
-			<td>Advertencia</td>
-			<td>23</td>
-			<td>La entidad no está confirmada</td>
+			<td><%= am_obs.am_run_observation_type.name %></td>
+			<td><%= am_obs.line.to_s %></td>
+			<td><%= am_obs.contents %></td>
 		</tr>
-		<tr>
-			<td>Error</td>
-			<td>54</td>
-			<td>El marcador no pudo reconocer la entidad</td>
-		</tr>
+		<% end %>
 	</tbody>
 </table>
 

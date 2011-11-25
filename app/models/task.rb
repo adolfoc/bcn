@@ -18,6 +18,7 @@ class Task < ActiveRecord::Base
   end
 
   def is_active?
+    return false if !completed_on.nil?
     return false if workflow_state.to_sym == initial_task
     return false if final_task?(workflow_state.to_sym)
     true

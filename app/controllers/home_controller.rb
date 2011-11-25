@@ -153,6 +153,7 @@ class HomeController < ApplicationController
     @ot = Ot.find(params[:ot_id])
     @ot.mark_read
 
+    @am_results = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC")
     @observations = Observation.where("ot_id = #{@ot.id}")
     @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
 

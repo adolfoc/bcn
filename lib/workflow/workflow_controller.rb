@@ -40,6 +40,51 @@ module WorkflowController
     File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
   end
 
+  def create_random_am_warning(am_result_id)
+    obs_params = Hash.new
+    obs_params[:am_result_id] = am_result_id
+    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_ADVERTENCIA
+    obs_params[:line] = (Random.new.rand * 1000).to_i
+    obs_params[:contents] = "Este es una advertencia del marcaje automatico"
+    obs = AmObservation.new(obs_params)
+    obs.save
+    obs
+  end
+
+  def create_random_am_observation(am_result_id)
+    obs_params = Hash.new
+    obs_params[:am_result_id] = am_result_id
+    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_OBSERVACION
+    obs_params[:line] = (Random.new.rand * 1000).to_i
+    obs_params[:contents] = "Este es una observacion del marcaje automatico"
+    obs = AmObservation.new(obs_params)
+    obs.save
+    obs
+  end
+
+  def create_random_am_error(am_result_id)
+    obs_params = Hash.new
+    obs_params[:am_result_id] = am_result_id
+    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_ERROR
+    obs_params[:line] = (Random.new.rand * 1000).to_i
+    obs_params[:contents] = "Este es un error del marcaje automatico"
+    obs = AmObservation.new(obs_params)
+    obs.save
+    obs
+  end
+
+  def mock_up_am_results
+    params = Hash.new
+    params[:run_date] = DateTime.now
+    params[:ot_id] = @ot.id
+    am_result = AmResult.new(params)
+    am_result.save
+
+    create_random_am_warning(am_result.id)
+    create_random_am_observation(am_result.id)
+    create_random_am_error(am_result.id)
+  end
+
   # Perform a state transition
   def do_perform_transition(event)
     @event = event

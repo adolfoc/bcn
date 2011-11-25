@@ -5,13 +5,20 @@
 		<legend>Estructural</legend>
 		<%= check_box_tag("realizar_estructural", 'yes', true) %>Realizar
 		<fieldset>
-			<legend>Profundiad</legend>
+			<legend>Extensión</legend>
 			<%= radio_button_tag 'structural_extension', 'whole_document', true %>Documento entero<br />
 			<%= radio_button_tag 'structural_extension', 'part_document' %>Limitar
 			<fieldset>
 				<%= check_box_tag('first_level', 'yes', false)%>Primer nivel<br />
 				<%= check_box_tag('second_level', 'yes', false)%>Segundo nivel<br />
 				<%= check_box_tag('third_level', 'yes', false)%>Tercer nivel<br />
+			</fieldset>
+			<legend>Profundidad</legend>
+			<%= radio_button_tag 'structural_depth', 'whole_document', true %>Todas las secciones<br />
+			<%= radio_button_tag 'structural_depth', 'part_document' %>Limitar
+			<fieldset>
+				<%= label_tag "Marca:" %>&nbsp;
+				<%= text_field_tag('tag',) %>
 			</fieldset>
 		</fieldset>
 	</fieldset>
@@ -29,13 +36,13 @@
 				<%= check_box_tag('documents', 'yes', false)%>Documentos<br />
 				<%= check_box_tag('places', 'yes', false)%>Lugares<br />
 			</fieldset>
-			<legend>Profundidad</legend>
-			<%= radio_button_tag 'semantic_depth', 'whole_document', true %>Todas las secciones<br />
-			<%= radio_button_tag 'semantic_depth', 'part_document' %>Limitar
-			<fieldset>
-				<%= label_tag "Marca:" %>&nbsp;
-				<%= text_field_tag('tag',) %>
-			</fieldset>
+		</fieldset>
+		<legend>Profundidad</legend>
+		<%= radio_button_tag 'semantic_depth', 'whole_document', true %>Todas las secciones<br />
+		<%= radio_button_tag 'semantic_depth', 'part_document' %>Limitar
+		<fieldset>
+			<%= label_tag "Marca:" %>&nbsp;
+			<%= text_field_tag('tag',) %>
 		</fieldset>
 	</fieldset>
 
