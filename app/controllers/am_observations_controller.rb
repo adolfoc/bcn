@@ -1,4 +1,10 @@
 class AmObservationsController < ApplicationController
+  before_filter :set_menu_section
+
+  def set_menu_section
+    @accordion_section = 4
+  end
+
   # GET /am_observations
   # GET /am_observations.json
   def index

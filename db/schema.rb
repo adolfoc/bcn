@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111125144032) do
+ActiveRecord::Schema.define(:version => 20111129161556) do
+
+  create_table "am_configurations", :force => true do |t|
+    t.boolean  "structural_markup_enabled"
+    t.boolean  "structural_markup_extension_whole_document"
+    t.boolean  "structural_markup_extension_first_level"
+    t.boolean  "structural_markup_extension_second_level"
+    t.boolean  "structural_markup_extension_third_level"
+    t.boolean  "structural_markup_depth_all"
+    t.string   "structural_markup_depth_mark"
+    t.boolean  "semantic_markup_enabled"
+    t.boolean  "semantic_markup_extension_whole_document"
+    t.boolean  "semantic_markup_extension_persons"
+    t.boolean  "semantic_markup_extension_organizations"
+    t.boolean  "semantic_markup_extension_documents"
+    t.boolean  "semantic_markup_extension_places"
+    t.boolean  "semantic_markup_depth_all"
+    t.string   "semantic_markup_depth_mark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "am_result_id"
+  end
 
   create_table "am_observations", :force => true do |t|
     t.integer  "am_run_observation_type_id"

@@ -1,4 +1,5 @@
 Bcn::Application.routes.draw do
+  resources :am_configurations
   resources :am_observations
   resources :am_run_observation_types
   resources :am_results
@@ -29,6 +30,7 @@ Bcn::Application.routes.draw do
   match "home/show_planner" => "home#show_planner", :as => :mostrar_planificador
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
+  match "home/show_am_result/:am_result_id" => "home#show_am_result", :as => :mostrar_resultado_ma
   match "home/create_observation" => "home#create_observation", :as => :create_observation, :method => :post
   match "home/new_ot" => "home#new_ot", :as => :home_new_ot
   match "home/create_new_ot" => "home#create_new_ot", :as => :create_new_ot, :method => :post

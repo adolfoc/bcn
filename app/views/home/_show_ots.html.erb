@@ -7,11 +7,23 @@
 		<tr>
 			<th>Número de serie</th>
 			<th>OT</th>
+			<th>Estado</th>
+			<th>OT G/OT A</th>
+			<th>Legislatura</th>
+			<th>Cámara</th>
+			<th>Sesión</th>
 			<th>Prioridad</th>
 			<th>Flujo</th>
 			<th>Actividad</th>
+			<th>Participantes</th>
+			<th>Observaciones</th>
 			<th>Creada</th>
+			<th>Actualización</th>
+			<th>Entrega</th>
 			<th>Completada</th>
+			<% if current_user.role.id == 1 || current_user.role.id == 3 %>
+				<th></th>
+			<% end %>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,8 +33,13 @@
 		<% else %>
 			<tr>
 		<% end %>
-			<td><%= ot.serial_number %></td>
-			<td><%= link_to ot.name, mostrar_ot_path(ot.id) %></td>
+			<td><%= link_to ot.serial_number, mostrar_ot_path(ot.id) %></td>
+			<td><%= ot.ot_type.name %></td>
+			<td><%= ot.state %>
+			<td><%= ot.parent_ot.serial_number if !ot.parent_ot.nil? %></td>
+			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !ot.source_frbr_manifestation.nil? %>
+			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !ot.source_frbr_manifestation.nil? %>
+			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.session.to_s if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.priority.name %></td>
 			<td>
 				<% if !ot.completed_on.nil? %>
@@ -42,8 +59,17 @@
 					<%= ot.current_task.name %>
 				<% end %>
 			</td>
+			<td><%= ot.team_members_as_string %></ot>
+			<td><%= ot.observations.last.contents if !ot.observations.nil? %>
 			<td><%= ot.created_on %></td>
+			<td><%= ot.updated_at %></td>
+			<td><%= ot.target_date %></td>
 			<td><%= ot.completed_on %></td>
+				<% if current_user.role.id == 1 || current_user.role.id == 3 %>
+				<td>
+					<%= check_box_tag("#{ot.id}") %>
+				</td>
+				<% end %>
 		</tr>
 	<% end %>
 	</tbody>

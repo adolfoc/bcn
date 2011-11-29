@@ -168,6 +168,14 @@ class HomeController < ApplicationController
     @document = FrbrManifestation.find(params[:frbr_manifestation_id])
   end
 
+  def show_am_result
+    screen_name("Mostrar-Resultado-MA")
+
+    @am_result = AmResult.find(params[:am_result_id])
+    @ot = Ot.find(@am_result.ot_id)
+    @task = @ot.current_task
+  end
+
   def create_observation
     params[:observation][:user_id] = current_user.id
     @observation = Observation.new(params[:observation])
@@ -189,6 +197,9 @@ class HomeController < ApplicationController
 
   def clear_database
     Audit.delete_all
+    AmConfiguration.delete_all
+    AmObservation.delete_all
+    AmResult.delete_all
     FrbrManifestation.delete_all
     FrbrExpression.delete_all
     FrbrWork.delete_all

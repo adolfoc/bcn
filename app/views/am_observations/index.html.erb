@@ -15,8 +15,8 @@
 	<tbody>
 		<% @am_observations.each do |am_observation| %>
 		<tr>
-			<td><%= am_observation.am_results_id %></td>
-			<td><%= am_observation.am_run_observation_type_id %></td>
+			<td><%= am_observation.am_result.run_date %></td>
+			<td><%= am_observation.am_run_observation_type.name %></td>
 			<td><%= am_observation.line %></td>
 			<td><%= am_observation.contents %></td>
 			<td><%= link_to 'Show', am_observation %></td>

@@ -1,0 +1,7 @@
+<% if current_user.role.id == 3 %>
+	<div class="command-bar">
+		|&nbsp;
+		<%= link_to "Publicar", root_path %>
+		&nbsp;|
+	</div>
+<% end %>

@@ -5,6 +5,7 @@
 			<th>Actividad</th>
 			<th>Asignada a</th>
 			<th>Actualización</th>
+			<th>Fecha Estimada</th>
 			<th>Completada</th>
 			<% if current_user.role.id == 5 || current_user.role.id == 3 %>
 				<th></th>
@@ -28,6 +29,7 @@
 			<% end %>
 			</td>
 			<td><%= task.updated_at %></td>
+			<td><%= task.created_at.advance(:minutes => task.estimated_completion_minutes) %></td>
 			<td><%= task.completed_on %></td>
 			<td>
 				<% if current_user.role.id == 5 || current_user.role.id == 3 %>

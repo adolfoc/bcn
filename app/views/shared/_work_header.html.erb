@@ -1,6 +1,7 @@
 <table>
 	<tr>
-		<th>OT</th><td><%= link_to(@task.ot.name, mostrar_ot_path(@ot.id)) %></td>
+		<th>OT</th><td><%= link_to(@task.ot.serial_number, mostrar_ot_path(@ot.id)) %></td>
+		<th>Tipo</th><td><%= @task.ot.name %></td>
 		<th>Tarea</th><td><%= @task.name %></td>
 		<th>Paso</th><td><%= @ot.current_step %></td>
 	</tr>

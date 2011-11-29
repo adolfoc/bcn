@@ -1,0 +1,7 @@
+<% if current_user.role.id == 3 %>
+	<div class="command-bar">
+		|&nbsp;
+		<%= link_to "Reasignar", root_path %>
+		&nbsp;|
+	</div>
+<% end %>

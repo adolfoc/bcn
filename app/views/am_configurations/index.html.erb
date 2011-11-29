@@ -1,0 +1,73 @@
+<h1>Configuraciones marcado automático</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="2"></th>
+			<th colspan="7">Estructural</th>
+			<th colspan="8">Semántico</th>
+			<th colspan="3">Acciones</th>
+		</tr>
+		<tr>
+			<th colspan="3"></th>
+			<th colspan="4">Extensión</th>
+			<th colspan="2">Profundidad</th>
+			<th></th>
+			<th colspan="5">Extensión</th>
+			<th colspan="2">Profundidad</th>
+			<th colspan="3"></th>
+		</tr>
+		<tr>
+			<th>Fecha</th>
+			<th>OT</th>
+			<th>Habilitado</th>
+			<th>Documento entero</th>
+			<th>Primer nivel</th>
+			<th>Segundo nivel</th>
+			<th>Tercer nivel</th>
+			<th>Todas las secciones</th>
+			<th>Limitar a marca</th>
+			<th>Habilitado</th>
+			<th>Documento entero</th>
+			<th>Personas</th>
+			<th>Organizaciones</th>
+			<th>Documentos</th>
+			<th>Lugares</th>
+			<th>Todas las secciones</th>
+			<th>Limitar a marca</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @am_configurations.each do |am_configuration| %>
+		<tr>
+			<td><%= am_configuration.am_result.run_date if !am_configuration.am_result.nil? %></td>
+			<td><%= am_configuration.am_result.ot.name if !am_configuration.am_result.nil? && !am_configuration.am_result.ot.nil? %></td>
+			<td><%= am_configuration.structural_markup_enabled %></td>
+			<td><%= am_configuration.structural_markup_extension_whole_document %></td>
+			<td><%= am_configuration.structural_markup_extension_first_level %></td>
+			<td><%= am_configuration.structural_markup_extension_second_level %></td>
+			<td><%= am_configuration.structural_markup_extension_third_level %></td>
+			<td><%= am_configuration.structural_markup_depth_all %></td>
+			<td><%= am_configuration.structural_markup_depth_mark %></td>
+			<td><%= am_configuration.semantic_markup_enabled %></td>
+			<td><%= am_configuration.semantic_markup_extension_whole_document %></td>
+			<td><%= am_configuration.semantic_markup_extension_persons %></td>
+			<td><%= am_configuration.semantic_markup_extension_organizations %></td>
+			<td><%= am_configuration.semantic_markup_extension_documents %></td>
+			<td><%= am_configuration.semantic_markup_extension_places %></td>
+			<td><%= am_configuration.semantic_markup_depth_all %></td>
+			<td><%= am_configuration.semantic_markup_depth_mark %></td>
+			<td><%= link_to 'Show', am_configuration %></td>
+			<td><%= link_to 'Edit', edit_am_configuration_path(am_configuration) %></td>
+			<td><%= link_to 'Destroy', am_configuration, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Am configuration', new_am_configuration_path %>

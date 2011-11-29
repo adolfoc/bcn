@@ -67,6 +67,7 @@
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-documents">Documentos</a></li>
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-automatic_markup">Marcado Automático</a></li>
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-observations">Observaciones</a></li>
+		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-file-versions">Versionamiento</a></li>
 		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Traza</a></li>
 	</ul>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-tasks">
@@ -80,6 +81,9 @@
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-observations">
 		<%= render "show_observations", :locals => {:observations => @observations } %>
+	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-file-versions">
+		<%= render "show_file_versions", :locals => {:observations => @file_versions } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-log">
 		<%= render "show_log" %>

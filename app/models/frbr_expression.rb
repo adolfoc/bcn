@@ -5,6 +5,8 @@ class FrbrExpression < ActiveRecord::Base
 
   accepts_nested_attributes_for :frbr_manifestations, :allow_destroy => true
 
+  validates :version, :language, :presence => true
+
   def name
     frbr_work.name
   end

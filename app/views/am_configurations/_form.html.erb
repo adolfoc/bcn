@@ -1,4 +1,4 @@
-<%= form_for(@am_configuration, :url => submit_path) do |f| %>
+<%= form_for(@am_configuration) do |f| %>
 	<% if @am_configuration.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@am_configuration.errors.count, "error") %> prohibited this am_configuration from being saved:</h2>
@@ -9,8 +9,6 @@
 			</ul>
 		</div>
 	<% end %>
-
-	<%= hidden_field_tag(:task_id, @task.id) %>
 
 	<div class="field">
 		<%= f.label :am_result_id, "Resultado de marcaje automático" %><br />

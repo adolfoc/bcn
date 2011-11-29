@@ -1,0 +1,17 @@
+<% if current_user.role.id == 1 || current_user.role.id == 3 %>
+	<div class="command-bar">
+		<% if current_user.role.id == 1 %>
+			|&nbsp;
+			<%= link_to "Marcado automático", root_path %>
+			&nbsp;|
+		<% elsif current_user.role.id == 3 %>
+			|&nbsp;
+			<%= link_to "Eliminar", root_path %>
+			&nbsp;|&nbsp;
+			<%= link_to "Asignar", root_path %>
+			&nbsp;|&nbsp;
+			<%= link_to "Notificar analista", root_path %>
+			&nbsp;|
+		<% end %>
+	</div>
+<% end %>

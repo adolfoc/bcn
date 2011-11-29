@@ -22,6 +22,19 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  def generate_skeleton_am_configuration
+    am_configuration = AmConfiguration.new
+
+    am_configuration.structural_markup_enabled = true
+    am_configuration.structural_markup_extension_whole_document = true
+    am_configuration.structural_markup_depth_all = true
+    am_configuration.semantic_markup_enabled = true
+    am_configuration.semantic_markup_extension_whole_document = true
+    am_configuration.semantic_markup_depth_all = true
+
+    am_configuration
+  end
+
   ##########################################################
   # Controller interface: States
   ##########################################################
@@ -48,6 +61,8 @@ class MarcadoCuentaController < ApplicationController
   end
 
   # Actions that bring back a state
+
+  # This state should never be activated.
   def por_asignar
     screen_name("#{@task.class.to_s}/por_asignar")
 
@@ -57,6 +72,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # This is the first "active" state in the workflow
   def asignada
     screen_name("#{@task.class.to_s}/asignada")
 
@@ -66,6 +82,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # The analist is looking at and evaluating the results of automatic markup
   def evaluando_resultados
     screen_name("#{@task.class.to_s}/evaluando_resultados")
 
@@ -77,6 +94,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # The analist is manually correcting the marked document
   def corrigiendo_manualmente
     screen_name("#{@task.class.to_s}/corrigiendo_manualmente")
 
@@ -95,8 +113,11 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # The analist is about to engage automatic markup
   def en_marcaje_automatico
     screen_name("#{@task.class.to_s}/en_marcaje_automatico")
+
+    @am_configuration = generate_skeleton_am_configuration
 
     respond_to do |format|
       format.html { render action: "en_marcaje_automatico" }
@@ -104,6 +125,7 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
+  # The analist is done and informs qa
   def enviada_a_qa
     screen_name("#{@task.class.to_s}/enviada_a_qa")
 
@@ -120,6 +142,8 @@ class MarcadoCuentaController < ApplicationController
   def requiere_marcaje_automatico_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
+
+    @am_configuration = generate_skeleton_am_configuration
 
     do_perform_transition("requiere_marcaje_automatico")
 
@@ -206,6 +230,8 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    @am_configuration = generate_skeleton_am_configuration
+
     do_perform_transition("verifica_correcciones")
 
     respond_to do |format|
@@ -215,14 +241,21 @@ class MarcadoCuentaController < ApplicationController
   end
 
   # Automatic markup returns here after running
+  # POST realizar_marcaje_automatico
   def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
+
+    @am_configuration = AmConfiguration.new(params[:am_configuration])
+    @am_configuration.save
 
     # Need a document
     check_for_target_document
     mock_up_am_results
     @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
+    @am_configuration.am_result_id = @am_result.id
+    @am_configuration.save
 
     do_perform_transition("termina_marcaje_automatico")
 

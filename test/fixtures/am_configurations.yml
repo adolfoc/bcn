@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  structural_markup_enabled: false
+  structural_markup_extension_whole_document: false
+  structural_markup_extension_first_level: false
+  structural_markup_extension_second_level: false
+  structural_markup_extension_third_level: false
+  structural_markup_depth_all: false
+  structural_markup_depth_mark: MyString
+  semantic_markup_enabled: false
+  semantic_markup_extension_whole_document: false
+  semantic_markup_extension_persons: false
+  semantic_markup_extension_organizations: false
+  semantic_markup_extension_documents: false
+  semantic_markup_extension_places: false
+  semantic_markup_depth_all: false
+  semantic_markup_depth_mark: MyString
+
+two:
+  structural_markup_enabled: false
+  structural_markup_extension_whole_document: false
+  structural_markup_extension_first_level: false
+  structural_markup_extension_second_level: false
+  structural_markup_extension_third_level: false
+  structural_markup_depth_all: false
+  structural_markup_depth_mark: MyString
+  semantic_markup_enabled: false
+  semantic_markup_extension_whole_document: false
+  semantic_markup_extension_persons: false
+  semantic_markup_extension_organizations: false
+  semantic_markup_extension_documents: false
+  semantic_markup_extension_places: false
+  semantic_markup_depth_all: false
+  semantic_markup_depth_mark: MyString

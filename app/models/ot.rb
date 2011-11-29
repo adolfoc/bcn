@@ -7,11 +7,16 @@ class Ot < ActiveRecord::Base
   belongs_to :ot_state
   has_many :tasks
   has_many :audits
-  has_many :ot_results
+  has_many :observations
+  has_many :am_results
 
   def name
     return ot_type.name + " (#{source_frbr_manifestation.name})" if !source_frbr_manifestation.nil?
     ot_type.name
+  end
+
+  def state
+    "Indefinido"
   end
 
   def parent_ot
@@ -54,6 +59,28 @@ class Ot < ActiveRecord::Base
 
   def is_multiple_task?
     tasks.count > 3
+  end
+
+  def team_members
+    team_members = Array.new
+    tasks.each do |task|
+      team_member = Hash.new
+      team_member[:name] = task.current_user.user_name
+      team_member[:role] = task.current_user.role.name
+      team_members << team_member
+    end
+
+    team_members
+  end
+
+  def team_members_as_string
+    team_array = team_members
+    string = ""
+    team_array.each do |member|
+      string += ", " if string.length > 0
+      string += "#{member[:name]} (#{member[:role]})"
+    end
+    string
   end
 
   # Task calls us with task info on every state transition

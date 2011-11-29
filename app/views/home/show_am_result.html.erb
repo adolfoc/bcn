@@ -1,0 +1,82 @@
+<%= render :partial => "shared/work_header", :locals => { :ot => @ot }%>
+
+<h1>Resultados ejecución marcado automático</h1>
+
+<table>
+	<tr>
+		<th>Fecha de ejecución</th>
+		<td><%= @am_result.run_date %>
+	</tr>
+	<tr>
+		<th>Se realizó marcaje estructural?</th>
+		<td><%= @am_result.am_configuration.structural_markup_enabled ? "Si" : "No" %>
+	</tr>
+	<% if @am_result.am_configuration.structural_markup_enabled %>
+		<tr>
+			<th>Se marcó estructuralmente todo el documento?</th>
+			<td><%= @am_result.am_configuration.structural_markup_extension_whole_document ? "Si" : "No" %>
+		</tr>
+		<% if !@am_result.am_configuration.structural_markup_extension_whole_document %>
+		<tr>
+			<th>Se marcó el primer nivel?</th>
+			<td><%= @am_result.am_configuration.structural_markup_extension_first_level ? "Si" : "No" %>
+		</tr>
+		<tr>
+			<th>Se marcó el segundo nivel?</th>
+			<td><%= @am_result.am_configuration.structural_markup_extension_second_level ? "Si" : "No" %>
+		</tr>
+		<tr>
+			<th>Se marcó el tercer nivel?</th>
+			<td><%= @am_result.am_configuration.structural_markup_extension_third_level ? "Si" : "No" %>
+		</tr>
+		<% end %>
+	<% end %>
+	<tr>
+		<th>Se realizó marcaje semántico?</th>
+		<td><%= @am_result.am_configuration.semantic_markup_enabled ? "Si" : "No" %>
+	</tr>
+	<% if @am_result.am_configuration.semantic_markup_enabled %>
+		<tr>
+			<th>Se marcó semánticamente todo el documento?</th>
+			<td><%= @am_result.am_configuration.semantic_markup_extension_whole_document ? "Si" : "No" %>
+		</tr>
+		<% if !@am_result.am_configuration.semantic_markup_extension_whole_document %>
+		<tr>
+			<th>Se marcaron personas?</th>
+			<td><%= @am_result.am_configuration.semantic_markup_extension_persons ? "Si" : "No" %>
+		</tr>
+		<tr>
+			<th>Se marcaron organizaciones?</th>
+			<td><%= @am_result.am_configuration.semantic_markup_extension_organizations ? "Si" : "No" %>
+		</tr>
+		<tr>
+			<th>Se marcaron documentos?</th>
+			<td><%= @am_result.am_configuration.semantic_markup_extension_documents ? "Si" : "No" %>
+		</tr>
+		<tr>
+			<th>Se marcaron lugares?</th>
+			<td><%= @am_result.am_configuration.semantic_markup_extension_places ? "Si" : "No" %>
+		</tr>
+		<% end %>
+	<% end %>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<th>Tipo</th>
+			<th>Línea</th>
+			<th>Descripción</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @am_result.am_observations.each do |am_obs| %>
+		<tr>
+			<td><%= am_obs.am_run_observation_type.name %></td>
+			<td><%= am_obs.line.to_s %></td>
+			<td><%= am_obs.contents %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+

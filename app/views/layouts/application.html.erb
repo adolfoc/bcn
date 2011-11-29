@@ -9,29 +9,29 @@
 	</head>
 	<body>
 		<div id="main_wrapper" class="container">
-			<div class="span-24">
+			<div class="span-111">
 				<%= render "shared/header" %>
 			</div>
 
 			<% if flash[:notice] %>
-				<div class="span-24">
+				<div class="span-111">
 					<p class="notice"><%= flash[:notice] %></p>
 				</div>
 			<% end %>
 			<% if flash[:alert] %>
-				<div class="span-24 last">
+				<div class="span-111 last">
 					<p class="alert"><%= flash[:alert] %></p>
 				</div>
 			<% end %>
 
-			<div id="sidebar" class="span-4">
+			<div id="sidebar" class="span-10">
 				<%= render 'shared/main_menu' %>
 			</div> <!-- "sidebar" -->
-			<div class="span-20 last">
+			<div class="span-101 last">
 				<%= yield %>
 			</div>
 
-			<div class="span-24">
+			<div class="span-111">
 				<%= render "shared/footer" %>
 			</div>
 		</div>

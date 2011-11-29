@@ -11,7 +11,7 @@
 		<% @am_results.each do |am_result| %>
 			<% am_result.am_observations.each do |am_obs| %>
 			<tr>
-				<td><%= am_result.run_date %></td>
+				<td><%= link_to(am_result.run_date, mostrar_resultado_ma_path(am_result.id)) %></td>
 				<td><%= am_obs.am_run_observation_type.name %></td>
 				<td><%= am_obs.line.to_s %></td>
 				<td><%= am_obs.contents %></td>

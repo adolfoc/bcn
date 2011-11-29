@@ -13,7 +13,11 @@ class Task < ActiveRecord::Base
   def state
     "Indefinido"
   end
-  
+
+  def estimated_completion_minutes
+    45
+  end
+
   def initial_task
   end
 
