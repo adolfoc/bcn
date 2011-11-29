@@ -64,10 +64,12 @@ class Ot < ActiveRecord::Base
   def team_members
     team_members = Array.new
     tasks.each do |task|
-      team_member = Hash.new
-      team_member[:name] = task.current_user.user_name
-      team_member[:role] = task.current_user.role.name
-      team_members << team_member
+      if !task.current_user.nil?
+        team_member = Hash.new
+        team_member[:name] = task.current_user.user_name
+        team_member[:role] = task.current_user.role.name
+        team_members << team_member
+      end
     end
 
     team_members

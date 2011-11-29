@@ -60,7 +60,7 @@
 				<% end %>
 			</td>
 			<td><%= ot.team_members_as_string %></ot>
-			<td><%= ot.observations.last.contents if !ot.observations.nil? %>
+			<td><%= ot.observations.last.contents if ot.observations.count > 0 %>
 			<td><%= ot.created_on %></td>
 			<td><%= ot.updated_at %></td>
 			<td><%= ot.target_date %></td>
