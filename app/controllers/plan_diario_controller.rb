@@ -83,17 +83,29 @@ class PlanDiarioController < ApplicationController
   def en_marcaje_automatico
     screen_name("#{@task.class.to_s}/en_marcaje_automatico")
 
+    @am_configuration = generate_skeleton_am_configuration(@ot.id)
+
     respond_to do |format|
       format.html { render action: "en_marcaje_automatico" }
       format.json { head :ok }
     end
   end
 
+  # POST realizar_marcaje_automatico
   def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    @am_configuration = AmConfiguration.new(params[:am_configuration])
+    @am_configuration.save
+
+    # Need a document
     check_for_target_document
+    mock_up_am_results
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
+    @am_configuration.am_result_id = @am_result.id
+    @am_configuration.save
 
     do_perform_transition("termina_marcaje_automatico")
 
@@ -106,8 +118,7 @@ class PlanDiarioController < ApplicationController
   def evaluando_resultados
     screen_name("#{@task.class.to_s}/evaluando_resultados")
 
-    @task = Task.find(params[:task_id])
-    @ot = Ot.find(@task.ot_id)
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     respond_to do |format|
       format.html { render action: "evaluando_resultados" }
@@ -218,15 +229,6 @@ class PlanDiarioController < ApplicationController
     end
   end
 
-  def notificar_qa
-    screen_name("#{@task.class.to_s}/notificar_qa")
-
-    respond_to do |format|
-      format.html { render action: "notificar_qa" }
-      format.json { head :ok }
-    end
-  end
-
   def notificar_equipos
     screen_name("#{@task.class.to_s}/notificar_equipos")
 
@@ -242,7 +244,7 @@ class PlanDiarioController < ApplicationController
 
     # Call next workflows, in this case, all workflows associated with analysts
     @ot.tasks.each do |task|
-      if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_DS_SENATE_MARKUP
+      if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_DS_MARKUP
         call_next_workflow(task)
         # Make first transition
         @task = task
@@ -260,23 +262,11 @@ class PlanDiarioController < ApplicationController
   # Controller interface: Events and transitions
   ##########################################################
 
-  def no_hay_errores_event
+  def termina_evaluacion_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    do_perform_transition(:no_hay_errores)
-
-    respond_to do |format|
-      format.html { render action: "notificar_qa" }
-      format.json { head :ok }
-    end
-  end
-
-  def hay_errores_event
-    @task = Task.find(params[:task_id])
-    @ot = Ot.find(@task.ot_id)
-
-    do_perform_transition(:hay_errores)
+    do_perform_transition(:termina_evaluacion)
 
     respond_to do |format|
       format.html { render action: "planifica_asignar_tareas" }
@@ -303,6 +293,12 @@ class PlanDiarioController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition(:decide_no_dividir)
+
+    # Generate tasks
+    @tasks = []
+    @ot.tasks.each do |task|
+      @tasks << task if task.id != @task.id
+    end
 
     respond_to do |format|
       format.html { render action: "asignando_tareas" }

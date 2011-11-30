@@ -22,19 +22,6 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  def generate_skeleton_am_configuration
-    am_configuration = AmConfiguration.new
-
-    am_configuration.structural_markup_enabled = true
-    am_configuration.structural_markup_extension_whole_document = true
-    am_configuration.structural_markup_depth_all = true
-    am_configuration.semantic_markup_enabled = true
-    am_configuration.semantic_markup_extension_whole_document = true
-    am_configuration.semantic_markup_depth_all = true
-
-    am_configuration
-  end
-
   ##########################################################
   # Controller interface: States
   ##########################################################
@@ -117,7 +104,7 @@ class MarcadoCuentaController < ApplicationController
   def en_marcaje_automatico
     screen_name("#{@task.class.to_s}/en_marcaje_automatico")
 
-    @am_configuration = generate_skeleton_am_configuration
+    @am_configuration = generate_skeleton_am_configuration(@ot.id)
 
     respond_to do |format|
       format.html { render action: "en_marcaje_automatico" }
@@ -143,7 +130,7 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    @am_configuration = generate_skeleton_am_configuration
+    @am_configuration = generate_skeleton_am_configuration(@ot.id)
 
     do_perform_transition("requiere_marcaje_automatico")
 
@@ -230,7 +217,7 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    @am_configuration = generate_skeleton_am_configuration
+    @am_configuration = generate_skeleton_am_configuration(@ot.id)
 
     do_perform_transition("verifica_correcciones")
 

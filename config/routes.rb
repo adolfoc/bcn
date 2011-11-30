@@ -49,18 +49,17 @@ Bcn::Application.routes.draw do
   match "plan_diario/perform_work/:task_id/(:event)"=> "plan_diario#perform_work", :as => :plan_diario_perform_work
   match "plan_diario/eligiendo_documento" => "plan_diario#eligiendo_documento"
   match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_diario, :method => :post
+
   match "plan_diario/en_marcaje_automatico" => "plan_diario#en_marcaje_automatico"
   match "plan_diario/realizar_marcaje_automatico/:task_id" => "plan_diario#realizar_marcaje_automatico", :as => :marcaje_automatico_plan_diario, :method => :post
   match "plan_diario/evaluando_resultados" => "plan_diario#evaluando_resultados"
   match "plan_diario/planifica_asignar_tareas" => "plan_diario#planifica_asignar_tareas"
   match "plan_diario/asignando_tareas" => "plan_diario#asignando_tareas"
   match "plan_diario/create_asignar_tareas" => "plan_diario#create_asignar_tareas", :as => :crear_asignar_tareas_diario, :method => :post
-  match "plan_diario/notificar_qa" => "plan_diario#notificar_qa"
-  match "plan_diario/create_notificar_qa" => "plan_diario#create_notificar_qa", :as => :create_notificar_qa, :method => :post
   match "plan_diario/notificar_equipos" => "plan_diario#notificar_equipos"
   match "plan_diario/create_notificar_equipos" => "plan_diario#create_notificar_equipos", :as => :create_notificar_equipos, :method => :post
-  match "plan_diario/no_hay_errores_event/:task_id" => "plan_diario#no_hay_errores_event", :as => :no_hay_errores_event
-  match "plan_diario/hay_errores_event/:task_id" => "plan_diario#hay_errores_event", :as => :hay_errores_event
+  match "plan_diario/termina_evaluacion_event/:task_id" => "plan_diario#termina_evaluacion_event", :as => :termina_evaluacion_event
+
   match "plan_diario/decide_dividir_event/:task_id" => "plan_diario#decide_dividir_event", :as => :decide_dividir_event
   match "plan_diario/decide_no_dividir_event/:task_id" => "plan_diario#decide_no_dividir_event", :as => :decide_no_dividir_event
   match "plan_diario/create_dividir_tareas" => "plan_diario#create_dividir_tareas", :as => :create_dividir_tareas, :method => :post

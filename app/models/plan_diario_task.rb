@@ -8,8 +8,7 @@ class PlanDiarioTask < Task
       event :termina_marcaje_automatico, :transitions_to => :evaluando_resultados
     end
     state :evaluando_resultados do
-      event :no_hay_errores, :transitions_to => :notificar_qa
-      event :hay_errores, :transitions_to => :planifica_asignar_tareas
+      event :termina_evaluacion, :transitions_to => :planifica_asignar_tareas
     end
     state :planifica_asignar_tareas do
       event :decide_dividir, :transitions_to => :dividir_tareas
@@ -21,7 +20,6 @@ class PlanDiarioTask < Task
     state :asignando_tareas do
       event :tareas_asignadas, :transitions_to => :notificar_equipos
     end
-    state :notificar_qa
     state :notificar_equipos
   end
 
@@ -63,10 +61,6 @@ class PlanDiarioTask < Task
 
   def on_asignando_tareas_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "asignando_tareas")
-  end
-
-  def on_notificar_qa_entry(prior_state, triggering_event, *event_args)
-    ot.begin_task_execution(self, "notificar_qa")
   end
 
   def on_notificar_equipos_entry(prior_state, triggering_event, *event_args)
