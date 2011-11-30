@@ -45,7 +45,7 @@ class Ot < ActiveRecord::Base
   end
 
   def assign_target(manifestation)
-    params = Hash.ne
+    params = Hash.new
     params[:target_frbr_manifestation_id] = manifestation.id
     update_attributes(params)
   end
@@ -198,11 +198,36 @@ class Ot < ActiveRecord::Base
     first_task
   end
 
+  def create_plan_correccion_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_CORRECTION).id
+    task_params[:current_user_id] = current_user.id
+    plan_correccion_task = PlanCorreccionTask.new(task_params)
+    plan_correccion_task.workflow_state = plan_correccion_task.initial_task
+    plan_correccion_task.save
+    plan_correccion_task
+  end
+
+  def create_correccion_workflow(current_user)
+    first_task = create_plan_correccion_task(current_user)
+    marcado_task = create_marcado_cuenta_task(current_user)
+    qa_task = create_qa_cuenta_task(current_user)
+
+    first_task.successor = marcado_task.id
+    marcado_task.predecessor = first_task.id
+    marcado_task.successor = qa_task.id
+    qa_task.predecessor = marcado_task.id
+
+    first_task
+  end
+
   def create_tasks(current_user)
     if ot_type_id == 1
       first_task = create_marcado_cuenta_workflow(current_user)
     elsif ot_type_id == 3
       first_task = create_marcado_diario_workflow(current_user)
+    elsif ot_type_id == 4
+      first_task = create_correccion_workflow(current_user)
     end
 
     begin_task_execution(first_task, first_task.initial_task.to_s) if !first_task.nil?

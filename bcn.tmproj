@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/views/home/_ot_filter.html.erb</string>
+	<string>app/assets/stylesheets/application.css</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,9 +18,23 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>148</integer>
+	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>app/assets/stylesheets/application.css</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>136</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>82</integer>
+		</dict>
 		<key>app/controllers/task_types_controller.rb</key>
 		<dict>
 			<key>caret</key>
@@ -35,20 +49,6 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>app/models/observation.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>67</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>app/models/ot.rb</key>
 		<dict>
 			<key>caret</key>
@@ -56,7 +56,21 @@
 				<key>column</key>
 				<integer>9</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>71</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>44</integer>
+		</dict>
+		<key>app/views/home/_show_ots.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>4</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -67,54 +81,40 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>6</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>4</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>15</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>4</integer>
 			</dict>
 		</dict>
-		<key>app/views/home/_ot_filter.html.erb</key>
+		<key>app/views/home/show_admin.html.erb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>31</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>app/views/home/_show_ots.html.erb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>41</integer>
+				<integer>24</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
-		<key>app/views/home/show_qa_analist.html.erb</key>
+		<key>app/views/marcado_cuenta/_am_configuration.html.erb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>37</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -152,13 +152,15 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>app/views/home/_show_ots.html.erb</string>
-		<string>app/views/home/_ot_filter.html.erb</string>
+		<string>app/views/marcado_cuenta/_am_configuration.html.erb</string>
 		<string>app/models/ot.rb</string>
+		<string>app/views/home/_show_ots.html.erb</string>
+		<string>app/views/home/show_admin.html.erb</string>
+		<string>app/assets/stylesheets/application.css</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{61, 0}, {1525, 1024}}</string>
+	<string>{{210, 4}, {1470, 1024}}</string>
 </dict>
 </plist>

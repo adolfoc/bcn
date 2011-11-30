@@ -1,0 +1,9 @@
+<%= render "shared/work_header" %>
+
+<%= form_tag(plan_cuenta_create_notificar_analista_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="actions">
+		<%= submit_tag "Notificar" %>
+	</div>
+</form>

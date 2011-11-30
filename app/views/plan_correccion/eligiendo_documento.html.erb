@@ -1,0 +1,14 @@
+<%= render "shared/work_header" %>
+
+<%= form_tag(plan_cuenta_create_eligiendo_documento_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="field">
+	    <%= label_tag(:frbr_work_id, 'Documento') %><br />
+	    <%= select_tag(:frbr_work_id, options_from_collection_for_select(FrbrWork.all, :id, :name)) %>
+	</div>
+
+	<div class="actions">
+		<%= submit_tag "Elegir" %>
+	</div>
+</form>

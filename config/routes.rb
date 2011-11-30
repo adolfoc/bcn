@@ -86,6 +86,15 @@ Bcn::Application.routes.draw do
   match "qa_cuenta/aprueba_ot_event/:task_id" => "qa_cuenta#aprueba_ot_event", :as => :aprueba_ot_event
   match "qa_cuenta/publica_documento_event/:task_id" => "qa_cuenta#publica_documento_event", :as => :publica_documento_event
 
+  # Plan Marcado Cuenta workflow
+  match "plan_correccion/perform_work/:task_id/(:event)" => "plan_correccion#perform_work", :as => :plan_cuenta_perform_work
+  match "plan_correccion/eligiendo_documento" => "plan_correccion#eligiendo_documento", :as => :plan_cuenta_eligiendo_documento
+  match "plan_correccion/create_eligiendo_documento" => "plan_correccion#create_eligiendo_documento", :as => :plan_cuenta_create_eligiendo_documento, :method => :post
+  match "plan_correccion/asignando_tareas" => "plan_correccion#asignando_tareas", :as => :plan_cuenta_asignando_tareas
+  match "plan_correccion/create_asignando_tareas" => "plan_correccion#create_asignando_tareas", :as => :plan_cuenta_create_asignando_tareas, :method => :post
+  match "plan_correccion/notificar_analista" => "plan_correccion#notificar_analista", :as => :plan_cuenta_notificar_analista
+  match "plan_correccion/create_notificar_analista" => "plan_correccion#create_notificar_analista", :as => :plan_cuenta_create_notificar_analista, :method => :post
+
   match "users/index" => "users#index", :as => :users
 
   match "work_load/index" => "work_load#index", :as => :work_load

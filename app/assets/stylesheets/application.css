@@ -79,9 +79,14 @@
 	color: #358;
 	font-weight: bold;
 }
+
 table, th, td {
 	border: 1px solid #CCC;
 	font-size: 0.9em;
+}
+
+.current-sort {
+	font-weight: bold;
 }
 
 .actions {
@@ -126,4 +131,8 @@ table, th, td {
 	width: 250px;
 	margin-right: 10px;
 	float: left;
+}
+
+.tray th {
+	text-decoration: underline;
 }
