@@ -2,32 +2,100 @@
 	<a href="#" id="<%= show_button_id %>" class="ui-state-default ui-corner-all">Filtro</a>
 	<div id="<%= filter_selector_id %>">
 		<%= form_tag(filter_ots_path) %>
-			<div class="inline-field">
-				<%= label_tag :serial_number, "Número de serie: " %>&nbsp;
-				<%= text_field_tag "filter[serial_number]" %>
-			</div>
-			<div class="inline-field">
-				&nbsp;
-				<%= label_tag :priority, "Prioridad: " %>&nbsp;
-				<%= select_tag "filter[priority]", options_from_collection_for_select(Priority.all, :id, :name) %>
-			</div>
-			<div class="inline-field">
-				&nbsp;
-				<%= label_tag :assigned_to, "Asignada a: " %>&nbsp;
-				<%= select_tag "filter[assigned_to]", options_from_collection_for_select(User.all, :id, :user_name) %>
-			</div>
-			<div class="inline-field">
-				&nbsp;
-				<%= label_tag :state, "Estado: " %>&nbsp;
-				<%= select_tag "filter[state]", options_for_select([['En proceso', 1], ['Suspendida', 2], ['Completa', 3]]) %>
-			</div>
-			<div class="inline-field">
-				<%= check_box_tag "filter[completed]" %>&nbsp;
-				<%= label_tag :priority, "Completada" %>
-			</div>
-			<div class="actions invisible">
-				<%= submit_tag "Filtrar" %>
-			</div>
+			<fieldset>
+				<div class="inline-field">
+					<%= label_tag :search, "Búsqueda texto libre: " %>&nbsp;
+					<%= text_field_tag "filter[search]", "", :size => "80" %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :organism, "Organismo: " %>&nbsp;
+					<%= select_tag "filter[organism]", options_from_collection_for_select(FrbrEntity.all, :id, :name), { :include_blank => true } %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :legislature, "Legislatura: " %>&nbsp;
+					<%= text_field_tag "filter[legislature]" %>
+				</div>
+				<div class="clear">
+
+				<div class="inline-field">
+					<%= label_tag :serial_number, "Número de serie: " %>&nbsp;
+					<%= text_field_tag "filter[serial_number]" %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :ot_type, "Tipo de OT: " %>&nbsp;
+					<%= select_tag "filter[ot_type]", options_from_collection_for_select(OtType.all, :id, :name), { :include_blank => true } %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :document_type, "Tipo de Documento: " %>&nbsp;
+					<%= select_tag "filter[document_type]", options_from_collection_for_select(FrbrBcnType.all, :id, :name), { :include_blank => true } %>
+				</div>
+				<div class="clear">
+
+				<div class="inline-field">
+					<%= label_tag :priority, "Prioridad: " %>&nbsp;
+					<%= select_tag "filter[priority]", options_from_collection_for_select(Priority.all, :id, :name), { :include_blank => true } %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :assigned_to, "Asignada a: " %>&nbsp;
+					<%= select_tag "filter[assigned_to]", options_from_collection_for_select(User.all, :id, :user_name), { :include_blank => true } %>
+				</div>
+				<div class="inline-field">
+					&nbsp;&nbsp;
+					<%= label_tag :state, "Estado: " %>&nbsp;
+					<%= select_tag "filter[state]", options_for_select([['En proceso', 1], ['Suspendida', 2], ['Completa', 3]]), { :include_blank => true } %>
+				</div>
+				<div class="clear">
+
+				<fieldset class="date-range-fieldset">
+					<div class="inline-field">
+						<%= check_box_tag :session %>&nbsp;
+						<%= label_tag :session, "Filtrar por fecha de sesión " %><br />
+						<%= label_tag :session_from, "Desde: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :session_start_date %><br />
+						<%= label_tag :session_to, "Hasta: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :session_end_date %>
+					</div>
+				</fieldset>
+				<fieldset class="date-range-fieldset">
+					<div class="inline-field">
+						<%= check_box_tag :publication_date %>&nbsp;
+						<%= label_tag :publication_date, "Filtrar por fecha de publicación " %><br />
+						<%= label_tag :publication_date_from, "Desde: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :publication_date_start_date %><br />
+						<%= label_tag :publication_date_to, "Hasta: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :publication_date_end_date %>
+					</div>
+				</fieldset>
+				<fieldset class="date-range-fieldset">
+					<div class="inline-field">
+						<%= check_box_tag :creation_date %>&nbsp;
+						<%= label_tag :creation_date, "Filtrar por fecha de creación " %><br />
+						<%= label_tag :creation_date_from, "Desde: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :creation_date_start_date %><br />
+						<%= label_tag :creation_date_to, "Hasta: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :creation_date_end_date %>
+					</div>
+				</fieldset>
+				<fieldset class="date-range-fieldset">
+					<div class="inline-field">
+						<%= check_box_tag :update_date %>&nbsp;
+						<%= label_tag :update_date, "Filtrar por fecha de actualización " %><br />
+						<%= label_tag :update_date_from, "Desde: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :update_date_start_date %><br />
+						<%= label_tag :update_date_to, "Hasta: " %>&nbsp;
+						<%= select_date Date.today, :prefix => :update_date_end_date %>
+					</div>
+				</fieldset>
+				<div class="clear">
+				<div class="dummy-actions">
+					<%= submit_tag "Filtrar" %>
+				</div>
+			</fieldset>
 		</form>
 	</div>
 </div>

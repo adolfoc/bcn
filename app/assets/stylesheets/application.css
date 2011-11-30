@@ -121,3 +121,9 @@ table, th, td {
 .command-bar {
 	padding-bottom: 1em;
 }
+
+.date-range-fieldset {
+	width: 250px;
+	margin-right: 10px;
+	float: left;
+}
