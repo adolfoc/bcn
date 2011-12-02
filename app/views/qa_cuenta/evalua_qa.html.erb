@@ -5,5 +5,8 @@
 <%= render "shared/am_results" %>
 
 |&nbsp;<%= link_to "Rechaza", rechaza_event_path(@task.id) %>&nbsp;
-|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;
-|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|
+<% if @task.ot.is_multiple_task? %>
+	|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;|
+<% else %>
+	|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|
+<% end %>

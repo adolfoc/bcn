@@ -45,26 +45,49 @@ Bcn::Application.routes.draw do
   match "plan_cuenta/create_asignar_tareas" => "plan_cuenta#create_asignar_tareas", :as => :crear_asignar_tareas, :method => :post
   match "plan_cuenta/create_notificar_analista" => "plan_cuenta#create_notificar_analista", :as => :crear_notificar_analista, :method => :post
 
+  ######################################################################################################################################################################
   # Plan Marcado Diario workflow
   match "plan_diario/perform_work/:task_id/(:event)"=> "plan_diario#perform_work", :as => :plan_diario_perform_work
+  # States
   match "plan_diario/eligiendo_documento" => "plan_diario#eligiendo_documento"
-  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_diario, :method => :post
-
   match "plan_diario/en_marcaje_automatico" => "plan_diario#en_marcaje_automatico"
-  match "plan_diario/realizar_marcaje_automatico/:task_id" => "plan_diario#realizar_marcaje_automatico", :as => :marcaje_automatico_plan_diario, :method => :post
   match "plan_diario/evaluando_resultados" => "plan_diario#evaluando_resultados"
   match "plan_diario/planifica_asignar_tareas" => "plan_diario#planifica_asignar_tareas"
   match "plan_diario/asignando_tareas" => "plan_diario#asignando_tareas"
-  match "plan_diario/create_asignar_tareas" => "plan_diario#create_asignar_tareas", :as => :crear_asignar_tareas_diario, :method => :post
   match "plan_diario/notificar_equipos" => "plan_diario#notificar_equipos"
-  match "plan_diario/create_notificar_equipos" => "plan_diario#create_notificar_equipos", :as => :create_notificar_equipos, :method => :post
-  match "plan_diario/termina_evaluacion_event/:task_id" => "plan_diario#termina_evaluacion_event", :as => :termina_evaluacion_event
-
-  match "plan_diario/decide_dividir_event/:task_id" => "plan_diario#decide_dividir_event", :as => :decide_dividir_event
-  match "plan_diario/decide_no_dividir_event/:task_id" => "plan_diario#decide_no_dividir_event", :as => :decide_no_dividir_event
+  # Posts
+  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_diario, :method => :post
+  match "plan_diario/realizar_marcaje_automatico" => "plan_diario#realizar_marcaje_automatico", :as => :marcaje_automatico_plan_diario, :method => :post
   match "plan_diario/create_dividir_tareas" => "plan_diario#create_dividir_tareas", :as => :create_dividir_tareas, :method => :post
   match "plan_diario/agregar_tarea/:task_id" => "plan_diario#agregar_tarea", :as => :agregar_tarea_marcado_diario
+  match "plan_diario/create_asignar_tareas" => "plan_diario#create_asignar_tareas", :as => :crear_asignar_tareas_diario, :method => :post
+  match "plan_diario/create_notificar_equipos" => "plan_diario#create_notificar_equipos", :as => :create_notificar_equipos, :method => :post
+  # Events
+  match "plan_diario/termina_evaluacion_event/:task_id" => "plan_diario#termina_evaluacion_event", :as => :termina_evaluacion_event
+  match "plan_diario/decide_dividir_event/:task_id" => "plan_diario#decide_dividir_event", :as => :decide_dividir_event
+  match "plan_diario/decide_no_dividir_event/:task_id" => "plan_diario#decide_no_dividir_event", :as => :decide_no_dividir_event
 
+  ######################################################################################################################################################################
+  # Plan Marcado Diario Post workflow
+  match "plan_diario_post/perform_work/:task_id/(:event)"=> "plan_diario_post#perform_work", :as => :plan_diario_post_perform_work
+  # States
+  match "plan_diario_post/esperando_notificacion_analista"=> "plan_diario_post#esperando_notificacion_analista", :as => :plan_diario_post_esperando_notificacion_analista
+  match "plan_diario_post/verificando_completitud"=> "plan_diario_post#verificando_completitud", :as => :plan_diario_post_verificando_completitud
+  match "plan_diario_post/revisando_documento_completo"=> "plan_diario_post#revisando_documento_completo", :as => :plan_diario_post_revisando_documento_completo
+  match "plan_diario_post/asignando_tareas"=> "plan_diario_post#asignando_tareas", :as => :plan_diario_post_asignando_tareas
+  match "plan_diario_post/publicando_diario_de_sesiones"=> "plan_diario_post#publicando_diario_de_sesiones", :as => :plan_diario_post_publicando_diario_de_sesiones
+  match "plan_diario_post/notificando_equipos"=> "plan_diario_post#notificando_equipos", :as => :plan_diario_post_notificando_equipos
+  # Posts
+  match "plan_diario_post/publicar/:task_id"=> "plan_diario_post#publicar", :as => :plan_diario_post_publicar
+  # Events
+  match "plan_diario_post/recibe_notificacion_analista_event/:task_id" => "plan_diario_post#recibe_notificacion_analista_event", :as => :plan_diario_post_recibe_notificacion_analista_event
+  match "plan_diario_post/trabajo_completo_event/:task_id" => "plan_diario_post#trabajo_completo_event", :as => :plan_diario_post_trabajo_completo_event
+  match "plan_diario_post/trabajo_incompleto_event/:task_id" => "plan_diario_post#trabajo_incompleto_event", :as => :plan_diario_post_trabajo_incompleto_event
+  match "plan_diario_post/evalua_trabajo_terminado_event/:task_id" => "plan_diario_post#evalua_trabajo_terminado_event", :as => :plan_diario_post_evalua_trabajo_terminado_event
+  match "plan_diario_post/evalua_trabajo_incompleto_event/:task_id" => "plan_diario_post#evalua_trabajo_incompleto_event", :as => :plan_diario_post_evalua_trabajo_incompleto_event
+  match "plan_diario_post/tareas_asignadas_event/:task_id" => "plan_diario_post#tareas_asignadas_event", :as => :plan_diario_post_tareas_asignadas_event
+
+  ######################################################################################################################################################################
   # Marcado Cuenta workflow
   match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
   match "marcado_cuenta/requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#requiere_marcaje_automatico_event", :as => :requiere_marcaje_automatico_event

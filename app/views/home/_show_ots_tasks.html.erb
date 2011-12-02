@@ -1,0 +1,66 @@
+<h1><%= table_title %></h1>
+
+<%= render :partial => "ot_filter", :locals => { :show_button_id => show_button_id, :filter_selector_id => filter_selector_id } %>
+
+<table class="tray">
+	<thead>
+		<tr>
+			<th class="etAscending">Número de serie</th>
+			<th class="etUnsorted">OT</th>
+			<th>Estado</th>
+			<th>OT G/OT A</th>
+			<th>Legislatura</th>
+			<th>Cámara</th>
+			<th>Sesión</th>
+			<th>Prioridad</th>
+			<th>Actividad</th>
+			<th>Participantes</th>
+			<th>Observaciones</th>
+			<th>Creada</th>
+			<th>Actualización</th>
+			<th>Entrega</th>
+			<th>Completada</th>
+			<% if current_user.role.id == 1 || current_user.role.id == 3 %>
+				<th></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+	<% tasks.each do |task| %>
+		<% if task.ot.completed_on.nil? && DateTime.now > task.ot.target_date %>
+			<tr class="ot-overdue">
+		<% else %>
+			<tr>
+		<% end %>
+			<td><%= link_to task.ot.serial_number, mostrar_ot_path(task.ot.id) %></td>
+			<td><%= task.ot.ot_type.name %></td>
+			<td><%= task.ot.state %>
+			<td><%= task.ot.parent_ot.serial_number if !task.ot.parent_ot.nil? %></td>
+			<td><%= task.ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !task.ot.source_frbr_manifestation.nil? %>
+			<td><%= task.ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !task.ot.source_frbr_manifestation.nil? %>
+			<td><%= task.ot.source_frbr_manifestation.frbr_expression.frbr_work.session.to_s if !task.ot.source_frbr_manifestation.nil? %>
+			<td><%= task.ot.priority.name %></td>
+			<td>
+				<% if task.current_user_id == current_user.id && task.completed_on.nil? %>
+					<%= link_to task.workflow_state, task.controller_action(task.workflow_state) %>
+				<% elsif !task.completed_on.nil? %>
+					Actividad completada
+				<% else %>
+					<%= task.name %>
+				<% end %>
+			</td>
+			<td><%= task.ot.team_members_as_string %></ot>
+			<td><%= task.ot.observations.last.contents if task.ot.observations.count > 0 %>
+			<td><%= task.ot.created_on %></td>
+			<td><%= task.ot.updated_at %></td>
+			<td><%= task.ot.target_date %></td>
+			<td><%= task.ot.completed_on %></td>
+				<% if current_user.role.id == 1 || current_user.role.id == 3 %>
+				<td>
+					<%= check_box_tag("#{task.ot.id}") %>
+				</td>
+				<% end %>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

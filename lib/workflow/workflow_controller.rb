@@ -112,7 +112,7 @@ module WorkflowController
   end
 
   # Update completed task, ot with new workflow information, log transition
-  def call_next_workflow(next_task)
+  def call_next_workflow(next_task, mark_current_complete = true)
     next_task.reset_state
 
     # update ot
@@ -122,7 +122,7 @@ module WorkflowController
     @ot.update_attributes(ot_params)
 
     # mark current task complete
-    @task.mark_complete
+    @task.mark_complete if mark_current_complete
 
     # log the transition
     create_log_entry_for_workflow(@task.name, next_task.name)

@@ -161,8 +161,7 @@ class PlanDiarioController < ApplicationController
     @ot.add_markup_diario_tasks(current_user)
     @tasks = @ot.tasks.select { |task| true if task.id != @task.id }
 
-    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
-    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+    @xml_text = get_dummy_text
 
     respond_to do |format|
       format.html { render action: "dividir_tareas" }
@@ -242,10 +241,18 @@ class PlanDiarioController < ApplicationController
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)
 
+    # If this is a partioned OT, generate the post-markup workflow
+    if @ot.is_multiple_task?
+      @ot.add_markup_diario_post_tasks(current_user)
+    end
+
+    # This task needs to be marked complete
+    @task.mark_complete
+
     # Call next workflows, in this case, all workflows associated with analysts
     @ot.tasks.each do |task|
       if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_DS_MARKUP
-        call_next_workflow(task)
+        call_next_workflow(task, false)
         # Make first transition
         @task = task
         do_perform_transition(:asignacion)
@@ -280,6 +287,7 @@ class PlanDiarioController < ApplicationController
 
     do_perform_transition(:decide_dividir)
 
+    @xml_text = get_dummy_text
     @tasks = @ot.tasks
 
     respond_to do |format|

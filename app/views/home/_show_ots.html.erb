@@ -13,7 +13,6 @@
 			<th>Cámara</th>
 			<th>Sesión</th>
 			<th>Prioridad</th>
-			<th>Flujo</th>
 			<th>Actividad</th>
 			<th>Participantes</th>
 			<th>Observaciones</th>
@@ -41,24 +40,7 @@
 			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.session.to_s if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.priority.name %></td>
-			<td>
-				<% if !ot.completed_on.nil? %>
-					OT completda
-				<% elsif !ot.current_task.nil? %>
-					<%= ot.current_task_name %>
-				<% else %>
-					Estado desconocido
-				<% end %>
-			</td>
-			<td>
-				<% if ot.current_task.current_user_id == current_user.id && ot.current_task.completed_on.nil? %>
-					<%= link_to ot.current_step, ot.current_task.controller_action(ot.current_step) %>
-				<% elsif !ot.current_task.completed_on.nil? %>
-					Actividad completada
-				<% else %>
-					<%= ot.current_task.name %>
-				<% end %>
-			</td>
+			<td><%= ot.current_task.name %></td>
 			<td><%= ot.team_members_as_string %></ot>
 			<td><%= ot.observations.last.contents if ot.observations.count > 0 %>
 			<td><%= ot.created_on %></td>

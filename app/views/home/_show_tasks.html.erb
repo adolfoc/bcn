@@ -19,7 +19,7 @@
 		<% else %>
 			<tr>
 		<% end %>
-			<td><%= task.name %></td>
+			<td><%= "[#{task.serial_number}] #{task.name}" %></td>
 			<td><%= task.workflow_state %></td>
 			<td>
 			<% if !task.current_user.nil? %>

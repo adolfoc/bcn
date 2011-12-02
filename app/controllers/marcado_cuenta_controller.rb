@@ -89,8 +89,7 @@ class MarcadoCuentaController < ApplicationController
     check_for_target_document
 
     # Read it so we can display it
-    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
-    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+    @xml_text = get_dummy_text
 
     @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
@@ -144,6 +143,8 @@ class MarcadoCuentaController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
     do_perform_transition("no_requiere_marcaje_automatico")
 
     respond_to do |format|
@@ -162,8 +163,7 @@ class MarcadoCuentaController < ApplicationController
     check_for_target_document
 
     # Read it so we can display it
-    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
-    @xml_text = File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
+    @xml_text = get_dummy_text
 
     @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 

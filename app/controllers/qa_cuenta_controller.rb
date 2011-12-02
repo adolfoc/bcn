@@ -155,6 +155,14 @@ class QaCuentaController < ApplicationController
 
     do_perform_transition(:aprueba_tarea)
 
+    # Call next workflow
+    next_task = @task.successor
+    call_next_workflow(next_task)
+  
+    # Make first transition
+    @task = next_task
+    do_perform_transition(:recibe_notificacion_analista)
+
     respond_to do |format|
       format.html { render action: "devuelve_a_planificador" }
       format.json { head :ok }

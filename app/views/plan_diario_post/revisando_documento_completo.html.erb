@@ -1,0 +1,4 @@
+<%= render "shared/work_header" %>
+
+|&nbsp;<%= link_to "Tarea terminada", plan_diario_post_evalua_trabajo_terminado_event_path(@task.id) %>&nbsp;
+|&nbsp;<%= link_to "Tarea inconclusa", plan_diario_post_evalua_trabajo_incompleto_event_path(@task.id) %>&nbsp;|

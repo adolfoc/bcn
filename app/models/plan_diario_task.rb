@@ -23,6 +23,12 @@ class PlanDiarioTask < Task
     state :notificar_equipos
   end
 
+  def is_active?
+    return false if !completed_on.nil?
+#    return false if final_task?(workflow_state.to_sym)
+    true
+  end
+
   def initial_task
     :eligiendo_documento
   end

@@ -106,6 +106,14 @@ class Ot < ActiveRecord::Base
     "%05d" % id
   end
 
+  def active_tasks
+    active_tasks = Array.new
+    tasks.each do |task|
+      active_tasks << task if task.is_active?
+    end
+    active_tasks
+  end
+
   def get_basic_task_params(current_user)
     task_params = Hash.new
     task_params[:created_by] = current_user.id
@@ -239,5 +247,25 @@ class Ot < ActiveRecord::Base
 
     marcado_task.successor = qa_task.id
     qa_task.predecessor = marcado_task.id
+  end
+
+  def create_plan_diario_post_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_POST_DS_MARKUP).id
+    task_params[:current_user_id] = current_user.id
+    plan_diario_task = PlanDiarioPostTask.new(task_params)
+    plan_diario_task.workflow_state = plan_diario_task.initial_task
+    plan_diario_task.save
+    plan_diario_task
+  end
+
+  def add_markup_diario_post_tasks(current_user)
+    plan_diario_post_task = create_plan_diario_post_task(current_user)
+
+    tasks.each do |task|
+      if task.task_type.ordinal == TaskType::TASK_TYPE_VERIFY_DS_MARKUP
+        task.successor = plan_diario_post_task.id
+      end
+    end
   end
 end

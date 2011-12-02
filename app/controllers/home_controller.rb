@@ -69,16 +69,22 @@ class HomeController < ApplicationController
   end
 
   def distribute_ots
-    @ots_incoming = Array.new
-    @ots_work = Array.new
+    @tasks_incoming = Array.new
+    @tasks_work = Array.new
     @ots_sent = Array.new
+    ots_covered = Array.new
     Ot.order("updated_at DESC").each do |ot|
       if !ot.current_task.nil?
-        if ot.current_task.current_user_id == current_user.id && ot.read == false
-          @ots_incoming << ot
-        elsif ot.current_task.current_user_id == current_user.id && ot.read == true && ot.completed_on.nil?
-          @ots_work << ot
-        elsif ot.created_by == current_user.id || ot.has_been_worked_on_by(current_user.id)
+        ot.tasks.each do |task|
+          if task.is_active? && task.current_user_id == current_user.id && ot.read == false
+            @tasks_incoming << task
+            ots_covered << ot
+          elsif task.is_active? && task.current_user_id == current_user.id && task.ot.read == true && task.ot.completed_on.nil?
+            @tasks_work << task
+            ots_covered << ot
+          end
+        end
+        if (ot.owner.id == current_user.id || ot.has_been_worked_on_by(current_user.id)) && !ots_covered.include?(ot)
           @ots_sent << ot
         end
       end
@@ -125,20 +131,7 @@ class HomeController < ApplicationController
   def show_admin
     screen_name("Inicial-Admin")
 
-    @ots_incoming = Array.new
-    @ots_work = Array.new
-    @ots_sent = Array.new
-    Ot.order("updated_at DESC").each do |ot|
-      if !ot.current_task.nil?
-        if ot.current_task.current_user_id == current_user.id && ot.read == false
-          @ots_incoming << ot
-        elsif ot.current_task.current_user_id == current_user.id && ot.read == true
-          @ots_work << ot
-        elsif ot.created_by == current_user.id
-          @ots_sent << ot
-        end
-      end
-    end
+    distribute_ots
 
     respond_to do |format|
       format.html { render action: "show_admin" }

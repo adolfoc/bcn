@@ -10,6 +10,10 @@ class Task < ActiveRecord::Base
     task_type.name
   end
 
+  def serial_number
+    "%05d" % id
+  end
+
   def state
     "Indefinido"
   end

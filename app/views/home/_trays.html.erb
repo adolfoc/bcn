@@ -1,0 +1,24 @@
+<%= render :partial => "show_ots_tasks", 
+	:locals => {
+		:table_title => "Bandeja de entrada", 
+		:tasks => @tasks_incoming, 
+		:filter_selector_id => "ot-filter-incoming",
+		:show_button_id => "show-button-incoming", 
+	} %>
+<%= render :partial => "incoming_command_bar" %>
+<%= render :partial => "show_ots_tasks", 
+	:locals => {
+		:table_title => "Bandeja de trabajo", 
+		:tasks => @tasks_work, 
+		:filter_selector_id => "ot-filter-work",
+		:show_button_id => "show-button-work", 
+	} %>
+<%= render :partial => "current_command_bar" %>
+<%= render :partial => "show_ots", 
+	:locals => {
+		:table_title => "Bandeja de enviados", 
+		:ots => @ots_sent, 
+		:filter_selector_id => "ot-filter-sent",
+		:show_button_id => "show-button-sent", 
+	} %>
+<%= render :partial => "sent_command_bar" %>

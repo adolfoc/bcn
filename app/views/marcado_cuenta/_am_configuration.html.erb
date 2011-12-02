@@ -12,7 +12,7 @@
 
 	<%= hidden_field_tag(:task_id, @task.id) %>
 
-	<div class="field">
+	<div class="field invisible">
 		<%= f.label :am_result_id, "Resultado de marcaje automático" %><br />
 	    <%= collection_select(:am_configuration, :am_result_id, AmResult.all, :id, :run_date) %>
 	</div>
@@ -114,6 +114,6 @@
 	</fieldset>
 
 	<div class="actions">
-		<%= f.submit %>
+		<%= f.submit "Marcar" %>
 	</div>
 <% end %>
