@@ -79,6 +79,8 @@ Bcn::Application.routes.draw do
   match "plan_diario_post/notificando_equipos"=> "plan_diario_post#notificando_equipos", :as => :plan_diario_post_notificando_equipos
   # Posts
   match "plan_diario_post/publicar/:task_id"=> "plan_diario_post#publicar", :as => :plan_diario_post_publicar
+  match "plan_diario_post/create_asignar_tareas"=> "plan_diario_post#create_asignar_tareas", :as => :plan_diario_post_create_asignar_tareas, :method => :post
+  match "plan_diario_post/create_notificar_equipos"=> "plan_diario_post#create_notificar_equipos", :as => :plan_diario_post_create_notificar_equipos, :method => :post
   # Events
   match "plan_diario_post/recibe_notificacion_analista_event/:task_id" => "plan_diario_post#recibe_notificacion_analista_event", :as => :plan_diario_post_recibe_notificacion_analista_event
   match "plan_diario_post/trabajo_completo_event/:task_id" => "plan_diario_post#trabajo_completo_event", :as => :plan_diario_post_trabajo_completo_event

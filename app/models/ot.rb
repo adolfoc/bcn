@@ -268,4 +268,13 @@ class Ot < ActiveRecord::Base
       end
     end
   end
+
+  def add_markup_diario_final_tasks(current_user)
+    marcado_task = create_marcado_diario_task(current_user)
+    qa_task = create_qa_diario_task(current_user)
+
+    successor = marcado_task.id
+    marcado_task.successor = qa_task.id
+    qa_task.predecessor = marcado_task.id
+  end
 end

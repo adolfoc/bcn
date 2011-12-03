@@ -65,8 +65,35 @@ class PlanDiarioPostController < ApplicationController
   def asignando_tareas
     screen_name("#{@task.class.to_s}/asignando_tareas")
 
+    # Prepare the tasks to be shown
+    @tasks = Array.new
+    @ot.tasks.each do |task|
+      @tasks << task if task.completed_on.nil? && task.current_user_id.nil?
+    end
+
     respond_to do |format|
       format.html { render action: "asignando_tareas" }
+      format.json { head :ok }
+    end
+  end
+
+  # POST create_asignar_tareas
+  def create_asignar_tareas
+    @ot = Ot.find(params[:ot_id])
+    @task = Task.find(@ot.current_task_id)
+
+    params[:tarea].each_pair do |key, value|
+      if key != @task.id
+        this_task = Task.find(key)
+        this_task.current_user_id = value
+        this_task.save
+      end
+    end
+
+    do_perform_transition(:tareas_asignadas)
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Las tareas fueron asignadas.' }
       format.json { head :ok }
     end
   end
@@ -85,6 +112,25 @@ class PlanDiarioPostController < ApplicationController
 
     respond_to do |format|
       format.html { render action: "notificando_equipos" }
+      format.json { head :ok }
+    end
+  end
+
+  # POST create_notificar_equipos
+  def create_notificar_equipos
+    @ot = Ot.find(params[:ot_id])
+    @task = Task.find(@ot.current_task_id)
+
+    # Call next workflow
+    next_task = @task.successor
+    call_next_workflow(next_task)
+
+    # Make first transition
+    @task = next_task
+    do_perform_transition(:asignacion)
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'El equipo fue notificado.' }
       format.json { head :ok }
     end
   end
@@ -160,6 +206,15 @@ class PlanDiarioPostController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition(:evalua_trabajo_incompleto)
+
+    # Need to create markup and qa tasks
+    @ot.add_markup_diario_final_tasks(current_user)
+
+    # Prepare the tasks to be shown
+    @tasks = Array.new
+    @ot.tasks.each do |task|
+      @tasks << task if task.completed_on.nil? && task.current_user_id.nil?
+    end
 
     respond_to do |format|
       format.html { render action: "asignando_tareas" }

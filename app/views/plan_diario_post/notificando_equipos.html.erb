@@ -1,2 +1,23 @@
 <%= render "shared/work_header" %>
 
+<table>
+	<thead>
+		<tr>
+			<th>Tarea</th>
+			<th>Usuario</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @ot.active_tasks.each do | task | %>
+		<% if task.current_user_id != @ot.created_by %>
+			<tr>
+				<td><%= task.name %></td>
+				<td><%= task.current_user.user_name %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	</tbody>
+</table>
+
+
+<%= render "notificar_equipos_form" %>
