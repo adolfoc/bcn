@@ -1,0 +1,26 @@
+<h1>Herramientas de marcaje</h1>
+
+<table>
+<tr>
+	<thead>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @markup_tools.each do |markup_tool| %>
+		<tr>
+			<td><%= markup_tool.name %></td>
+			<td><%= link_to 'Show', markup_tool %></td>
+			<td><%= link_to 'Edit', edit_markup_tool_path(markup_tool) %></td>
+			<td><%= link_to 'Destroy', markup_tool, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Markup tool', new_markup_tool_path %>

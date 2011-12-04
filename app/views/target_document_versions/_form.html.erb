@@ -1,0 +1,36 @@
+<%= form_for(@target_document_version) do |f| %>
+	<% if @target_document_version.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@target_document_version.errors.count, "error") %> prohibited this target_document_version from being saved:</h2>
+			<ul>
+				<% @target_document_version.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :ot_id, "OT" %><br />
+	    <%= collection_select(:target_document_version, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :user_id %><br />
+	    <%= collection_select(:target_document_version, :user_id, User.all, :id, :user_name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :markup_tool_id %><br />
+	    <%= collection_select(:target_document_version, :markup_tool_id, MarkupTool.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :version %><br />
+		<%= f.text_field :version %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

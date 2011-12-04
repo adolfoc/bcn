@@ -1,4 +1,6 @@
 Bcn::Application.routes.draw do
+  resources :target_document_versions
+  resources :markup_tools
   resources :am_configurations
   resources :am_observations
   resources :am_run_observation_types
@@ -91,7 +93,12 @@ Bcn::Application.routes.draw do
 
   ######################################################################################################################################################################
   # Marcado Cuenta workflow
+  # States
   match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
+  # Posts
+  match "marcado_cuenta/realizar_marcaje_automatico" => "marcado_cuenta#realizar_marcaje_automatico", :as => :realizar_marcaje_automatico, :method => :post
+  match "marcado_cuenta/save_xml_document" => "marcado_cuenta#save_xml_document", :as => :marcado_cuenta_save_xml_document, :method => :post
+  # Events
   match "marcado_cuenta/requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#requiere_marcaje_automatico_event", :as => :requiere_marcaje_automatico_event
   match "marcado_cuenta/no_requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#no_requiere_marcaje_automatico_event", :as => :no_requiere_marcaje_automatico_event
   match "marcado_cuenta/requiere_modificaciones_event/:task_id" => "marcado_cuenta#requiere_modificaciones_event", :as => :requiere_modificaciones_event
@@ -99,7 +106,6 @@ Bcn::Application.routes.draw do
   match "marcado_cuenta/termina_correcciones_event/:task_id" => "marcado_cuenta#termina_correcciones_event", :as => :termina_correcciones_event
   match "marcado_cuenta/verifica_correcciones_event/:task_id" => "marcado_cuenta#verifica_correcciones_event", :as => :verifica_correcciones_event
   match "marcado_cuenta/termina_marcaje_automatico_event/:task_id" => "marcado_cuenta#termina_marcaje_automatico_event", :as => :termina_marcaje_automatico_event
-  match "marcado_cuenta/realizar_marcaje_automatico/:task_id" => "marcado_cuenta#realizar_marcaje_automatico", :as => :realizar_marcaje_automatico, :method => :post
 
   # QA Marcado Cuenta workflow
   match "qa_cuenta/perform_work/:task_id/(:event)" => "qa_cuenta#perform_work", :as => :qa_cuenta_perform_work

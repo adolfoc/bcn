@@ -1,0 +1,23 @@
+<p>
+  <b>OT:</b>
+  <%= @target_document_version.ot.name %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @target_document_version.user.user_name %>
+</p>
+
+<p>
+  <b>Marlup tool:</b>
+  <%= @target_document_version.markup_tool.name %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @target_document_version.version %>
+</p>
+
+
+<%= link_to 'Edit', edit_target_document_version_path(@target_document_version) %> |
+<%= link_to 'Back', target_document_versions_path %>

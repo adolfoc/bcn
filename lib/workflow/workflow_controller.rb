@@ -1,104 +1,17 @@
+require 'audit_mock'
+require 'am_result_mock'
+require 'am_configuration_mock'
+require 'am_mock'
+require 'target_document_version_mock'
+require 'document_mock'
+
 module WorkflowController
-  # Log a call to one workflow from another
-  def create_log_entry_for_workflow(workflow_from, workflow_to)
-    params = Hash.new
-    params[:user_id] = current_user.id
-    params[:role_id] = current_user.role.id
-    params[:ot_id] = @task.ot.id
-    params[:task_id] = @task.id
-    params[:description] = "Transicion de tarea #{workflow_from} a tarea #{workflow_to}"
-    log_entry = Audit.new(params)
-    log_entry.save
-  end
-
-  # Log a state transition within a workflow
-  def create_log_entry
-    params = Hash.new
-    params[:user_id] = current_user.id
-    params[:role_id] = current_user.role.id
-    params[:ot_id] = @task.ot.id
-    params[:task_id] = @task.id
-    params[:description] = "Transicion de #{@task.current_state} a #{@task.current_state.events[@event.to_sym].transitions_to}"
-    log_entry = Audit.new(params)
-    log_entry.save
-  end
-
-  def create_source_document_template
-    frbr_work = FrbrWork.new
-    
-    frbr_expression = FrbrExpression.new({ :frbr_document_type_id => 3, :version => 1, :language => 'es' })
-    frbr_work.frbr_expressions << frbr_expression
-    
-    frbr_manifestation = FrbrManifestation.new
-    frbr_expression.frbr_manifestations << frbr_manifestation
-
-    frbr_work
-  end
-
-  def get_dummy_text
-    frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
-    File.open("#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}", 'r') { |f| f.read }
-  end
-
-  def create_random_am_warning(am_result_id)
-    obs_params = Hash.new
-    obs_params[:am_result_id] = am_result_id
-    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_ADVERTENCIA
-    obs_params[:line] = (Random.new.rand * 1000).to_i
-    obs_params[:contents] = "Este es una advertencia del marcaje automatico"
-    obs = AmObservation.new(obs_params)
-    obs.save
-    obs
-  end
-
-  def create_random_am_observation(am_result_id)
-    obs_params = Hash.new
-    obs_params[:am_result_id] = am_result_id
-    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_OBSERVACION
-    obs_params[:line] = (Random.new.rand * 1000).to_i
-    obs_params[:contents] = "Este es una observacion del marcaje automatico"
-    obs = AmObservation.new(obs_params)
-    obs.save
-    obs
-  end
-
-  def create_random_am_error(am_result_id)
-    obs_params = Hash.new
-    obs_params[:am_result_id] = am_result_id
-    obs_params[:am_run_observation_type_id] = AmRunObservationType::AM_OBSERVATION_TYPE_ERROR
-    obs_params[:line] = (Random.new.rand * 1000).to_i
-    obs_params[:contents] = "Este es un error del marcaje automatico"
-    obs = AmObservation.new(obs_params)
-    obs.save
-    obs
-  end
-
-  def mock_up_am_results
-    params = Hash.new
-    params[:run_date] = DateTime.now
-    params[:ot_id] = @ot.id
-    am_result = AmResult.new(params)
-    am_result.save
-
-    create_random_am_warning(am_result.id)
-    create_random_am_observation(am_result.id)
-    create_random_am_error(am_result.id)
-  end
-
-  # Generate a new skeleton configuration for automatic markup
-  # TODO: Should be based on previous run
-  def generate_skeleton_am_configuration(ot_id)
-    am_configuration = AmConfiguration.new
-
-    am_configuration.structural_markup_enabled = true
-    am_configuration.structural_markup_extension_whole_document = true
-    am_configuration.structural_markup_depth_all = true
-    am_configuration.semantic_markup_enabled = true
-    am_configuration.semantic_markup_extension_whole_document = true
-    am_configuration.semantic_markup_depth_all = true
-
-    am_configuration
-  end
+  include AuditMock
+  include AmResultMock
+  include AmConfigurationMock
+  include AmMock
+  include TargetDocumentVersionMock
+  include DocumentMock
 
   # Perform a state transition
   def do_perform_transition(event)

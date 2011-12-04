@@ -1,0 +1,32 @@
+<h1>Versiones de Documentos</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>OT</th>
+			<th>Usuario</th>
+			<th>Herramienta</th>
+			<th>Versión</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @target_document_versions.each do |target_document_version| %>
+		<tr>
+			<td><%= target_document_version.ot.name %></td>
+			<td><%= target_document_version.user.user_name %></td>
+			<td><%= target_document_version.markup_tool.name %></td>
+			<td><%= target_document_version.version %></td>
+			<td><%= link_to 'Show', target_document_version %></td>
+			<td><%= link_to 'Edit', edit_target_document_version_path(target_document_version) %></td>
+			<td><%= link_to 'Destroy', target_document_version, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Target document version', new_target_document_version_path %>

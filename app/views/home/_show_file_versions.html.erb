@@ -7,4 +7,14 @@
 			<th>Fecha</th>
 		</tr>
 	</thead>
+	<tbody>
+		<% @versions.each do |version| %>
+		<tr>
+			<td><%= version.user.user_name %></td>
+			<td><%= version.markup_tool.name %></td>
+			<td><%= version.version %></td>
+			<td><%= version.created_at %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>

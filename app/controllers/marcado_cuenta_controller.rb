@@ -12,16 +12,6 @@ class MarcadoCuentaController < ApplicationController
     @accordion_section = 0
   end
 
-  def check_for_target_document
-    # If we don't have an XML file, create one
-    if @ot.target_frbr_manifestation_id.nil?
-      target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
-      params = Hash.new
-      params[:target_frbr_manifestation_id] = target_frbr.id
-      @ot.update_attributes(params)
-    end
-  end
-
   ##########################################################
   # Controller interface: States
   ##########################################################
@@ -46,8 +36,6 @@ class MarcadoCuentaController < ApplicationController
       enviada_a_qa
     end
   end
-
-  # Actions that bring back a state
 
   # This state should never be activated.
   def por_asignar
@@ -90,6 +78,27 @@ class MarcadoCuentaController < ApplicationController
 
     # Read it so we can display it
     @xml_text = get_dummy_text
+
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
+    respond_to do |format|
+      format.html { render action: "corrigiendo_manualmente" }
+      format.json { head :ok }
+    end
+  end
+
+  # POST save_xml_document
+  def save_xml_document
+    @ot = Ot.find(params[:ot_id])
+    @task = Task.find(@ot.current_task.id)
+
+    screen_name("#{@task.class.to_s}/corrigiendo_manualmente")
+
+    # Read it so we can display it
+    @xml_text = get_dummy_text
+
+    # Mimic saving document to versioning repository
+    generate_new_document_version(2)
 
     @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
@@ -227,23 +236,18 @@ class MarcadoCuentaController < ApplicationController
     end
   end
 
-  # Automatic markup returns here after running
+  # Automatic markup is performed here after user selects configuration
   # POST realizar_marcaje_automatico
   def realizar_marcaje_automatico
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
+    # Save the configuration choices
     @am_configuration = AmConfiguration.new(params[:am_configuration])
     @am_configuration.save
 
-    # Need a document
-    check_for_target_document
-    mock_up_am_results
-    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
-
-    @am_configuration.am_result_id = @am_result.id
-    @am_configuration.save
-
+    @am_result = perform_am(@am_configuration)
+  
     do_perform_transition("termina_marcaje_automatico")
 
     respond_to do |format|

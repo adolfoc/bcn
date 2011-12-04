@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129161556) do
+ActiveRecord::Schema.define(:version => 20111203142223) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -128,6 +128,12 @@ ActiveRecord::Schema.define(:version => 20111129161556) do
     t.datetime "updated_at"
   end
 
+  create_table "markup_tools", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "observations", :force => true do |t|
     t.integer  "ot_id"
     t.integer  "user_id"
@@ -175,6 +181,15 @@ ActiveRecord::Schema.define(:version => 20111129161556) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "target_document_versions", :force => true do |t|
+    t.integer  "ot_id"
+    t.integer  "user_id"
+    t.integer  "markup_tool_id"
+    t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

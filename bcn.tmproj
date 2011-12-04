@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/models/plan_cuenta_task.rb</string>
+	<string>app/controllers/plan_diario_post_controller.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -33,7 +33,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>51</integer>
+			<integer>49</integer>
 		</dict>
 		<key>app/controllers/marcado_cuenta_controller.rb</key>
 		<dict>
@@ -63,33 +63,65 @@
 			<key>firstVisibleLine</key>
 			<integer>35</integer>
 		</dict>
-		<key>app/controllers/plan_diario_controller.rb</key>
+		<key>app/controllers/plan_cuenta_controller.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>44</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>212</integer>
+				<integer>127</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>194</integer>
+			<integer>75</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>112</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>127</integer>
+			</dict>
 		</dict>
 		<key>app/controllers/plan_diario_post_controller.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>6</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>91</integer>
+				<integer>126</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>66</integer>
+			<integer>97</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>124</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>126</integer>
+			</dict>
 		</dict>
 		<key>app/controllers/qa_cuenta_controller.rb</key>
 		<dict>
@@ -119,72 +151,28 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>app/controllers/tasks_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>66</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>37</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>65</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>66</integer>
-			</dict>
-		</dict>
 		<key>app/models/ot.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>31</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>275</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>57</integer>
-		</dict>
-		<key>app/models/plan_cuenta_task.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>3</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>223</integer>
 		</dict>
 		<key>app/models/plan_diario_post_task.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>24</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>15</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -197,44 +185,14 @@
 				<key>column</key>
 				<integer>13</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>15</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>38</integer>
+				<integer>29</integer>
 				<key>line</key>
-				<integer>12</integer>
-			</dict>
-		</dict>
-		<key>app/models/plan_diario_task.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>25</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>31</integer>
+				<integer>15</integer>
 			</dict>
 		</dict>
 		<key>app/models/task.rb</key>
@@ -266,6 +224,20 @@
 				<key>line</key>
 				<integer>34</integer>
 			</dict>
+		</dict>
+		<key>app/views/home/_new_ot_form.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>38</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>app/views/home/_show_ots.html.erb</key>
 		<dict>
@@ -311,6 +283,62 @@
 				<integer>21</integer>
 			</dict>
 		</dict>
+		<key>app/views/plan_diario_post/_asignando_tareas_form.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>26</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>app/views/plan_diario_post/_notificar_equipos_form.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>59</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>app/views/plan_diario_post/asignando_tareas.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>120</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>app/views/plan_diario_post/notificando_equipos.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>app/views/plan_diario_post/publicando_diario_de_sesiones.html.erb</key>
 		<dict>
 			<key>caret</key>
@@ -324,6 +352,36 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>app/views/plan_diario_post/revisando_documento_completo.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>82</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>39</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>92</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
 		</dict>
 		<key>config/deploy.rb</key>
 		<dict>
@@ -344,14 +402,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>43</integer>
+				<integer>92</integer>
 				<key>line</key>
-				<integer>80</integer>
+				<integer>82</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>61</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>72</integer>
+				<key>line</key>
+				<integer>82</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>96</integer>
+				<key>line</key>
+				<integer>82</integer>
+			</dict>
 		</dict>
 		<key>db/migrate/20111103174017_devise_create_users.rb</key>
 		<dict>
@@ -371,21 +445,19 @@
 	<key>openDocuments</key>
 	<array>
 		<string>app/models/plan_diario_post_task.rb</string>
+		<string>app/views/plan_diario_post/_notificar_equipos_form.html.erb</string>
 		<string>app/views/home/_show_tasks.html.erb</string>
 		<string>app/models/task.rb</string>
 		<string>config/routes.rb</string>
-		<string>app/controllers/qa_cuenta_controller.rb</string>
 		<string>app/controllers/plan_diario_post_controller.rb</string>
+		<string>app/views/plan_diario_post/notificando_equipos.html.erb</string>
+		<string>app/views/home/_new_ot_form.html.erb</string>
+		<string>app/controllers/plan_cuenta_controller.rb</string>
+		<string>app/views/plan_diario_post/_asignando_tareas_form.html.erb</string>
+		<string>app/views/plan_diario_post/asignando_tareas.html.erb</string>
+		<string>app/views/plan_diario_post/revisando_documento_completo.html.erb</string>
 		<string>app/controllers/home_controller.rb</string>
-		<string>app/controllers/plan_diario_controller.rb</string>
-		<string>app/models/plan_diario_task.rb</string>
-		<string>app/models/plan_cuenta_task.rb</string>
-		<string>app/controllers/observations_controller.rb</string>
-		<string>app/controllers/marcado_cuenta_controller.rb</string>
-		<string>app/controllers/tasks_controller.rb</string>
-		<string>app/views/plan_diario_post/publicando_diario_de_sesiones.html.erb</string>
 		<string>app/models/ot.rb</string>
-		<string>app/views/home/_show_ots.html.erb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

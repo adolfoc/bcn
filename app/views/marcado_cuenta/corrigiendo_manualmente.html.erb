@@ -1,6 +1,6 @@
 <%= render "shared/work_header" %>
 
-<%= render "shared/xml_editor" %>
+<%= render :partial => "shared/xml_editor", :locals => { :save_xml_document => marcado_cuenta_save_xml_document_path } %>
 
 <%= render "shared/am_results" %>
 

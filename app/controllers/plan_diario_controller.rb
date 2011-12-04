@@ -99,13 +99,11 @@ class PlanDiarioController < ApplicationController
     @am_configuration = AmConfiguration.new(params[:am_configuration])
     @am_configuration.save
 
-    # Need a document
-    check_for_target_document
-    mock_up_am_results
-    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
-
-    @am_configuration.am_result_id = @am_result.id
+    # Save the configuration choices
+    @am_configuration = AmConfiguration.new(params[:am_configuration])
     @am_configuration.save
+
+    @am_result = perform_am(@am_configuration)
 
     do_perform_transition("termina_marcaje_automatico")
 
