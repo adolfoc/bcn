@@ -35,6 +35,18 @@
 		<%= f.datetime_select :target_date %>
 	</div>
 
+	<%= f.fields_for :observations do | observation_form | %>
+		<div class="field invisible">
+			<%= observation_form.label :user_id, "Usuario" %><br />
+		    <%= observation_form.text_field :user_id %>
+		</div>
+
+		<div class="field">
+			<%= observation_form.label :contents, "Observaciones" %><br />
+			<%= observation_form.text_area :contents %>
+		</div>
+	<% end %>
+
 	<div class="actions">
 		<%= f.submit "Generar" %>
 	</div>

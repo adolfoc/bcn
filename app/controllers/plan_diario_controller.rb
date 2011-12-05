@@ -112,6 +112,12 @@ class PlanDiarioController < ApplicationController
   def evaluando_resultados
     screen_name("#{@task.class.to_s}/evaluando_resultados")
 
+    # Need a document
+    check_for_target_document
+
+    # Read it so we can display it
+    @xml_text = get_dummy_text
+
     @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
 
     respond_to do |format|

@@ -2,10 +2,16 @@
 	<%= hidden_field_tag(:ot_id, @ot.id) %>
 
 	<div class="xml-editor">
-		<%= text_area_tag "xml_text", @xml_text %>
+		<% if current_user.role.id == 1 %>
+			<%= text_area_tag "xml_text", @xml_text %>
+		<% else %>
+			<%= text_area_tag "xml_text", @xml_text, :readonly => true %>
+		<% end %>
 	</div>
 
-	<div class="actions">
-		<%= submit_tag "Guardar" %>
-	</div>
+	<% if current_user.role.id == 1 %>
+		<div class="actions">
+			<%= submit_tag "Guardar" %>
+		</div>
+	<% end %>
 </form>

@@ -18,7 +18,7 @@
 	<% @tasks.each do |task| %>
 	<tr>
 		<td><%= task.name %></td>
-		<td><%= text_field_tag "tarea[#{task.id.to_s}][xpath]"%></td>
+		<td><%= text_field_tag "tarea[#{task.id.to_s}][xpath]"%>&nbsp;&nbsp;<%= link_to "Capturar sección", "#" %></td>
 		<td>
 			<%= select_tag "tarea[#{task.id.to_s}][user]", options_from_collection_for_select(User.where("role_id = #{task.task_type.role_id}"), :id, :user_name) %>
 		</td>

@@ -38,6 +38,10 @@ class HomeController < ApplicationController
     @ot.created_by = current_user.id
     @ot.target_date = DateTime.now + 2
 
+    observation = Observation.new
+    observation.user_id = current_user.id
+    @ot.observations << observation
+
     respond_to do |format|
       format.html # new_ot.html.erb
     end

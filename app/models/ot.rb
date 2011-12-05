@@ -10,6 +10,8 @@ class Ot < ActiveRecord::Base
   has_many :observations
   has_many :am_results
 
+  accepts_nested_attributes_for :observations, :allow_destroy => false
+
   def name
     return ot_type.name + " (#{source_frbr_manifestation.name})" if !source_frbr_manifestation.nil?
     ot_type.name

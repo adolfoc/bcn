@@ -52,7 +52,13 @@ class PlanCorreccionController < ApplicationController
       # Move on
       do_perform_transition(:documentos_elegidos)
 
-      format.html { redirect_to root_path, notice: 'El documento Frbr fue elegido sin problemas.' }
+      format.html { 
+        @tasks = []
+        @ot.tasks.each do |task|
+          @tasks << task if task.id != @task.id
+        end
+        render "asignando_tareas", notice: 'El documento Frbr fue elegido sin problemas.' 
+      }
     end
   end
 
@@ -86,7 +92,9 @@ class PlanCorreccionController < ApplicationController
     do_perform_transition(:tareas_asignadas)
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Las tareas fueron asignadas sin dificultades.' }
+      format.html { 
+        render "notificar_analista", notice: 'Las tareas fueron asignadas sin dificultades.' 
+      }
       format.json { head :ok }
     end
   end

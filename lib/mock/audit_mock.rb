@@ -13,6 +13,7 @@ module AuditMock
 
   # Log a state transition within a workflow
   def create_log_entry
+    Rails.logger.debug("@@@ create_log_entry: task = #{@task.inspect} event = #{@event.inspect}")
     params = Hash.new
     params[:user_id] = current_user.id
     params[:role_id] = current_user.role.id
