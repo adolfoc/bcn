@@ -201,6 +201,7 @@ class HomeController < ApplicationController
     FrbrManifestation.delete_all
     FrbrExpression.delete_all
     FrbrWork.delete_all
+    TargetDocumentVersion.delete_all
     Task.delete_all
     Observation.delete_all
     Ot.delete_all

@@ -38,6 +38,25 @@ class PlanDiarioTask < Task
     false
   end
 
+  def decode_ot_state
+    case workflow_state
+    when "eligiendo_documento"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "en_marcaje_automatico"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "evaluando_resultados"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "planifica_asignar_tareas"
+      return OtState.find_by_ordinal(OtState::OT_STATE_INICIALIZADA).id
+    when "dividir_tareas"
+      return OtState.find_by_ordinal(OtState::OT_STATE_INICIALIZADA).id
+    when "asignando_tareas"
+      return OtState.find_by_ordinal(OtState::OT_STATE_INICIALIZADA).id
+    when "notificar_equipos"
+      return OtState.find_by_ordinal(OtState::OT_EN_PROCESO).id
+    end
+  end
+
   # plan_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
     return "plan_diario/perform_work/#{id}/#{event}" if !event.nil?

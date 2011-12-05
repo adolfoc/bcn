@@ -31,6 +31,23 @@ class MarcadoDocumentoTask < Task
     false
   end
 
+  def decode_ot_state
+    case workflow_state
+    when "por_asignar"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "asignada"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "evaluando_resultados"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "corrigiendo_manualmente"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "en_marcaje_automatico"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "enviada_a_qa"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    end
+  end
+
   # marcado_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
     return "marcado_documento/perform_work/#{id}/#{event}" if !event.nil?

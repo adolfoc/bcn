@@ -32,6 +32,25 @@ class QaDocumentoTask < Task
     end
   end
 
+  def decode_ot_state
+    case workflow_state
+    when "esperando_notificacion_analista"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "por_validar_qa"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "evalua_qa"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "devuelve_a_analista"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "devuelve_a_planificador"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "guarda_documento"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_PUBLICAR).id
+    when "documento_publicado"
+      return OtState.find_by_ordinal(OtState::OT_STATE_PUBLICADA).id
+    end
+  end
+
   # qa_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
     return "qa_documento/perform_work/#{id}/#{event}" if !event.nil?

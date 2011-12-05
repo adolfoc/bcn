@@ -15,6 +15,11 @@
 	    <%= collection_select(:ot, :ot_type_id, OtType.order("name ASC"), :id, :name) %>
 	</div>
 
+	<div class="field invisible">
+	    <%= f.label(:ot_state_id, 'Estado') %><br />
+	    <%= collection_select(:ot, :ot_state_id, OtState.all, :id, :name) %>
+	</div>
+
 	<div class="field">
 	    <%= f.label(:priority_id, 'Prioridad') %><br />
 	    <%= collection_select(:ot, :priority_id, Priority.all, :id, :name) %>

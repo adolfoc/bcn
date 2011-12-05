@@ -17,10 +17,6 @@ class Ot < ActiveRecord::Base
     ot_type.name
   end
 
-  def state
-    "Indefinido"
-  end
-
   def parent_ot
     return nil if parent_ot_id.nil?
     Ot.find(parent_ot_id)
@@ -37,6 +33,7 @@ class Ot < ActiveRecord::Base
   def mark_complete
     params = Hash.new
     params[:completed_on] = DateTime.now
+    params[:ot_state_id] = OtState.find_by_ordinal(OtState::OT_STATE_PUBLICADA).id
     update_attributes(params)
   end
 
@@ -92,6 +89,7 @@ class Ot < ActiveRecord::Base
     params = Hash.new
     params[:current_task_id] = task.id
     params[:current_step] = step
+    params[:ot_state_id] = task.decode_ot_state
     update_attributes(params)
   end
 

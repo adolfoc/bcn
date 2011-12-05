@@ -34,7 +34,7 @@
 		<% end %>
 			<td><%= link_to task.ot.serial_number, mostrar_ot_path(task.ot.id) %></td>
 			<td><%= task.ot.ot_type.name %></td>
-			<td><%= task.ot.state %>
+			<td><%= task.ot.ot_state.name %>
 			<td><%= task.ot.parent_ot.serial_number if !task.ot.parent_ot.nil? %></td>
 			<td><%= task.ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !task.ot.source_frbr_manifestation.nil? %>
 			<td><%= task.ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !task.ot.source_frbr_manifestation.nil? %>

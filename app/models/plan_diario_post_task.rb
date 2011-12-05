@@ -28,6 +28,21 @@ class PlanDiarioPostTask < Task
     false
   end
 
+  def decode_ot_state
+    case workflow_state
+    when "esperando_notificacion_analista"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "verificando_completitud"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "revisando_documento_completo"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "asignando_tareas"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_ASIGNAR).id
+    when "publicando_diario_de_sesiones"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_PUBLICAR).id
+    end
+  end
+
   # plan_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
     return "plan_diario_post/perform_work/#{id}/#{event}" if !event.nil?

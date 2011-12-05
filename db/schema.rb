@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111203142223) do
+ActiveRecord::Schema.define(:version => 20111205162640) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20111203142223) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ordinal"
   end
 
   create_table "ot_types", :force => true do |t|
@@ -170,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20111203142223) do
     t.integer  "parent_ot_id"
     t.boolean  "read",                         :default => false
     t.string   "by_request_of"
+    t.integer  "ot_state_id"
   end
 
   create_table "priorities", :force => true do |t|
