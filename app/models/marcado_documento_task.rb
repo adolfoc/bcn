@@ -1,4 +1,4 @@
-class MarcadoCuentaTask < Task
+class MarcadoDocumentoTask < Task
   include Workflow
   workflow do
     state :por_asignar do
@@ -33,8 +33,8 @@ class MarcadoCuentaTask < Task
 
   # marcado_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
-    return "marcado_cuenta/perform_work/#{id}/#{event}" if !event.nil?
-    "marcado_cuenta/perform_work/#{id}"
+    return "marcado_documento/perform_work/#{id}/#{event}" if !event.nil?
+    "marcado_documento/perform_work/#{id}"
   end
 
   # Notifications to clients

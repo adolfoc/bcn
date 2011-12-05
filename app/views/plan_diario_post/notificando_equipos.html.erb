@@ -8,8 +8,8 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% @ot.active_tasks.each do | task | %>
-		<% if task.current_user_id != @ot.created_by %>
+	<% @ot.tasks.each do | task | %>
+		<% if task.completed_on.nil? && task.current_user_id != @ot.created_by %>
 			<tr>
 				<td><%= task.name %></td>
 				<td><%= task.current_user.user_name %></td>

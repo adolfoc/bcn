@@ -99,10 +99,6 @@ class PlanDiarioController < ApplicationController
     @am_configuration = AmConfiguration.new(params[:am_configuration])
     @am_configuration.save
 
-    # Save the configuration choices
-    @am_configuration = AmConfiguration.new(params[:am_configuration])
-    @am_configuration.save
-
     @am_result = perform_am(@am_configuration)
 
     do_perform_transition("termina_marcaje_automatico")
@@ -249,7 +245,7 @@ class PlanDiarioController < ApplicationController
 
     # Call next workflows, in this case, all workflows associated with analysts
     @ot.tasks.each do |task|
-      if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_DS_MARKUP
+      if task.task_type.ordinal == TaskType::TASK_TYPE_MARK_GENERIC_MARKUP
         call_next_workflow(task, false)
         # Make first transition
         @task = task

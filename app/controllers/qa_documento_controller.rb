@@ -1,6 +1,6 @@
 require 'workflow_controller'
 
-class QaCuentaController < ApplicationController
+class QaDocumentoController < ApplicationController
   include WorkflowController
 
   before_filter :set_menu_section
@@ -38,6 +38,8 @@ class QaCuentaController < ApplicationController
   end
 
   # Actions that bring back a state
+
+  # GET esperando_notificacion_analista
   def esperando_notificacion_analista
     screen_name("#{@task.class.to_s}/esperando_notificacion_analista")
 
@@ -47,6 +49,7 @@ class QaCuentaController < ApplicationController
     end
   end
 
+  # GET por_validar_qa
   def por_validar_qa
     screen_name("#{@task.class.to_s}/por_validar_qa")
 
@@ -56,6 +59,7 @@ class QaCuentaController < ApplicationController
     end
   end
 
+  # GET evalua_qa
   def evalua_qa
     screen_name("#{@task.class.to_s}/evalua_qa")
 
@@ -71,6 +75,28 @@ class QaCuentaController < ApplicationController
     end
   end
 
+  # POST save_xml_document
+  def save_xml_document
+    @ot = Ot.find(params[:ot_id])
+    @task = Task.find(@ot.current_task.id)
+
+    screen_name("#{@task.class.to_s}/evalua_qa")
+
+    # Read it so we can display it
+    @xml_text = get_dummy_text
+
+    # Mimic saving document to versioning repository
+    generate_new_document_version(2)
+
+    @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+
+    respond_to do |format|
+      format.html { render action: "evalua_qa" }
+      format.json { head :ok }
+    end
+  end
+
+  # GET devuelve_a_analista
   def devuelve_a_analista
     screen_name("#{@task.class.to_s}/devuelve_a_analista")
 
@@ -80,6 +106,7 @@ class QaCuentaController < ApplicationController
     end
   end
 
+  # GET devuelve_a_planificador
   def devuelve_a_planificador
     screen_name("#{@task.class.to_s}/devuelve_a_planificador")
 
@@ -89,6 +116,7 @@ class QaCuentaController < ApplicationController
     end
   end
 
+  # GET guarda_documento
   def guarda_documento
     screen_name("#{@task.class.to_s}/guarda_documento")
 
@@ -98,7 +126,10 @@ class QaCuentaController < ApplicationController
     end
   end
 
-  # Actions that trigger a change of state
+  ##########################################################
+  # Controller interface: Events and transitions
+  ##########################################################
+
   def recibe_notificacion_event
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)

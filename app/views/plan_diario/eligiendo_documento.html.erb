@@ -1,3 +1,3 @@
 <%= render "shared/work_header" %>
 
-<%= render 'frbr_work_form' %>
+<%= render :partial => 'shared/frbr_work_form', :locals => { :create_document => plan_diario_crear_documento_path } %>

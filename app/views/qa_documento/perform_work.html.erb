@@ -15,7 +15,7 @@
 	|&nbsp;
 <% end %>
 <% @task.current_state.events.each do |event| %>
-	<%= link_to event[1].name, "/qa_cuenta/perform_work/#{@task.id}/#{event[1].name}" %>&nbsp;|&nbsp;
+	<%= link_to event[1].name, "/qa_documento/perform_work/#{@task.id}/#{event[1].name}" %>&nbsp;|&nbsp;
 <% end %>
 
 <br />

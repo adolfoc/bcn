@@ -1,6 +1,6 @@
 require 'workflow_controller'
 
-class MarcadoCuentaController < ApplicationController
+class MarcadoDocumentoController < ApplicationController
   include WorkflowController
 
   before_filter :set_menu_section

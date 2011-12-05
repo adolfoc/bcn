@@ -135,8 +135,8 @@ class Ot < ActiveRecord::Base
 
   def create_marcado_cuenta_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_CUENTA_MARKUP).id
-    marcado_cuenta_task = MarcadoCuentaTask.new(task_params)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_GENERIC_MARKUP).id
+    marcado_cuenta_task = MarcadoDocumentoTask.new(task_params)
     marcado_cuenta_task.workflow_state = marcado_cuenta_task.initial_task
     marcado_cuenta_task.save
     marcado_cuenta_task
@@ -145,8 +145,8 @@ class Ot < ActiveRecord::Base
 
   def create_qa_cuenta_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_CUENTA_MARKUP).id
-    qa_cuenta_task = QaCuentaTask.new(task_params)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_GENERIC_MARKUP).id
+    qa_cuenta_task = QaDocumentoTask.new(task_params)
     qa_cuenta_task.workflow_state = qa_cuenta_task.initial_task
     qa_cuenta_task.save
     qa_cuenta_task
@@ -164,8 +164,8 @@ class Ot < ActiveRecord::Base
 
   def create_marcado_diario_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_DS_MARKUP).id
-    marcado_diario_task = MarcadoCuentaTask.new(task_params)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_MARK_GENERIC_MARKUP).id
+    marcado_diario_task = MarcadoDocumentoTask.new(task_params)
     marcado_diario_task.workflow_state = marcado_diario_task.initial_task
     marcado_diario_task.save
     marcado_diario_task
@@ -173,8 +173,8 @@ class Ot < ActiveRecord::Base
 
   def create_qa_diario_task(current_user)
     task_params = get_basic_task_params(current_user)
-    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_DS_MARKUP).id
-    qa_diario_task = QaCuentaTask.new(task_params)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_VERIFY_GENERIC_MARKUP).id
+    qa_diario_task = QaDocumentoTask.new(task_params)
     qa_diario_task.workflow_state = qa_diario_task.initial_task
     qa_diario_task.save
     qa_diario_task
@@ -262,18 +262,28 @@ class Ot < ActiveRecord::Base
   def add_markup_diario_post_tasks(current_user)
     plan_diario_post_task = create_plan_diario_post_task(current_user)
 
+    # QA tasks' successor should point to PlanDiarioPostTask
     tasks.each do |task|
-      if task.task_type.ordinal == TaskType::TASK_TYPE_VERIFY_DS_MARKUP
+      if task.task_type.ordinal == TaskType::TASK_TYPE_VERIFY_GENERIC_MARKUP
         task.successor = plan_diario_post_task.id
       end
     end
+  end
+
+  def get_plan_diario_post_task
+    tasks.each do |task|
+      return task if task.class == PlanDiarioPostTask
+    end
+    nil
   end
 
   def add_markup_diario_final_tasks(current_user)
     marcado_task = create_marcado_diario_task(current_user)
     qa_task = create_qa_diario_task(current_user)
 
-    successor = marcado_task.id
+    plan_diario_post_task = get_plan_diario_post_task
+    plan_diario_post_task.successor = marcado_task.id
+
     marcado_task.successor = qa_task.id
     qa_task.predecessor = marcado_task.id
   end

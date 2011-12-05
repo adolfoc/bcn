@@ -1,11 +1,11 @@
 <%= render "shared/work_header" %>
 
-<%= render "shared/xml_editor" %>
+<%= render :partial => "shared/xml_editor", :locals => { :save_xml_document => qa_documento_save_xml_document_path } %>
 
 <%= render "shared/am_results" %>
 
 |&nbsp;<%= link_to "Rechaza", rechaza_event_path(@task.id) %>&nbsp;
-<% if @task.ot.is_multiple_task? %>
+<% if @task.ot.is_multiple_task? && @task.ot.get_plan_diario_post_task.nil? %>
 	|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;|
 <% else %>
 	|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|

@@ -33,6 +33,7 @@ class PlanCuentaController < ApplicationController
 
   # Allow planner to choose a document to be processed
   # Create the FRBR hierarchy
+  # GET eligiendo_documento
   def eligiendo_documento
     screen_name("#{@task.class.to_s}/eligiendo_documento")
 
@@ -49,6 +50,7 @@ class PlanCuentaController < ApplicationController
   def create_document
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)
+
     @frbr_work = FrbrWork.new(params[:frbr_work])
 
     respond_to do |format|
@@ -66,6 +68,7 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # GET asignando_tareas
   def asignando_tareas
     screen_name("#{@task.class.to_s}/asignando_tareas")
 
@@ -80,9 +83,11 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # POST create_asignar_tareas
   def create_asignar_tareas
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)
+
     params[:tarea].each_pair do |key, value|
       if key != @task.id
         this_task = Task.find(key)
@@ -100,6 +105,7 @@ class PlanCuentaController < ApplicationController
   end
 
   # This is the final state for this workflow.
+  # GET notificar_analista
   def notificar_analista
     screen_name("#{@task.class.to_s}/notificar_analista")
 
@@ -109,6 +115,7 @@ class PlanCuentaController < ApplicationController
     end
   end
 
+  # POST create_notificar_analista
   def create_notificar_analista
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)

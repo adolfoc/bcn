@@ -40,15 +40,52 @@ Bcn::Application.routes.draw do
 
   match "home/filter_ots/" => "home#filter_ots", :as => :filter_ots
 
-  # Plan Marcado Cuenta workflow
+  ######################################################################################################################################################################
+  # Marcado Documento
+  # States
+  match "marcado_documento/perform_work/:task_id/(:event)" => "marcado_documento#perform_work", :as => :marcado_documento_perform_work
+  # Posts
+  match "marcado_documento/realizar_marcaje_automatico" => "marcado_documento#realizar_marcaje_automatico", :as => :realizar_marcaje_automatico, :method => :post
+  match "marcado_documento/save_xml_document" => "marcado_documento#save_xml_document", :as => :marcado_documento_save_xml_document, :method => :post
+  # Events
+  match "marcado_documento/requiere_marcaje_automatico_event/:task_id" => "marcado_documento#requiere_marcaje_automatico_event", :as => :requiere_marcaje_automatico_event
+  match "marcado_documento/no_requiere_marcaje_automatico_event/:task_id" => "marcado_documento#no_requiere_marcaje_automatico_event", :as => :no_requiere_marcaje_automatico_event
+  match "marcado_documento/requiere_modificaciones_event/:task_id" => "marcado_documento#requiere_modificaciones_event", :as => :requiere_modificaciones_event
+  match "marcado_documento/no_requiere_modificaciones_event/:task_id" => "marcado_documento#no_requiere_modificaciones_event", :as => :no_requiere_modificaciones_event
+  match "marcado_documento/termina_correcciones_event/:task_id" => "marcado_documento#termina_correcciones_event", :as => :termina_correcciones_event
+  match "marcado_documento/verifica_correcciones_event/:task_id" => "marcado_documento#verifica_correcciones_event", :as => :verifica_correcciones_event
+  match "marcado_documento/termina_marcaje_automatico_event/:task_id" => "marcado_documento#termina_marcaje_automatico_event", :as => :termina_marcaje_automatico_event
+
+  ######################################################################################################################################################################
+  # QA Marcado Documento
+  # States
+  match "qa_documento/perform_work/:task_id/(:event)" => "qa_documento#perform_work", :as => :qa_documento_perform_work
+  # Posts
+  match "qa_documento/save_xml_document" => "qa_documento#save_xml_document", :as => :qa_documento_save_xml_document, :method => :post
+  # Events
+  match "qa_documento/recibe_notificacion_event/:task_id" => "qa_documento#recibe_notificacion_event", :as => :recibe_notificacion_event
+  match "qa_documento/comienza_validar_event/:task_id" => "qa_documento#comienza_validar_event", :as => :comienza_validar_event
+  match "qa_documento/rechaza_event/:task_id" => "qa_documento#rechaza_event", :as => :rechaza_event
+  match "qa_documento/aprueba_tarea_event/:task_id" => "qa_documento#aprueba_tarea_event", :as => :aprueba_tarea_event
+  match "qa_documento/aprueba_ot_event/:task_id" => "qa_documento#aprueba_ot_event", :as => :aprueba_ot_event
+  match "qa_documento/publica_documento_event/:task_id" => "qa_documento#publica_documento_event", :as => :publica_documento_event
+
+  ######################################################################################################################################################################
+  # Marcado Cuenta workflow
+
+  # Plan Marcado Cuenta
+  # States
   match "plan_cuenta/perform_work/:task_id/(:event)" => "plan_cuenta#perform_work", :as => :plan_cuenta_perform_work
   match "plan_cuenta/eligiendo_documento" => "plan_cuenta#eligiendo_documento"
-  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_documento, :method => :post
+  # Posts
+  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :plan_cuenta_crear_documento, :method => :post
   match "plan_cuenta/create_asignar_tareas" => "plan_cuenta#create_asignar_tareas", :as => :crear_asignar_tareas, :method => :post
   match "plan_cuenta/create_notificar_analista" => "plan_cuenta#create_notificar_analista", :as => :crear_notificar_analista, :method => :post
 
   ######################################################################################################################################################################
-  # Plan Marcado Diario workflow
+  # Marcado Diario workflow
+
+  # Plan Marcado Diario
   match "plan_diario/perform_work/:task_id/(:event)"=> "plan_diario#perform_work", :as => :plan_diario_perform_work
   # States
   match "plan_diario/eligiendo_documento" => "plan_diario#eligiendo_documento"
@@ -58,7 +95,7 @@ Bcn::Application.routes.draw do
   match "plan_diario/asignando_tareas" => "plan_diario#asignando_tareas"
   match "plan_diario/notificar_equipos" => "plan_diario#notificar_equipos"
   # Posts
-  match "plan_cuenta/create_document" => "plan_cuenta#create_document", :as => :crear_diario, :method => :post
+  match "plan_diario/create_document" => "plan_cuenta#create_document", :as => :plan_diario_crear_documento, :method => :post
   match "plan_diario/realizar_marcaje_automatico" => "plan_diario#realizar_marcaje_automatico", :as => :marcaje_automatico_plan_diario, :method => :post
   match "plan_diario/create_dividir_tareas" => "plan_diario#create_dividir_tareas", :as => :create_dividir_tareas, :method => :post
   match "plan_diario/agregar_tarea/:task_id" => "plan_diario#agregar_tarea", :as => :agregar_tarea_marcado_diario
@@ -69,8 +106,7 @@ Bcn::Application.routes.draw do
   match "plan_diario/decide_dividir_event/:task_id" => "plan_diario#decide_dividir_event", :as => :decide_dividir_event
   match "plan_diario/decide_no_dividir_event/:task_id" => "plan_diario#decide_no_dividir_event", :as => :decide_no_dividir_event
 
-  ######################################################################################################################################################################
-  # Plan Marcado Diario Post workflow
+  # Marcado Diario Post
   match "plan_diario_post/perform_work/:task_id/(:event)"=> "plan_diario_post#perform_work", :as => :plan_diario_post_perform_work
   # States
   match "plan_diario_post/esperando_notificacion_analista"=> "plan_diario_post#esperando_notificacion_analista", :as => :plan_diario_post_esperando_notificacion_analista
@@ -92,37 +128,15 @@ Bcn::Application.routes.draw do
   match "plan_diario_post/tareas_asignadas_event/:task_id" => "plan_diario_post#tareas_asignadas_event", :as => :plan_diario_post_tareas_asignadas_event
 
   ######################################################################################################################################################################
-  # Marcado Cuenta workflow
+  # Plan Correccion workflow
   # States
-  match "marcado_cuenta/perform_work/:task_id/(:event)" => "marcado_cuenta#perform_work", :as => :marcado_cuenta_perform_work
-  # Posts
-  match "marcado_cuenta/realizar_marcaje_automatico" => "marcado_cuenta#realizar_marcaje_automatico", :as => :realizar_marcaje_automatico, :method => :post
-  match "marcado_cuenta/save_xml_document" => "marcado_cuenta#save_xml_document", :as => :marcado_cuenta_save_xml_document, :method => :post
-  # Events
-  match "marcado_cuenta/requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#requiere_marcaje_automatico_event", :as => :requiere_marcaje_automatico_event
-  match "marcado_cuenta/no_requiere_marcaje_automatico_event/:task_id" => "marcado_cuenta#no_requiere_marcaje_automatico_event", :as => :no_requiere_marcaje_automatico_event
-  match "marcado_cuenta/requiere_modificaciones_event/:task_id" => "marcado_cuenta#requiere_modificaciones_event", :as => :requiere_modificaciones_event
-  match "marcado_cuenta/no_requiere_modificaciones_event/:task_id" => "marcado_cuenta#no_requiere_modificaciones_event", :as => :no_requiere_modificaciones_event
-  match "marcado_cuenta/termina_correcciones_event/:task_id" => "marcado_cuenta#termina_correcciones_event", :as => :termina_correcciones_event
-  match "marcado_cuenta/verifica_correcciones_event/:task_id" => "marcado_cuenta#verifica_correcciones_event", :as => :verifica_correcciones_event
-  match "marcado_cuenta/termina_marcaje_automatico_event/:task_id" => "marcado_cuenta#termina_marcaje_automatico_event", :as => :termina_marcaje_automatico_event
-
-  # QA Marcado Cuenta workflow
-  match "qa_cuenta/perform_work/:task_id/(:event)" => "qa_cuenta#perform_work", :as => :qa_cuenta_perform_work
-  match "qa_cuenta/recibe_notificacion_event/:task_id" => "qa_cuenta#recibe_notificacion_event", :as => :recibe_notificacion_event
-  match "qa_cuenta/comienza_validar_event/:task_id" => "qa_cuenta#comienza_validar_event", :as => :comienza_validar_event
-  match "qa_cuenta/rechaza_event/:task_id" => "qa_cuenta#rechaza_event", :as => :rechaza_event
-  match "qa_cuenta/aprueba_tarea_event/:task_id" => "qa_cuenta#aprueba_tarea_event", :as => :aprueba_tarea_event
-  match "qa_cuenta/aprueba_ot_event/:task_id" => "qa_cuenta#aprueba_ot_event", :as => :aprueba_ot_event
-  match "qa_cuenta/publica_documento_event/:task_id" => "qa_cuenta#publica_documento_event", :as => :publica_documento_event
-
-  # Plan Marcado Cuenta workflow
   match "plan_correccion/perform_work/:task_id/(:event)" => "plan_correccion#perform_work", :as => :plan_cuenta_perform_work
   match "plan_correccion/eligiendo_documento" => "plan_correccion#eligiendo_documento", :as => :plan_cuenta_eligiendo_documento
-  match "plan_correccion/create_eligiendo_documento" => "plan_correccion#create_eligiendo_documento", :as => :plan_cuenta_create_eligiendo_documento, :method => :post
   match "plan_correccion/asignando_tareas" => "plan_correccion#asignando_tareas", :as => :plan_cuenta_asignando_tareas
-  match "plan_correccion/create_asignando_tareas" => "plan_correccion#create_asignando_tareas", :as => :plan_cuenta_create_asignando_tareas, :method => :post
   match "plan_correccion/notificar_analista" => "plan_correccion#notificar_analista", :as => :plan_cuenta_notificar_analista
+  # Posts
+  match "plan_correccion/create_eligiendo_documento" => "plan_correccion#create_eligiendo_documento", :as => :plan_cuenta_create_eligiendo_documento, :method => :post
+  match "plan_correccion/create_asignando_tareas" => "plan_correccion#create_asignando_tareas", :as => :plan_cuenta_create_asignando_tareas, :method => :post
   match "plan_correccion/create_notificar_analista" => "plan_correccion#create_notificar_analista", :as => :plan_cuenta_create_notificar_analista, :method => :post
 
   match "users/index" => "users#index", :as => :users

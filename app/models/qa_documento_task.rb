@@ -1,4 +1,4 @@
-class QaCuentaTask < Task
+class QaDocumentoTask < Task
   include Workflow
   workflow do
     state :esperando_notificacion_analista do
@@ -34,8 +34,8 @@ class QaCuentaTask < Task
 
   # qa_cuenta/perform_work/:task_id/(:event)
   def controller_action(event = nil)
-    return "qa_cuenta/perform_work/#{id}/#{event}" if !event.nil?
-    "qa_cuenta/perform_work/#{id}"
+    return "qa_documento/perform_work/#{id}/#{event}" if !event.nil?
+    "qa_documento/perform_work/#{id}"
   end
 
   # Notifications to clients

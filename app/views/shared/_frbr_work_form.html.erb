@@ -1,4 +1,4 @@
-<%= form_for(@frbr_work, :url => crear_documento_path) do |f| %>
+<%= form_for(@frbr_work, :url => create_document) do |f| %>
 	<% if @frbr_work.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@frbr_work.errors.count, "error") %> prohibited this frbr_work from being saved:</h2>
