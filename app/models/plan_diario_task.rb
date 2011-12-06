@@ -53,7 +53,7 @@ class PlanDiarioTask < Task
     when "asignando_tareas"
       return OtState.find_by_ordinal(OtState::OT_STATE_INICIALIZADA).id
     when "notificar_equipos"
-      return OtState.find_by_ordinal(OtState::OT_EN_PROCESO).id
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
     end
   end
 

@@ -104,7 +104,16 @@ class PlanDiarioController < ApplicationController
     do_perform_transition("termina_marcaje_automatico")
 
     respond_to do |format|
-      format.html { render action: "evaluando_resultados" }
+      format.html { 
+        # Need a document
+        check_for_target_document
+
+        # Read it so we can display it
+        @xml_text = get_dummy_text
+
+        @am_result = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC").first
+        render action: "evaluando_resultados"
+      }
       format.json { head :ok }
     end
   end
