@@ -42,7 +42,7 @@
 	<tbody>
 		<% @doc_type_am_configurations.each do |doc_type_am_configuration| %>
 		<tr>
-		    <td><%= doc_type_am_configuration.frbr_bcn_id %></td>
+		    <td><%= doc_type_am_configuration.frbr_bcn_type.name %></td>
 			<td><%= doc_type_am_configuration.structural_markup_enabled %></td>
 			<td><%= doc_type_am_configuration.structural_markup_extension_whole_document %></td>
 			<td><%= doc_type_am_configuration.structural_markup_extension_first_level %></td>
