@@ -1,0 +1,32 @@
+<h1>Tiempos de tareas</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Workflow</th>
+			<th>De estado</th>
+			<th>A estado</th>
+			<th>Minutos</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @task_transitions.each do |task_transition| %>
+		<tr>
+			<td><%= task_transition.workflow %></td>
+			<td><%= task_transition.from_state %></td>
+			<td><%= task_transition.to_state %></td>
+			<td><%= task_transition.minutes %></td>
+			<td><%= link_to 'Show', task_transition %></td>
+			<td><%= link_to 'Edit', edit_task_transition_path(task_transition) %></td>
+			<td><%= link_to 'Destroy', task_transition, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Task transition', new_task_transition_path %>

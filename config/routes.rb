@@ -1,4 +1,6 @@
 Bcn::Application.routes.draw do
+  resources :doc_type_am_configurations
+  resources :task_transitions
   resources :poblamiento_params
   resources :observation_types
   resources :target_document_versions

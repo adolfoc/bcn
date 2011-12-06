@@ -1,0 +1,117 @@
+<%= form_for(@doc_type_am_configuration) do |f| %>
+	<% if @doc_type_am_configuration.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@doc_type_am_configuration.errors.count, "error") %> prohibited this doc_type_am_configuration from being saved:</h2>
+			<ul>
+				<% @doc_type_am_configuration.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :frbr_bcn_id, "Tipo de documento" %><br />
+	    <%= collection_select(:doc_type_am_configuration, :frbr_bcn_id, FrbrBcnType.all, :id, :name) %>
+	</div>
+
+	<fieldset>
+		<legend>Estructural</legend>
+		<div class="field">
+			<%= f.check_box :structural_markup_enabled %>
+			<%= f.label :structural_markup_enabled, "Realizar" %>
+		</div>
+		<fieldset>
+			<legend>Extensión</legend>
+			<div class="field">
+				<%= f.radio_button :structural_markup_extension_whole_document, true %>
+				<%= f.label :structural_markup_extension_whole_document, "Documento entero" %>
+			</div>
+			<div class="field">
+				<%= f.radio_button :structural_markup_extension_whole_document, false %>
+				<%= f.label :structural_markup_extension_whole_document, "Limitar" %>
+			</div>
+			<fieldset>
+				<div class="field">
+					<%= f.check_box :structural_markup_extension_first_level %>
+					<%= f.label :structural_markup_extension_first_level, "Primer nivel" %>
+				</div>
+				<div class="field">
+					<%= f.check_box :structural_markup_extension_second_level %>
+					<%= f.label :structural_markup_extension_second_level, "Segundo nivel" %>
+				</div>
+				<div class="field">
+					<%= f.check_box :structural_markup_extension_third_level %>
+					<%= f.label :structural_markup_extension_third_level, "Tercer nivel" %>
+				</div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend>Profundidad</legend>
+			<div class="field">
+				<%= f.radio_button :structural_markup_depth_all, true %>
+				<%= f.label :structural_markup_depth_all, "Todas las secciones" %>
+			</div>
+			<div class="field">
+				<%= f.radio_button :structural_markup_depth_all, false %>
+				<%= f.label :structural_markup_depth_all, "Limitar" %>&nbsp;&nbsp;
+				<%= f.label :structural_markup_depth_mark, "Marca:" %>&nbsp;
+				<%= f.text_field :structural_markup_depth_mark %>
+			</div>
+		</fieldset>
+	</fieldset>
+
+	<fieldset>
+		<legend>Semántico</legend>
+		<div class="field">
+			<%= f.check_box :semantic_markup_enabled %>
+			<%= f.label :semantic_markup_enabled, "Realizar" %>
+		</div>
+		<fieldset>
+			<legend>Extensión</legend>
+			<div class="field">
+				<%= f.radio_button :semantic_markup_extension_whole_document, true %>
+				<%= f.label :semantic_markup_extension_whole_document, "Documento entero" %>
+			</div>
+			<div class="field">
+				<%= f.radio_button :semantic_markup_extension_whole_document, false %>
+				<%= f.label :semantic_markup_extension_whole_document, "Limitar" %>
+			</div>
+			<fieldset>
+				<div class="field">
+					<%= f.check_box :semantic_markup_extension_persons %>
+					<%= f.label :semantic_markup_extension_persons, "Personas" %>
+				</div>
+				<div class="field">
+					<%= f.check_box :semantic_markup_extension_organizations %>
+					<%= f.label :semantic_markup_extension_organizations, "Organizaciones" %>
+				</div>
+				<div class="field">
+					<%= f.check_box :semantic_markup_extension_documents %>
+					<%= f.label :semantic_markup_extension_documents, "Documentos" %>
+				</div>
+				<div class="field">
+					<%= f.check_box :semantic_markup_extension_places %>
+					<%= f.label :semantic_markup_extension_places, "Lugares" %>
+				</div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend>Profundidad</legend>
+			<div class="field">
+				<%= f.radio_button :semantic_markup_depth_all, true %>
+				<%= f.label :semantic_markup_depth_all, "Todas las secciones" %>
+			</div>
+			<div class="field">
+				<%= f.radio_button :semantic_markup_depth_all, false %>
+				<%= f.label :semantic_markup_depth_all, "Limitar" %>&nbsp;&nbsp;
+				<%= f.label :semantic_markup_depth_mark, "Marca:" %>&nbsp;
+				<%= f.text_field :semantic_markup_depth_mark %>
+			</div>
+		</legend>
+	</fieldset>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

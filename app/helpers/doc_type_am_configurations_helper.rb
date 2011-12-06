@@ -1,0 +1,2 @@
+module DocTypeAmConfigurationsHelper
+end

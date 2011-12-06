@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  workflow: MyString
+  from_state: MyString
+  to_state: MyString
+  minutes: 1
+
+two:
+  workflow: MyString
+  from_state: MyString
+  to_state: MyString
+  minutes: 1

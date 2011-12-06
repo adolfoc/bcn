@@ -1,0 +1,23 @@
+<p>
+  <b>Workflow:</b>
+  <%= @task_transition.workflow %>
+</p>
+
+<p>
+  <b>De estado:</b>
+  <%= @task_transition.from_state %>
+</p>
+
+<p>
+  <b>A estado:</b>
+  <%= @task_transition.to_state %>
+</p>
+
+<p>
+  <b>Minutos:</b>
+  <%= @task_transition.minutes %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_transition_path(@task_transition) %> |
+<%= link_to 'Back', task_transitions_path %>

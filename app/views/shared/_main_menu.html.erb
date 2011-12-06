@@ -40,6 +40,7 @@
 				  <li><%= link_to(t('Versiones de documentos'), target_document_versions_path) %>
 				  <li><%= link_to(t('Prioridades'), priorities_path) %>
 				  <li><%= link_to(t('Tipos de tarea'), task_types_path) %>
+				  <li><%= link_to(t('Tiempos de tareas'), task_transitions_path) %>
 				  <li><%= link_to(t('Parámetros de poblamiento'), poblamiento_params_path) %>
 				  <li><%= link_to(t('Tareas'), tasks_path) %>
 				  <li><%= link_to(t('Traza'), audits_path) %>
@@ -53,7 +54,8 @@
 			<h3><a href="#"><%=t 'Marcado Automático' %></a></h3>
 			<div>
 				<ul class="menu-list">
-				  <li><%= link_to(t('Configuraciones'), am_configurations_path) %>
+				  <li><%= link_to(t('Configuraciones'), doc_type_am_configurations_path) %>
+				  <li><%= link_to(t('Configuraciones generadas por MA'), am_configurations_path) %>
 				  <li><%= link_to(t('Tipos de observaciones'), am_run_observation_types_path) %>
 				  <li><%= link_to(t('Resultados'), am_results_path) %>
 				  <li><%= link_to(t('Observaciones'), am_observations_path) %>

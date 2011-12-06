@@ -5,6 +5,8 @@
 			<th>Herramienta</th>
 			<th>Versión</th>
 			<th>Fecha</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,6 +16,8 @@
 			<td><%= version.markup_tool.name %></td>
 			<td><%= version.version %></td>
 			<td><%= version.created_at %></td>
+			<td><%= link_to "Recuperar", "#" %></td>
+			<td><%= link_to "Visualizar", "#" %></td>
 		</tr>
 		<% end %>
 	</tbody>

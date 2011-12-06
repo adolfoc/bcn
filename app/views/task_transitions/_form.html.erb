@@ -1,0 +1,36 @@
+<%= form_for(@task_transition) do |f| %>
+	<% if @task_transition.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@task_transition.errors.count, "error") %> prohibited this task_transition from being saved:</h2>
+			<ul>
+				<% @task_transition.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :workflow %><br />
+		<%= f.text_field :workflow %>
+	</div>
+
+	<div class="field">
+		<%= f.label :from_state, "De estado" %><br />
+		<%= f.text_field :from_state %>
+	</div>
+
+	<div class="field">
+		<%= f.label :to_state, "A estado" %><br />
+		<%= f.text_field :to_state %>
+	</div>
+
+	<div class="field">
+		<%= f.label :minutes, "Minutos" %><br />
+		<%= f.number_field :minutes %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

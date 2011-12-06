@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111206004046) do
+ActiveRecord::Schema.define(:version => 20111206162850) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -68,6 +68,27 @@ ActiveRecord::Schema.define(:version => 20111206004046) do
 
   create_table "delivery_methods", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "doc_type_am_configurations", :force => true do |t|
+    t.integer  "frbr_bcn_id"
+    t.boolean  "structural_markup_enabled"
+    t.boolean  "structural_markup_extension_whole_document"
+    t.boolean  "structural_markup_extension_first_level"
+    t.boolean  "structural_markup_extension_second_level"
+    t.boolean  "structural_markup_extension_third_level"
+    t.boolean  "structural_markup_depth_all"
+    t.string   "structural_markup_depth_mark"
+    t.boolean  "semantic_markup_enabled"
+    t.boolean  "semantic_markup_extension_whole_document"
+    t.boolean  "semantic_markup_extension_persons"
+    t.boolean  "semantic_markup_extension_organizations"
+    t.boolean  "semantic_markup_extension_documents"
+    t.boolean  "semantic_markup_extension_places"
+    t.boolean  "semantic_markup_depth_all"
+    t.string   "semantic_markup_depth_mark"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -211,6 +232,15 @@ ActiveRecord::Schema.define(:version => 20111206004046) do
     t.integer  "user_id"
     t.integer  "markup_tool_id"
     t.string   "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "task_transitions", :force => true do |t|
+    t.string   "workflow"
+    t.string   "from_state"
+    t.string   "to_state"
+    t.integer  "minutes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

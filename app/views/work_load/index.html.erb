@@ -18,7 +18,7 @@
 		<tr>
 			<td><%= task.current_user.user_name if !task.current_user.nil? %></td>
 			<td><%= task.current_user.role.name if !task.current_user.nil? %></td>
-			<td><%= task.ot.name %></td>
+			<td>[<%= link_to task.ot.serial_number, mostrar_ot_path(task.ot.id) %>]&nbsp; <%= task.ot.name %></td>
 			<td><%= task.ot.priority.name %></td>
 			<td><%= task.name %></td>
 			<td><%= task.ot.target_date %></td>
