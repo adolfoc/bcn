@@ -9,6 +9,7 @@ class Ot < ActiveRecord::Base
   has_many :audits
   has_many :observations
   has_many :am_results
+  has_one :poblamiento_param
 
   accepts_nested_attributes_for :observations, :allow_destroy => false
 
@@ -229,6 +230,22 @@ class Ot < ActiveRecord::Base
     first_task
   end
 
+  def create_plan_poblamiento_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_POBLAMIENTO).id
+    task_params[:current_user_id] = current_user.id
+    plan_poblamiento_task = PlanPoblamientoTask.new(task_params)
+    plan_poblamiento_task.workflow_state = plan_poblamiento_task.initial_task
+    plan_poblamiento_task.save
+    plan_poblamiento_task
+  end
+
+  def create_poblamiento_workflow(current_user)
+    first_task = create_plan_poblamiento_task(current_user)
+
+    first_task
+  end
+
   def create_tasks(current_user)
     if ot_type_id == 1
       first_task = create_marcado_cuenta_workflow(current_user)
@@ -236,6 +253,8 @@ class Ot < ActiveRecord::Base
       first_task = create_marcado_diario_workflow(current_user)
     elsif ot_type_id == 4
       first_task = create_correccion_workflow(current_user)
+    elsif ot_type_id == 5
+      first_task = create_poblamiento_workflow(current_user)
     end
 
     begin_task_execution(first_task, first_task.initial_task.to_s) if !first_task.nil?

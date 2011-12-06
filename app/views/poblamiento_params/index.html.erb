@@ -1,0 +1,36 @@
+<h1>Parámetros de poblamiento</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Ot</th>
+			<th>Tipo de documento</th>
+			<th>Organismo de orígen</th>
+			<th>Prioridad</th>
+			<th>Desde</th>
+			<th>Hasta</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @poblamiento_params.each do |poblamiento_param| %>
+		<tr>
+			<td><%= poblamiento_param.ot.name %></td>
+			<td><%= poblamiento_param.frbr_bcn_type.name %></td>
+			<td><%= poblamiento_param.frbr_entity.name %></td>
+			<td><%= poblamiento_param.priority.name %></td>
+			<td><%= poblamiento_param.start_date %></td>
+			<td><%= poblamiento_param.end_date %></td>
+			<td><%= link_to 'Show', poblamiento_param %></td>
+			<td><%= link_to 'Edit', edit_poblamiento_param_path(poblamiento_param) %></td>
+			<td><%= link_to 'Destroy', poblamiento_param, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	<tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Poblamiento param', new_poblamiento_param_path %>

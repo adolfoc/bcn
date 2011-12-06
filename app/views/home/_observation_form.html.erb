@@ -1,5 +1,11 @@
 <%= form_tag(create_observation_path) %>
 	<%= hidden_field_tag("observation[ot_id]", @ot.id) %>
+
+	<div class="field">
+		<%= label_tag :observation_type_id, "Tipo de observación" %><br />
+	    <%= collection_select(:observation, :observation_type_id, ObservationType.all, :id, :name) %>
+	</div>
+
 	<div class="field">
 		<%= text_area_tag "observation[contents]" %>
 	</div>

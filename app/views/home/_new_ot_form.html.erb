@@ -47,6 +47,11 @@
 		</div>
 
 		<div class="field">
+			<%= observation_form.label :observation_type_id, "Tipo de observación" %><br />
+		    <%= collection_select("ot[observations_attributes][0]", :observation_type_id, ObservationType.all, :id, :name) %>
+		</div>
+
+		<div class="field">
 			<%= observation_form.label :contents, "Observaciones" %><br />
 			<%= observation_form.text_area :contents %>
 		</div>

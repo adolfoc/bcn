@@ -1,0 +1,33 @@
+<p>
+  <b>Ot:</b>
+  <%= @poblamiento_param.ot.name %>
+</p>
+
+<p>
+  <b>Organismo de origen:</b>
+  <%= @poblamiento_param.frbr_bcn_type.name %>
+</p>
+
+<p>
+  <b>Tipo de documento:</b>
+  <%= @poblamiento_param.frbr_entity.name %>
+</p>
+
+<p>
+  <b>Prioridad:</b>
+  <%= @poblamiento_param.priority.name %>
+</p>
+
+<p>
+  <b>Desde:</b>
+  <%= @poblamiento_param.start_date %>
+</p>
+
+<p>
+  <b>Hasta:</b>
+  <%= @poblamiento_param.end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_poblamiento_param_path(@poblamiento_param) %> |
+<%= link_to 'Back', poblamiento_params_path %>

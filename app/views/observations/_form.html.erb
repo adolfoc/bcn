@@ -11,17 +11,22 @@
 	<% end %>
 
 	<div class="field">
-		<%= f.label :ot_id %><br />
+		<%= f.label :ot_id, "OT" %><br />
 	    <%= collection_select(:observation, :ot_id, OtType.order("name ASC"), :id, :name) %>
 	</div>
 
 	<div class="field">
-		<%= f.label :user_id %><br />
+		<%= f.label :user_id, "Usuario" %><br />
 	    <%= collection_select(:observation, :user_id, User.order("user_name ASC"), :id, :user_name) %>
 	</div>
 
 	<div class="field">
-		<%= f.label :contents %><br />
+		<%= f.label :observation_type_id, "Tipo de observación" %><br />
+	    <%= collection_select(:observation, :observation_type_id, ObservationType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :contents, "Contenido" %><br />
 		<%= f.text_area :contents %>
 	</div>
 

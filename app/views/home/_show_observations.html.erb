@@ -3,7 +3,9 @@
 		<tr>
 			<th>Usuario</th>
 			<th>Fecha</th>
+			<th>Tipo</th>
 			<th>Observación</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -11,7 +13,9 @@
 			<tr>
 				<td><%= observation.user.user_name %></td>
 				<td><%= observation.created_at %></td>
+				<td><%= observation.observation_type.name %></td>
 				<td><%= observation.contents %></td>
+				<td><%= link_to "Responder", "#" %>
 			</tr>
 		<% end %>
 	</tbody>

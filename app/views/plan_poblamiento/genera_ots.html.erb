@@ -1,0 +1,32 @@
+<%= render "shared/work_header" %>
+
+<table>
+	<tr>
+		<th>Organismo de origen</th>
+		<td><%= @poblamiento_param.frbr_bcn_type.name %></td>
+	<tr>
+	<tr>
+		<th>Tipo de documento</th>
+		<td><%= @poblamiento_param.frbr_entity.name %></td>
+	<tr>
+	<tr>
+		<th>Prioridad</th>
+		<td><%= @poblamiento_param.priority.name %></td>
+	<tr>
+	<tr>
+		<th>Desde</th>
+		<td><%= @poblamiento_param.start_date %></td>
+	<tr>
+	<tr>
+		<th>Hasta</th>
+		<td><%= @poblamiento_param.end_date %></td>
+	<tr>
+</table>
+	
+<%= form_tag(plan_poblamiento_create_genera_ots_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="actions">
+		<%= submit_tag "Generar OTs" %>
+	</div>
+</form>

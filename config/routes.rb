@@ -1,4 +1,6 @@
 Bcn::Application.routes.draw do
+  resources :poblamiento_params
+  resources :observation_types
   resources :target_document_versions
   resources :markup_tools
   resources :am_configurations
@@ -138,6 +140,18 @@ Bcn::Application.routes.draw do
   match "plan_correccion/create_eligiendo_documento" => "plan_correccion#create_eligiendo_documento", :as => :plan_cuenta_create_eligiendo_documento, :method => :post
   match "plan_correccion/create_asignando_tareas" => "plan_correccion#create_asignando_tareas", :as => :plan_cuenta_create_asignando_tareas, :method => :post
   match "plan_correccion/create_notificar_analista" => "plan_correccion#create_notificar_analista", :as => :plan_cuenta_create_notificar_analista, :method => :post
+
+  ######################################################################################################################################################################
+  # Plan Poblamiento workflow
+  # States
+  match "plan_poblamiento/perform_work/:task_id/(:event)" => "plan_poblamiento#perform_work", :as => :plan_poblamiento_perform_work
+  match "plan_poblamiento/determina_periodo" => "plan_poblamiento#determina_periodo", :as => :plan_poblamiento_determina_periodo
+  match "plan_poblamiento/genera_ots" => "plan_poblamiento#genera_ots", :as => :plan_poblamiento_genera_ots
+  match "plan_poblamiento/termina_poblamiento" => "plan_poblamiento#termina_poblamiento", :as => :plan_poblamiento_termina_poblamiento
+  # Posts
+  match "plan_poblamiento/create_params" => "plan_poblamiento#create_params", :as => :plan_poblamiento_create_params, :method => :post
+  match "plan_poblamiento/create_genera_ots" => "plan_poblamiento#create_genera_ots", :as => :plan_poblamiento_create_genera_ots, :method => :post
+  # Events
 
   match "users/index" => "users#index", :as => :users
 

@@ -16,8 +16,8 @@
 	<tbody>
 		<% @tasks.each do |task| %>
 		<tr>
-			<td><%= task.current_user.user_name %></td>
-			<td><%= task.current_user.role.name %></td>
+			<td><%= task.current_user.user_name if !task.current_user.nil? %></td>
+			<td><%= task.current_user.role.name if !task.current_user.nil? %></td>
 			<td><%= task.ot.name %></td>
 			<td><%= task.ot.priority.name %></td>
 			<td><%= task.name %></td>

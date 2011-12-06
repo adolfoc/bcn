@@ -1,0 +1,28 @@
+<h1>Tipos de observaciones</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Ordinal</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @observation_types.each do |observation_type| %>
+		<tr>
+			<td><%= observation_type.name %></td>
+			<td><%= observation_type.ordinal %></td>
+			<td><%= link_to 'Show', observation_type %></td>
+			<td><%= link_to 'Edit', edit_observation_type_path(observation_type) %></td>
+			<td><%= link_to 'Destroy', observation_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Observation type', new_observation_type_path %>

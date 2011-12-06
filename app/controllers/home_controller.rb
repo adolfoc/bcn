@@ -49,6 +49,7 @@ class HomeController < ApplicationController
 
   # POST /create_new_ot
   def create_new_ot
+    params[:ot].delete(:observations_attributes) if params[:ot][:observations_attributes]["0"][:contents].length == 0
     @ot = Ot.new(params[:ot])
 
     respond_to do |format|
@@ -179,8 +180,10 @@ class HomeController < ApplicationController
     @observation = Observation.new(params[:observation])
 
     @ot = Ot.find(params[:observation][:ot_id])
+    @am_results = AmResult.where("ot_id = #{@ot.id}").order("run_date DESC")
     @observations = Observation.where("ot_id = #{@ot.id}")
     @log = Audit.where("ot_id = #{@ot.id}").order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    @versions = TargetDocumentVersion.where("ot_id = #{@ot.id}").order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       if @observation.save
@@ -204,6 +207,7 @@ class HomeController < ApplicationController
     TargetDocumentVersion.delete_all
     Task.delete_all
     Observation.delete_all
+    PoblamientoParam.delete_all
     Ot.delete_all
 
     respond_to do |format|

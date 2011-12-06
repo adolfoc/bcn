@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%= @observation_type.name %>
+</p>
+
+<p>
+  <b>Ordinal:</b>
+  <%= @observation_type.ordinal %>
+</p>
+
+
+<%= link_to 'Edit', edit_observation_type_path(@observation_type) %> |
+<%= link_to 'Back', observation_types_path %>

@@ -1,0 +1,46 @@
+<%= form_for(@poblamiento_param, :url => create_poblamiento_param) do |f| %>
+	<% if @poblamiento_param.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@poblamiento_param.errors.count, "error") %> prohibited this poblamiento_param from being saved:</h2>
+			<ul>
+				<% @poblamiento_param.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field invisible">
+		<%= f.label :ot_id, "Ot" %><br />
+	    <%= collection_select(:poblamiento_param, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :frbr_bcn_type_id, "Tipo de documento" %><br />
+	    <%= collection_select(:poblamiento_param, :frbr_bcn_type_id, FrbrBcnType.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :frbr_entity_id, "Organismo de origen" %><br />
+	    <%= collection_select(:poblamiento_param, :frbr_entity_id, FrbrEntity.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :priority_id, "Prioridad" %><br />
+	    <%= collection_select(:poblamiento_param, :priority_id, Priority.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :start_date %><br />
+		<%= f.date_select :start_date %>
+	</div>
+
+	<div class="field">
+		<%= f.label :end_date %><br />
+		<%= f.date_select :end_date %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit "Continuar" %>
+	</div>
+<% end %>

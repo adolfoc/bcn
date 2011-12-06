@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ot_id: 1
+  frbr_bcn_type_id: 1
+  frbr_entity_id: 1
+  start_date: 2011-12-05
+  end_date: 2011-12-05
+
+two:
+  ot_id: 1
+  frbr_bcn_type_id: 1
+  frbr_entity_id: 1
+  start_date: 2011-12-05
+  end_date: 2011-12-05
