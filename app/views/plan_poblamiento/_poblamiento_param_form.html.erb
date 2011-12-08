@@ -1,4 +1,4 @@
-<%= form_for(@poblamiento_param, :url => create_poblamiento_param) do |f| %>
+ <%= form_for(@poblamiento_param, :url => create_poblamiento_param) do |f| %>
 	<% if @poblamiento_param.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@poblamiento_param.errors.count, "error") %> prohibited this poblamiento_param from being saved:</h2>
@@ -16,11 +16,6 @@
 	</div>
 
 	<div class="field">
-		<%= f.label :frbr_bcn_type_id, "Tipo de documento" %><br />
-	    <%= collection_select(:poblamiento_param, :frbr_bcn_type_id, FrbrBcnType.all, :id, :name) %>
-	</div>
-
-	<div class="field">
 		<%= f.label :frbr_entity_id, "Organismo de origen" %><br />
 	    <%= collection_select(:poblamiento_param, :frbr_entity_id, FrbrEntity.all, :id, :name) %>
 	</div>
@@ -31,12 +26,27 @@
 	</div>
 
 	<div class="field">
-		<%= f.label :start_date %><br />
+		<%= f.label :intermediary_id, "Intermediario" %><br />
+	    <%= collection_select(:poblamiento_param, :intermediary_id, Intermediary.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :location_id, "Localización" %><br />
+	    <%= collection_select(:poblamiento_param, :location_id, PoblamientoImportLocation.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :file_format_id, "Formato del fichero" %><br />
+	    <%= collection_select(:poblamiento_param, :file_format_id, PoblamientoFileFormat.all, :id, :format_spec) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :start_date, "Desde" %><br />
 		<%= f.date_select :start_date %>
 	</div>
 
 	<div class="field">
-		<%= f.label :end_date %><br />
+		<%= f.label :end_date, "Hasta" %><br />
 		<%= f.date_select :end_date %>
 	</div>
 

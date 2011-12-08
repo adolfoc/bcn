@@ -1,0 +1,26 @@
+<h1>Localizaciones para ficheros históricos</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @poblamiento_import_locations.each do |poblamiento_import_location| %>
+		<tr>
+			<td><%= poblamiento_import_location.name %></td>
+			<td><%= link_to 'Show', poblamiento_import_location %></td>
+			<td><%= link_to 'Edit', edit_poblamiento_import_location_path(poblamiento_import_location) %></td>
+			<td><%= link_to 'Destroy', poblamiento_import_location, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Poblamiento import location', new_poblamiento_import_location_path %>

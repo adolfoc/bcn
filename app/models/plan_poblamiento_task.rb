@@ -2,7 +2,14 @@ class PlanPoblamientoTask < Task
   include Workflow
   workflow do
     state :determina_periodo do
-      event :periodo_determinado, :transitions_to => :genera_ots
+      event :periodo_determinado, :transitions_to => :revisando_parametros
+    end
+    state :revisando_parametros do
+      event :aceptar_parametros, :transitions_to => :genera_ots
+      event :rechazar_parametros, :transitions_to => :modificar_periodo
+    end
+    state :modificar_periodo do
+      event :periodo_modificado, :transitions_to => :revisando_parametros
     end
     state :genera_ots do
       event :ots_generadas, :transitions_to => :termina_poblamiento
@@ -30,6 +37,10 @@ class PlanPoblamientoTask < Task
     case workflow_state
     when "determina_periodo"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "revisando_parametros"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "modificar_periodo"
+      return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "genera_ots"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "termina_poblamiento"
@@ -46,6 +57,14 @@ class PlanPoblamientoTask < Task
   # Notifications to clients
   def on_determina_periodo_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "determina_periodo")
+  end
+
+  def on_revisando_parametros_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "revisando_parametros")
+  end
+
+  def on_modificar_periodo_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "modificar_periodo")
   end
 
   def on_genera_ots_entry(prior_state, triggering_event, *event_args)

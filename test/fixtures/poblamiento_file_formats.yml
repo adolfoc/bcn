@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  format: MyString
+  ordinal: 1
+
+two:
+  format: MyString
+  ordinal: 1

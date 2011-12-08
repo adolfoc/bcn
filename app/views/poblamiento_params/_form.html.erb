@@ -16,11 +16,6 @@
 	</div>
 
 	<div class="field">
-		<%= f.label :frbr_bcn_type_id %><br />
-	    <%= collection_select(:poblamiento_param, :frbr_bcn_type_id, FrbrBcnType.all, :id, :name) %>
-	</div>
-
-	<div class="field">
 		<%= f.label :frbr_entity_id, "Organismo de origen" %><br />
 	    <%= collection_select(:poblamiento_param, :frbr_entity_id, FrbrEntity.all, :id, :name) %>
 	</div>
@@ -28,6 +23,21 @@
 	<div class="field">
 		<%= f.label :priority_id, "Prioridad" %><br />
 	    <%= collection_select(:poblamiento_param, :priority_id, Priority.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :intermediary_id, "Intermediario" %><br />
+	    <%= collection_select(:poblamiento_param, :intermediary_id, Intermediary.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :location, "Localización" %><br />
+		<%= f.text_field :location %>
+	</div>
+
+	<div class="field">
+		<%= f.label :file_format_id, "Formato del fichero" %><br />
+	    <%= collection_select(:poblamiento_param, :file_format_id, PoblamientoFileFormat.all, :id, :format_spec) %>
 	</div>
 
 	<div class="field">

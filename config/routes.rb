@@ -1,4 +1,6 @@
 Bcn::Application.routes.draw do
+  resources :poblamiento_import_locations
+  resources :poblamiento_file_formats
   resources :doc_type_am_configurations
   resources :task_transitions
   resources :poblamiento_params
@@ -148,12 +150,21 @@ Bcn::Application.routes.draw do
   # States
   match "plan_poblamiento/perform_work/:task_id/(:event)" => "plan_poblamiento#perform_work", :as => :plan_poblamiento_perform_work
   match "plan_poblamiento/determina_periodo" => "plan_poblamiento#determina_periodo", :as => :plan_poblamiento_determina_periodo
+  match "plan_poblamiento/revisando_parametros" => "plan_poblamiento#revisando_parametros", :as => :plan_poblamiento_revisando_parametros
+  match "plan_poblamiento/modificar_periodo" => "plan_poblamiento#modificar_periodo", :as => :plan_poblamiento_modificar_periodo
   match "plan_poblamiento/genera_ots" => "plan_poblamiento#genera_ots", :as => :plan_poblamiento_genera_ots
   match "plan_poblamiento/termina_poblamiento" => "plan_poblamiento#termina_poblamiento", :as => :plan_poblamiento_termina_poblamiento
   # Posts
   match "plan_poblamiento/create_params" => "plan_poblamiento#create_params", :as => :plan_poblamiento_create_params, :method => :post
+  match "plan_poblamiento/update_params" => "plan_poblamiento#update_params", :as => :plan_poblamiento_update_params, :method => :put
+  match "plan_poblamiento/modificar_parametros" => "plan_poblamiento#modificar_parametros", :as => :plan_poblamiento_modificar_parametros, :method => :post
   match "plan_poblamiento/create_genera_ots" => "plan_poblamiento#create_genera_ots", :as => :plan_poblamiento_create_genera_ots, :method => :post
   # Events
+  match "plan_poblamiento/periodo_determinado_event/:task_id" => "plan_poblamiento#periodo_determinado_event", :as => :plan_poblamiento_periodo_determinado_event
+  match "plan_poblamiento/aceptar_parametros_event/:task_id" => "plan_poblamiento#aceptar_parametros_event", :as => :plan_poblamiento_aceptar_parametros_event
+  match "plan_poblamiento/rechazar_parametros_event/:task_id" => "plan_poblamiento#rechazar_parametros_event", :as => :plan_poblamiento_rechazar_parametros_event
+  match "plan_poblamiento/periodo_modificado_event/:task_id" => "plan_poblamiento#periodo_modificado_event", :as => :plan_poblamiento_periodo_modificado_event
+  match "plan_poblamiento/ots_generadas_event/:task_id" => "plan_poblamiento#ots_generadas_event", :as => :plan_poblamiento_ots_generadas_event
 
   match "users/index" => "users#index", :as => :users
 

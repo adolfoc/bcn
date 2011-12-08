@@ -4,9 +4,11 @@
 	<thead>
 		<tr>
 			<th>Ot</th>
-			<th>Tipo de documento</th>
 			<th>Organismo de orígen</th>
 			<th>Prioridad</th>
+			<th>Intermediario</th>
+			<th>Localización</th>
+			<th>Formato</th>
 			<th>Desde</th>
 			<th>Hasta</th>
 			<th></th>
@@ -18,9 +20,11 @@
 		<% @poblamiento_params.each do |poblamiento_param| %>
 		<tr>
 			<td><%= poblamiento_param.ot.name %></td>
-			<td><%= poblamiento_param.frbr_bcn_type.name %></td>
-			<td><%= poblamiento_param.frbr_entity.name %></td>
+			<td><%= poblamiento_param.frbr_entity.name if !poblamiento_param.frbr_entity.nil? %></td>
 			<td><%= poblamiento_param.priority.name %></td>
+			<td><%= poblamiento_param.intermediary.name if !poblamiento_param.intermediary.nil? %></td>
+			<td><%= poblamiento_param.location %></td>
+			<td><%= poblamiento_param.file_format.format if !poblamiento_param.file_format.nil? %></td>
 			<td><%= poblamiento_param.start_date %></td>
 			<td><%= poblamiento_param.end_date %></td>
 			<td><%= link_to 'Show', poblamiento_param %></td>

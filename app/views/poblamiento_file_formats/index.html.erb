@@ -1,0 +1,28 @@
+<h1>Formato de ficheros históricos</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Formato</th>
+			<th>Ordinal</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @poblamiento_file_formats.each do |poblamiento_file_format| %>
+		<tr>
+		    <td><%= poblamiento_file_format.format_spec %></td>
+		    <td><%= poblamiento_file_format.ordinal %></td>
+		    <td><%= link_to 'Show', poblamiento_file_format %></td>
+		    <td><%= link_to 'Edit', edit_poblamiento_file_format_path(poblamiento_file_format) %></td>
+		    <td><%= link_to 'Destroy', poblamiento_file_format, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	<tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Historic file format', new_poblamiento_file_format_path %>

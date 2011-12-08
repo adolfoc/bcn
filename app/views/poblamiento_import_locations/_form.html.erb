@@ -1,0 +1,21 @@
+<%= form_for(@poblamiento_import_location) do |f| %>
+	<% if @poblamiento_import_location.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@poblamiento_import_location.errors.count, "error") %> prohibited this poblamiento_import_location from being saved:</h2>
+			<ul>
+				<% @poblamiento_import_location.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :name, "Nombre" %><br />
+		<%= f.text_field :name %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

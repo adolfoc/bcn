@@ -2,7 +2,7 @@ class PoblamientoParamsController < ApplicationController
   before_filter :set_menu_section
 
   def set_menu_section
-    @accordion_section = 3
+    @accordion_section = 5
   end
 
   # GET /poblamiento_params

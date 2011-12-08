@@ -41,7 +41,6 @@
 				  <li><%= link_to(t('Prioridades'), priorities_path) %>
 				  <li><%= link_to(t('Tipos de tarea'), task_types_path) %>
 				  <li><%= link_to(t('Tiempos de tareas'), task_transitions_path) %>
-				  <li><%= link_to(t('Parámetros de poblamiento'), poblamiento_params_path) %>
 				  <li><%= link_to(t('Tareas'), tasks_path) %>
 				  <li><%= link_to(t('Traza'), audits_path) %>
 				  <li><%= link_to(t('Estados de la OT'), ot_states_path) %>
@@ -59,6 +58,14 @@
 				  <li><%= link_to(t('Tipos de observaciones'), am_run_observation_types_path) %>
 				  <li><%= link_to(t('Resultados'), am_results_path) %>
 				  <li><%= link_to(t('Observaciones'), am_observations_path) %>
+				</ul>
+			</div>
+			<h3><a href="#"><%=t 'Poblamiento' %></a></h3>
+			<div>
+				<ul class="menu-list">
+				  <li><%= link_to(t('Localizaciones'), poblamiento_import_locations_path) %>
+				  <li><%= link_to(t('Formato ficheros históricos'), poblamiento_file_formats_path) %>
+				  <li><%= link_to(t('Parámetros de poblamiento'), poblamiento_params_path) %>
 				</ul>
 			</div>
 		<% end %>

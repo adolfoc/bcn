@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/controllers/home_controller.rb</string>
+	<string>app/views/audits/index.html.erb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,20 +21,6 @@
 	<integer>234</integer>
 	<key>metaData</key>
 	<dict>
-		<key>app/controllers/home_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>93</integer>
-				<key>line</key>
-				<integer>51</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>27</integer>
-		</dict>
 		<key>app/controllers/marcado_documento_controller.rb</key>
 		<dict>
 			<key>caret</key>
@@ -65,20 +51,6 @@
 				<integer>81</integer>
 			</dict>
 		</dict>
-		<key>app/controllers/observations_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>63</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>35</integer>
-		</dict>
 		<key>app/controllers/task_types_controller.rb</key>
 		<dict>
 			<key>caret</key>
@@ -87,6 +59,20 @@
 				<integer>38</integer>
 				<key>line</key>
 				<integer>11</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>app/views/audits/index.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>31</integer>
+				<key>line</key>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -298,7 +284,7 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>app/controllers/home_controller.rb</string>
+		<string>app/views/audits/index.html.erb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

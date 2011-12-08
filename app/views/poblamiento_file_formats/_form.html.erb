@@ -1,0 +1,26 @@
+<%= form_for(@poblamiento_file_format) do |f| %>
+	<% if @poblamiento_file_format.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@poblamiento_file_format.errors.count, "error") %> prohibited this poblamiento_file_format from being saved:</h2>
+			<ul>
+				<% @poblamiento_file_format.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :format_spec, "Formato" %><br />
+		<%= f.text_field :format_spec, :size => "80" %>
+	</div>
+
+	<div class="field">
+		<%= f.label :ordinal %><br />
+		<%= f.number_field :ordinal %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

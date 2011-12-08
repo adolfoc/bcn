@@ -1,0 +1,105 @@
+<%= render "shared/work_header" %>
+
+<table>
+	<tr>
+		<th>Organismo de origen</th>
+		<td><%= @poblamiento_param.frbr_entity.name %></td>
+	</tr>
+	<tr>
+		<th>Prioridad</th>
+		<td><%= @poblamiento_param.priority.name %></td>
+	</tr>
+	<tr>
+		<th>Intermediario</th>
+		<td><%= @poblamiento_param.intermediary.name unless @poblamiento_param.intermediary.nil? %></td>
+	</tr>
+	<tr>
+		<th>Localización</th>
+		<td><%= @poblamiento_param.location.name %></td>
+	</tr>
+	<tr>
+		<th>Formato</th>
+		<td><%= @poblamiento_param.file_format.format_spec %></td>
+	</tr>
+	<tr>
+		<th>Desde</th>
+		<td><%= @poblamiento_param.start_date %></td>
+	</tr>
+	<tr>
+		<th>Hasta</th>
+		<td><%= @poblamiento_param.end_date %></td>
+	</tr>
+</table>
+	
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Legislaturas</th>
+			<th colspan="3">Sesiones</th>
+			<th colspan="3">Procesamiento</th>
+		</tr>
+		<tr>
+			<th>Desde</th>
+			<th>Hasta</th>
+			<th>Desde</th>
+			<th>Hasta</th>
+			<th>Total</th>
+			<th>Ninguno</th>
+			<th>Parcial</th>
+			<th>Completo</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>211</td>
+			<td>211</td>
+			<td>312</td>
+			<td>315</td>
+			<td>3</td>
+			<td>0</td>
+			<td>1</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<th>Legislatura</th>
+			<th>Sesion</th>
+			<th>Fecha</th>
+			<th>Procesamiento</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>211</td>
+			<td>312</td>
+			<td>2009-01-01</td>
+			<td>Completo</td>
+		</tr>
+		<tr>
+			<td>211</td>
+			<td>313</td>
+			<td>2009-01-04</td>
+			<td>Completo</td>
+		</tr>
+		<tr>
+			<td>211</td>
+			<td>314</td>
+			<td>2009-01-05</td>
+			<td>Parcial</td>
+		</tr>
+	</tbody>
+</table>
+
+<%= form_tag(plan_poblamiento_create_genera_ots_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="actions">
+		<%= submit_tag "Generar OTs" %>
+	</div>
+</form>
+
+|&nbsp;<%= link_to "Modificar parametros", plan_poblamiento_rechazar_parametros_event_path(@task.id) %>&nbsp;|

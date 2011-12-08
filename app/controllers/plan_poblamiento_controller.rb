@@ -24,6 +24,10 @@ class PlanPoblamientoController < ApplicationController
     case @task.workflow_state
     when "determina_periodo"
       determina_periodo
+    when "revisando_parametros"
+      revisando_parametros
+    when "modificar_periodo"
+      modificar_periodo
     when "genera_ots"
       genera_ots
     when "termina_poblamiento"
@@ -55,6 +59,46 @@ class PlanPoblamientoController < ApplicationController
         format.html { redirect_to root_path, notice: 'Poblamiento param was successfully created.' }
       else
         format.html { render action: "determina_periodo" }
+      end
+    end
+  end
+
+  # GET revisando_parametros
+  def revisando_parametros
+    @poblamiento_param = @ot.poblamiento_param
+
+    respond_to do |format|
+      format.html { render "revisando_parametros" }
+    end
+  end
+
+  # GET modificar_periodo
+  def modificar_periodo
+    @poblamiento_param = @ot.poblamiento_param
+
+    respond_to do |format|
+      format.html { render "modificar_periodo" }
+    end
+  end
+
+  # POST update_params
+  def update_params
+    @ot = Ot.find(params[:poblamiento_param][:ot_id])
+    @task = Task.find(@ot.current_task_id)
+
+    @poblamiento_param = PoblamientoParam.where("ot_id = #{@ot.id}").first
+
+    respond_to do |format|
+      if @poblamiento_param.update_attributes(params[:poblamiento_param])
+        do_perform_transition(:periodo_modificado)
+
+        format.html { 
+          render "revisando_parametros"
+        }
+        format.json { head :ok }
+      else
+        format.html { render action: "modificar_periodo" }
+        format.json { render json: @poblamiento_param.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -127,6 +171,71 @@ class PlanPoblamientoController < ApplicationController
   def termina_poblamiento
     respond_to do |format|
       format.html { render "termina_poblamiento" }
+    end
+  end
+
+  ##########################################################
+  # Controller interface: Events and transitions
+  ##########################################################
+
+  def periodo_determinado_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:periodo_determinado)
+
+    respond_to do |format|
+      format.html { render action: "revisando_parametros" }
+      format.json { head :ok }
+    end
+  end
+
+  def aceptar_parametros_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:aceptar_parametros)
+
+    respond_to do |format|
+      format.html { render action: "genera_ots" }
+      format.json { head :ok }
+    end
+  end
+
+  def rechazar_parametros_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:rechazar_parametros)
+    @poblamiento_param = PoblamientoParam.where("ot_id = #{@ot.id}").first
+
+    respond_to do |format|
+      format.html { render action: "modificar_periodo" }
+      format.json { head :ok }
+    end
+  end
+
+  def periodo_modificado_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:periodo_modificado)
+
+    respond_to do |format|
+      format.html { render action: "revisando_parametros" }
+      format.json { head :ok }
+    end
+  end
+
+  def ots_generadas_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:ots_generadas)
+
+    respond_to do |format|
+      format.html { render action: "termina_poblamiento" }
+      format.json { head :ok }
     end
   end
 end
