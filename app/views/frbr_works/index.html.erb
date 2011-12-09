@@ -4,7 +4,10 @@
 	<thead>
 		<tr>
 			<th>Tipo de documento</th>
+			<th>Medio de Entrega</th>
+			<th>Intermediario</th>
 			<th>Origen</th>
+			<th>Legislatura</th>
 			<th>Sesión</th>
 			<th>Fecha de publicación</th>
 			<th></th>
@@ -16,7 +19,10 @@
 	<% @frbr_works.each do |frbr_work| %>
 		<tr>
 			<td><%= frbr_work.frbr_bcn_type.name %></td>
+			<td><%= frbr_work.delivery_method.name unless frbr_work.delivery_method.nil? %></td>
+			<td><%= frbr_work.intermediary.name unless frbr_work.intermediary.nil? %></td>
 			<td><%= frbr_work.frbr_entity.name %></td>
+			<td><%= frbr_work.legislature %></td>
 			<td><%= frbr_work.session %></td>
 			<td><%= frbr_work.publication_date %></td>
 			<td><%= link_to 'Show', frbr_work %></td>

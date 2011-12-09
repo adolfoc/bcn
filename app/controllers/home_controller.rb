@@ -208,6 +208,7 @@ class HomeController < ApplicationController
     Task.delete_all
     Observation.delete_all
     PoblamientoParam.delete_all
+    PoblamientoGeneratedParam.delete_all
     Ot.delete_all
 
     respond_to do |format|

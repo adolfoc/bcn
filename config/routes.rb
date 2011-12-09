@@ -1,4 +1,5 @@
 Bcn::Application.routes.draw do
+  resources :poblamiento_generated_params
   resources :poblamiento_import_locations
   resources :poblamiento_file_formats
   resources :doc_type_am_configurations

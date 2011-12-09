@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208184552) do
+ActiveRecord::Schema.define(:version => 20111208212507) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -206,6 +206,16 @@ ActiveRecord::Schema.define(:version => 20111208184552) do
   create_table "poblamiento_file_formats", :force => true do |t|
     t.string   "format_spec"
     t.integer  "ordinal"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "poblamiento_generated_params", :force => true do |t|
+    t.integer  "ot_id"
+    t.integer  "legislature"
+    t.integer  "session"
+    t.date     "session_date"
+    t.string   "processing"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

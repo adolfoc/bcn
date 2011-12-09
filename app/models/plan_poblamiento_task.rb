@@ -12,7 +12,10 @@ class PlanPoblamientoTask < Task
       event :periodo_modificado, :transitions_to => :revisando_parametros
     end
     state :genera_ots do
-      event :ots_generadas, :transitions_to => :termina_poblamiento
+      event :ots_generadas, :transitions_to => :en_curso
+    end
+    state :en_curso do
+      event :todas_procesadas, :transitions_to => :termina_poblamiento
     end
     state :termina_poblamiento
   end
@@ -43,6 +46,8 @@ class PlanPoblamientoTask < Task
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "genera_ots"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
+    when "en_curso"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
     when "termina_poblamiento"
       return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
     end

@@ -15,7 +15,7 @@ class Task < ActiveRecord::Base
   end
 
   def state
-    "Indefinido"
+    OtState.find(decode_ot_state).name
   end
 
   def estimated_completion_minutes

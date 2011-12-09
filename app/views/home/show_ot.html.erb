@@ -13,6 +13,10 @@
 			<td><%= @ot.name %></td>
 		</tr>
 		<tr>
+			<th>Estado</th>
+			<td><%= @ot.current_task.state unless @ot.current_task.nil? %></td>
+		</tr>
+		<tr>
 			<th>A pedido de:</th>
 			<td><%= @ot.by_request_of %></td>
 		</tr>

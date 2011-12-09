@@ -30,13 +30,14 @@
 		<td><%= @poblamiento_param.end_date %></td>
 	</tr>
 </table>
-	
+
+<h2>Resumen</h2>
 <table>
 	<thead>
 		<tr>
 			<th colspan="2">Legislaturas</th>
-			<th colspan="3">Sesiones</th>
-			<th colspan="3">Procesamiento</th>
+			<th colspan="2">Sesiones</th>
+			<th colspan="4">Procesamiento</th>
 		</tr>
 		<tr>
 			<th>Desde</th>
@@ -51,46 +52,37 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>211</td>
-			<td>211</td>
-			<td>312</td>
-			<td>315</td>
-			<td>3</td>
-			<td>0</td>
-			<td>1</td>
-			<td>2</td>
+			<td><%= @poblamiento_generated_params.earliest_legislature(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.latest_legislature(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.earliest_session(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.latest_session(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.total_processing(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.number_no_processing(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.number_partial(@ot.id) %></td>
+			<td><%= @poblamiento_generated_params.number_complete(@ot.id) %></td>
 		</tr>
 	</tbody>
 </table>
 
+<h2>OTs a generar</h2>
 <table>
 	<thead>
 		<tr>
 			<th>Legislatura</th>
-			<th>Sesion</th>
+			<th>Sesión</th>
 			<th>Fecha</th>
 			<th>Procesamiento</th>
 		</tr>
 	</thead>
 	<tbody>
+		<% @poblamiento_generated_params.each do |pgp| %>
 		<tr>
-			<td>211</td>
-			<td>312</td>
-			<td>2009-01-01</td>
-			<td>Completo</td>
+			<td><%= pgp.legislature.to_s %></td>
+			<td><%= pgp.session.to_s %></td>
+			<td><%= pgp.session_date %></td>
+			<td><%= pgp.processing %></td>
 		</tr>
-		<tr>
-			<td>211</td>
-			<td>313</td>
-			<td>2009-01-04</td>
-			<td>Completo</td>
-		</tr>
-		<tr>
-			<td>211</td>
-			<td>314</td>
-			<td>2009-01-05</td>
-			<td>Parcial</td>
-		</tr>
+		<% end %>
 	</tbody>
 </table>
 

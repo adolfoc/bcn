@@ -12,6 +12,36 @@ class PlanPoblamientoController < ApplicationController
     @accordion_section = 0
   end
 
+  def clear_generated_params
+    PoblamientoGeneratedParam.delete_all("ot_id = #{@ot.id}")
+  end
+
+  def decode_legislature_from_date(poblamiento_param, day)
+    212
+  end
+
+  def decode_session_from_date(poblamiento_param, day)
+    day.yday
+  end
+
+  def generate_driving_param(day, poblamiento_param)
+    params = Hash.new
+    params[:ot_id] = @ot.id
+    params[:legislature] = decode_legislature_from_date(poblamiento_param.frbr_entity, day)
+    params[:session] = decode_session_from_date(poblamiento_param.frbr_entity, day)
+    params[:session_date] = day
+    params[:processing] = "Completo"
+
+    generated_param = PoblamientoGeneratedParam.new(params)
+    generated_param.save
+  end
+
+  def generate_driving_params
+    @ot.poblamiento_param.start_date.upto(@ot.poblamiento_param.end_date) do |day|
+      generate_driving_param(day, @ot.poblamiento_param) if day.wday >= 2 && day.wday <= 4
+    end
+  end
+
   ##########################################################
   # Controller interface: States
   ##########################################################
@@ -54,6 +84,7 @@ class PlanPoblamientoController < ApplicationController
 
     respond_to do |format|
       if @poblamiento_param.save
+        generate_driving_params
         do_perform_transition(:periodo_determinado)
 
         format.html { redirect_to root_path, notice: 'Poblamiento param was successfully created.' }
@@ -66,6 +97,7 @@ class PlanPoblamientoController < ApplicationController
   # GET revisando_parametros
   def revisando_parametros
     @poblamiento_param = @ot.poblamiento_param
+    @poblamiento_generated_params = PoblamientoGeneratedParam.where("ot_id = #{@ot.id}").order("session_date")
 
     respond_to do |format|
       format.html { render "revisando_parametros" }
@@ -87,9 +119,12 @@ class PlanPoblamientoController < ApplicationController
     @task = Task.find(@ot.current_task_id)
 
     @poblamiento_param = PoblamientoParam.where("ot_id = #{@ot.id}").first
+    @poblamiento_generated_params = PoblamientoGeneratedParam.where("ot_id = #{@ot.id}").order("session_date")
 
     respond_to do |format|
       if @poblamiento_param.update_attributes(params[:poblamiento_param])
+        clear_generated_params
+        generate_driving_params
         do_perform_transition(:periodo_modificado)
 
         format.html { 
@@ -131,7 +166,47 @@ class PlanPoblamientoController < ApplicationController
     Observation.new(params)
   end
 
-  def generate_senate_ds_for(effective_date)
+  def generate_frbr_manifestation(pp, pgp)
+    params = Hash.new
+    params[:document_file_name] = "dummy.doc"
+    params[:document_content_type] = "application/msword"
+    params[:document_file_size] = 205310
+    params[:document_updated_at] = DateTime.now
+
+    frbr_manifestation = FrbrManifestation.new(params)
+    frbr_manifestation
+  end
+
+  def generate_source_expression(pp, pgp)
+    params = Hash.new
+    params[:frbr_document_type_id] = 1
+    params[:version] = 1
+    params[:language] = "es"
+
+    frbr_expression = FrbrExpression.new(params)
+    frbr_expression.frbr_manifestations << generate_frbr_manifestation(pp, pgp)
+    frbr_expression
+  end
+
+  def generate_source_document(pp, pgp)
+    params = Hash.new
+    params[:frbr_bcn_type_id] = 5
+    params[:frbr_entity_id] = pp.frbr_entity_id
+    params[:session] = pgp.session
+    params[:legislature] = pgp.legislature
+    params[:delivery_method_id] = 3
+    params[:intermediary_id] = pp.intermediary_id
+    params[:event_date] = pgp.session_date
+
+    frbr_work = FrbrWork.new(params)
+
+    frbr_work.frbr_expressions << generate_source_expression(pp, pgp)
+
+    frbr_work.save
+    frbr_work.frbr_expressions[0].frbr_manifestations[0]
+  end
+
+  def generate_senate_ds_for(pp, pgp)
     params = Hash.new
     params[:created_by] = current_user.id
     params[:created_on] = DateTime.now
@@ -140,13 +215,28 @@ class PlanPoblamientoController < ApplicationController
     params[:target_date] = DateTime.now + 2
     params[:parent_ot_id] = @ot.id
     params[:by_request_of] = @ot.by_request_of
+    params[:source_frbr_manifestation] = generate_source_document(pp, pgp)
 
     target_ot = Ot.new(params)
-    target_ot.observations << generate_observation(effective_date)
+    target_ot.observations << generate_observation(pgp.session_date)
     target_ot.save
 
     generate_audit(target_ot)
     target_ot.create_tasks(current_user)
+
+    save_ot = @ot
+    save_task = @task
+
+    @ot = target_ot
+    @task = @ot.tasks.first
+    do_perform_transition(:documentos_elegidos)
+
+    @ot = save_ot
+    @task = save_task
+  end
+
+  def generate_one_ot(pp, pgp)
+    generate_senate_ds_for(pp, pgp)
   end
 
   # POST plan_poblamiento_create_genera_ots
@@ -154,12 +244,15 @@ class PlanPoblamientoController < ApplicationController
     @ot = Ot.find(params[:ot_id])
     @task = Task.find(@ot.current_task_id)
 
-    @ot.poblamiento_param.start_date.upto(@ot.poblamiento_param.end_date) do |day|
-      generate_senate_ds_for(day)
+    @poblamiento_param = PoblamientoParam.where("ot_id = #{@ot.id}").first
+    @poblamiento_generated_params = PoblamientoGeneratedParam.where("ot_id = #{@ot.id}").order("session_date")
+
+    @poblamiento_generated_params.each do |pgp|
+      generate_one_ot(@poblamiento_param, pgp)
     end
 
+    do_perform_transition(:aceptar_parametros)
     do_perform_transition(:ots_generadas)
-    @ot.mark_complete
     @task.mark_complete
 
     respond_to do |format|
@@ -220,6 +313,7 @@ class PlanPoblamientoController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition(:periodo_modificado)
+    @poblamiento_generated_params = PoblamientoGeneratedParam.where("ot_id = #{@ot.id}").order("session_date")
 
     respond_to do |format|
       format.html { render action: "revisando_parametros" }
