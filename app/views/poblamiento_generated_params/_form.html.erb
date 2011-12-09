@@ -1,0 +1,41 @@
+<%= form_for(@poblamiento_generated_param) do |f| %>
+	<% if @poblamiento_generated_param.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@poblamiento_generated_param.errors.count, "error") %> prohibited this poblamiento_generated_param from being saved:</h2>
+			<ul>
+				<% @poblamiento_generated_param.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :ot_id, "OT agrupadora" %><br />
+	    <%= collection_select(:poblamiento_generated_param, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :legislature, "Legislatura" %><br />
+		<%= f.number_field :legislature %>
+	</div>
+
+	<div class="field">
+		<%= f.label :session, "Sessión" %><br />
+		<%= f.number_field :session %>
+	</div>
+
+	<div class="field">
+		<%= f.label :session_date, "Fecha de sesión" %><br />
+		<%= f.date_select :session_date %>
+	</div>
+
+	<div class="field">
+		<%= f.label :processing, "Procesamiento" %><br />
+		<%= f.text_field :processing %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

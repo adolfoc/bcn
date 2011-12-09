@@ -1,0 +1,34 @@
+<h1>Parámetros de poblamiento generados</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Ot agrupadora</th>
+			<th>Legislatura</th>
+			<th>Sesión</th>
+			<th>Fecha de sesión</th>
+			<th>Procesamiento</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @poblamiento_generated_params.each do |poblamiento_generated_param| %>
+		<tr>
+			<td><%= poblamiento_generated_param.ot.name %></td>
+			<td><%= poblamiento_generated_param.legislature %></td>
+			<td><%= poblamiento_generated_param.session %></td>
+			<td><%= poblamiento_generated_param.session_date %></td>
+			<td><%= poblamiento_generated_param.processing %></td>
+			<td><%= link_to 'Show', poblamiento_generated_param %></td>
+			<td><%= link_to 'Edit', edit_poblamiento_generated_param_path(poblamiento_generated_param) %></td>
+			<td><%= link_to 'Destroy', poblamiento_generated_param, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Poblamiento generated param', new_poblamiento_generated_param_path %>

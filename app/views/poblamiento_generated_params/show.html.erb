@@ -1,0 +1,28 @@
+<p>
+  <b>OT agrupadora:</b>
+  <%= @poblamiento_generated_param.ot.name %>
+</p>
+
+<p>
+  <b>Legislatura:</b>
+  <%= @poblamiento_generated_param.legislature %>
+</p>
+
+<p>
+  <b>Sesión:</b>
+  <%= @poblamiento_generated_param.session %>
+</p>
+
+<p>
+  <b>Fecha de sesión:</b>
+  <%= @poblamiento_generated_param.session_date %>
+</p>
+
+<p>
+  <b>Procesamiento:</b>
+  <%= @poblamiento_generated_param.processing %>
+</p>
+
+
+<%= link_to 'Edit', edit_poblamiento_generated_param_path(@poblamiento_generated_param) %> |
+<%= link_to 'Back', poblamiento_generated_params_path %>
