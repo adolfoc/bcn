@@ -1,0 +1,18 @@
+<p>
+  <b>Tipo de OT:</b>
+  <%= @default_users_by_ot_type.ot_type.name %>
+</p>
+
+<p>
+  <b>Rol:</b>
+  <%= @default_users_by_ot_type.role.name %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%= @default_users_by_ot_type.user.user_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_default_users_by_ot_type_path(@default_users_by_ot_type) %> |
+<%= link_to 'Back', default_users_by_ot_types_path %>

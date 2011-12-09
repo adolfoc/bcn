@@ -1,0 +1,31 @@
+<%= form_for(@default_users_by_ot_type) do |f| %>
+	<% if @default_users_by_ot_type.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@default_users_by_ot_type.errors.count, "error") %> prohibited this default_users_by_ot_type from being saved:</h2>
+			<ul>
+				<% @default_users_by_ot_type.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :ot_type_id, "Tipo de OT" %><br />
+	    <%= collection_select(:default_users_by_ot_type, :ot_type_id, OtType.order("name ASC"), :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :role_id, "Rol" %><br />
+	    <%= collection_select(:default_users_by_ot_type, :role_id, Role.order("name ASC"), :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :user_id %><br />
+	    <%= collection_select(:default_users_by_ot_type, :user_id, User.order("user_name ASC"), :id, :user_name) %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

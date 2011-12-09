@@ -1,4 +1,5 @@
 Bcn::Application.routes.draw do
+  resources :default_users_by_ot_types
   resources :am_module_configurations
   resources :poblamiento_generated_params
   resources :poblamiento_import_locations

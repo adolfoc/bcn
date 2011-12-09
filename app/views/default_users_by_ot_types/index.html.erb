@@ -1,0 +1,30 @@
+<h1>Usuarios para asignaciones por defecto</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Tipo de OT</th>
+			<th>Rol</th>
+			<th>Usuario</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @default_users_by_ot_types.each do |default_users_by_ot_type| %>
+		<tr>
+			<td><%= default_users_by_ot_type.ot_type.name %></td>
+			<td><%= default_users_by_ot_type.role.name %></td>
+			<td><%= default_users_by_ot_type.user.user_name %></td>
+			<td><%= link_to 'Show', default_users_by_ot_type %></td>
+			<td><%= link_to 'Edit', edit_default_users_by_ot_type_path(default_users_by_ot_type) %></td>
+			<td><%= link_to 'Destroy', default_users_by_ot_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Default users by ot type', new_default_users_by_ot_type_path %>
