@@ -23,6 +23,21 @@ class Ot < ActiveRecord::Base
     Ot.find(parent_ot_id)
   end
 
+  def close_parent
+    if !parent_ot_id.nil?
+      if !parent_ot.children_pending?
+        parent_ot.mark_complete
+      end
+    end
+  end
+
+  def children_pending?
+    Ot.where("parent_ot_id = #{id}").each do |ot|
+      return true if ot.completed_on.nil?
+    end
+    false
+  end
+
   def mark_read
     if read == false || read == 0
       params = Hash.new
@@ -36,6 +51,7 @@ class Ot < ActiveRecord::Base
     params[:completed_on] = DateTime.now
     params[:ot_state_id] = OtState.find_by_ordinal(OtState::OT_STATE_PUBLICADA).id
     update_attributes(params)
+    close_parent
   end
 
   def assign_source(manifestation)
@@ -90,7 +106,13 @@ class Ot < ActiveRecord::Base
     params = Hash.new
     params[:current_task_id] = task.id
     params[:current_step] = step
-    params[:ot_state_id] = task.decode_ot_state
+
+    # if this is a multi-stage ds we don't bother to keep track of individual states
+    if is_multiple_task? && get_plan_diario_post_task.nil?
+      params[:ot_state_id] = OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    else
+      params[:ot_state_id] = task.decode_ot_state
+    end
     update_attributes(params)
   end
 

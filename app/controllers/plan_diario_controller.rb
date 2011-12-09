@@ -297,7 +297,7 @@ class PlanDiarioController < ApplicationController
     do_perform_transition(:decide_dividir)
 
     @xml_text = get_dummy_text
-    @tasks = @ot.tasks
+    @tasks = @ot.tasks.select { |task| true if task.id != @task.id }
 
     respond_to do |format|
       format.html { render action: "dividir_tareas" }

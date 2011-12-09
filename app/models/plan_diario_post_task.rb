@@ -40,6 +40,8 @@ class PlanDiarioPostTask < Task
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_ASIGNAR).id
     when "publicando_diario_de_sesiones"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_PUBLICAR).id
+    when "notificando_equipos"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
     end
   end
 

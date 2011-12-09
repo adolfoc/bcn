@@ -18,6 +18,10 @@ class Task < ActiveRecord::Base
     OtState.find(decode_ot_state).name
   end
 
+  def task_state
+    TaskState.find(decode_task_state).name
+  end
+
   def estimated_completion_minutes
     45
   end

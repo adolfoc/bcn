@@ -76,6 +76,10 @@ class PlanPoblamientoTask < Task
     ot.begin_task_execution(self, "genera_ots")
   end
 
+  def on_en_curso_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "en_curso")
+  end
+
   def on_termina_poblamiento_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "termina_poblamiento")
   end
