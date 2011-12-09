@@ -1,0 +1,29 @@
+<h1>Listing am_module_configurations</h1>
+
+<table>
+  <tr>
+    <th>Ws endpoint</th>
+    <th>Person threshold</th>
+    <th>Place threshold</th>
+    <th>Organization threshold</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @am_module_configurations.each do |am_module_configuration| %>
+  <tr>
+    <td><%= am_module_configuration.ws_endpoint %></td>
+    <td><%= am_module_configuration.person_threshold %></td>
+    <td><%= am_module_configuration.place_threshold %></td>
+    <td><%= am_module_configuration.organization_threshold %></td>
+    <td><%= link_to 'Show', am_module_configuration %></td>
+    <td><%= link_to 'Edit', edit_am_module_configuration_path(am_module_configuration) %></td>
+    <td><%= link_to 'Destroy', am_module_configuration, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Am module configuration', new_am_module_configuration_path %>

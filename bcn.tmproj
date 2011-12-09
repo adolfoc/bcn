@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/views/audits/index.html.erb</string>
+	<string>app/controllers/plan_poblamiento_controller.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -51,6 +51,20 @@
 				<integer>81</integer>
 			</dict>
 		</dict>
+		<key>app/controllers/plan_poblamiento_controller.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>46</integer>
+				<key>line</key>
+				<integer>231</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>200</integer>
+		</dict>
 		<key>app/controllers/task_types_controller.rb</key>
 		<dict>
 			<key>caret</key>
@@ -65,28 +79,14 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>app/views/audits/index.html.erb</key>
+		<key>app/models/plan_poblamiento_task.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>31</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>19</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>app/views/home/_show_tasks.html.erb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>33</integer>
-				<key>line</key>
-				<integer>21</integer>
+				<integer>14</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -97,16 +97,16 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>15</integer>
+				<integer>13</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>14</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>33</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>14</integer>
 			</dict>
 		</dict>
 		<key>app/views/marcado_documento/corrigiendo_manualmente.html.erb</key>
@@ -253,42 +253,15 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>lib/mock/audit_mock.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>56</integer>
-				<key>line</key>
-				<integer>15</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>lib/workflow/workflow_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
-				<key>line</key>
-				<integer>17</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>app/views/audits/index.html.erb</string>
+		<string>app/models/plan_poblamiento_task.rb</string>
+		<string>app/controllers/plan_poblamiento_controller.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{244, 4}, {1436, 1024}}</string>
+	<string>{{0, 4}, {1436, 1024}}</string>
 </dict>
 </plist>

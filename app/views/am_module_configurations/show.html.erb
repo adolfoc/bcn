@@ -1,0 +1,20 @@
+<table>
+	<tr>
+		<th>Servicio web:</th>
+		<td><%= @am_module_configuration.ws_endpoint %></td>
+	</tr>
+	<tr>
+		<th>Ponderado personas:</th>
+		<td><%= @am_module_configuration.person_threshold %>%</td>
+	</tr>
+	<tr>
+		<th>Ponderado lugares:</th>
+		<td><%= @am_module_configuration.place_threshold %>%</td>
+	</tr>
+	<tr>
+		<th>Ponderado organizaciones:</th>
+		<td><%= @am_module_configuration.organization_threshold %>%</td>
+	</tr>
+</table>
+
+| <%= link_to 'Edit', edit_am_module_configuration_path(@am_module_configuration) %> |

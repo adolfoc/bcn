@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208212507) do
+ActiveRecord::Schema.define(:version => 20111209145658) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20111208212507) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "am_result_id"
+  end
+
+  create_table "am_module_configurations", :force => true do |t|
+    t.string   "ws_endpoint"
+    t.integer  "person_threshold"
+    t.integer  "place_threshold"
+    t.integer  "organization_threshold"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "am_observations", :force => true do |t|

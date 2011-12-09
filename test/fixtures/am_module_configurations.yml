@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ws_endpoint: MyString
+  person_threshold: 1
+  place_threshold: 1
+  organization_threshold: 1
+
+two:
+  ws_endpoint: MyString
+  person_threshold: 1
+  place_threshold: 1
+  organization_threshold: 1

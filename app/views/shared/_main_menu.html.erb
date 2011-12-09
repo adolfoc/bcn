@@ -53,7 +53,8 @@
 			<h3><a href="#"><%=t 'Marcado Automático' %></a></h3>
 			<div>
 				<ul class="menu-list">
-				  <li><%= link_to(t('Configuraciones'), doc_type_am_configurations_path) %>
+				  <li><%= link_to(t('Configuración general'), AmModuleConfiguration.first) %>
+				  <li><%= link_to(t('Configuraciones por tipo de documento'), doc_type_am_configurations_path) %>
 				  <li><%= link_to(t('Configuraciones generadas por MA'), am_configurations_path) %>
 				  <li><%= link_to(t('Tipos de observaciones'), am_run_observation_types_path) %>
 				  <li><%= link_to(t('Resultados'), am_results_path) %>
