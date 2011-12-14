@@ -5,7 +5,24 @@
 <%= render "shared/am_results" %>
 
 |&nbsp;<%= link_to "Rechaza", rechaza_event_path(@task.id) %>&nbsp;
-<% if @task.ot.is_multiple_task? && @task.ot.get_plan_diario_post_task.nil? %>
+
+<!-- 
+We need to decide wether to give the option to publish (approve OT) or to send back to planner (approve task).
+-->
+
+<!--
+We always allow publish for simple tasks (not multiple)
+-->
+<% if !@task.ot.is_multiple_task? %>
+	|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|
+<% end %>
+
+
+<!--
+But if this is a multiple task && we're in the second leg (after all parts have been assembled by the planner) then we
+also allow the QA to publish 
+-->
+<% if @task.ot.is_multiple_task? && !@task.ot.get_plan_diario_post_task.nil? && @task.id < @task.ot.get_plan_diario_post_task.id %>
 	|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;|
 <% else %>
 	|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|
