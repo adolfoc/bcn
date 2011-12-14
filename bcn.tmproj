@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>app/controllers/plan_poblamiento_controller.rb</string>
+	<string>app/models/plan_trabajo_parlamentario_task.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -51,63 +51,63 @@
 				<integer>81</integer>
 			</dict>
 		</dict>
-		<key>app/controllers/plan_poblamiento_controller.rb</key>
+		<key>app/controllers/plan_trabajo_parlamentario_controller.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>46</integer>
+				<integer>5</integer>
 				<key>line</key>
-				<integer>231</integer>
+				<integer>78</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>200</integer>
-		</dict>
-		<key>app/controllers/task_types_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>38</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>26</integer>
 		</dict>
 		<key>app/models/plan_poblamiento_task.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>29</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>17</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>22</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>26</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>29</integer>
 			</dict>
+		</dict>
+		<key>app/models/plan_trabajo_parlamentario_task.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>8</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>11</integer>
 		</dict>
 		<key>app/views/marcado_documento/corrigiendo_manualmente.html.erb</key>
 		<dict>
@@ -138,20 +138,6 @@
 				<key>line</key>
 				<integer>4</integer>
 			</dict>
-		</dict>
-		<key>app/views/plan_diario_post/_asignando_tareas_form.html.erb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>26</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>app/views/plan_diario_post/_notificar_equipos_form.html.erb</key>
 		<dict>
@@ -225,6 +211,36 @@
 				<integer>3</integer>
 			</dict>
 		</dict>
+		<key>app/views/plan_trabajo_parlamentario/definiendo_parametros.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
 		<key>config/deploy.rb</key>
 		<dict>
 			<key>caret</key>
@@ -238,6 +254,36 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>config/routes.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>153</integer>
+				<key>line</key>
+				<integer>181</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>138</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>133</integer>
+				<key>line</key>
+				<integer>181</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>182</integer>
+				<key>line</key>
+				<integer>181</integer>
+			</dict>
 		</dict>
 		<key>db/migrate/20111103174017_devise_create_users.rb</key>
 		<dict>
@@ -256,12 +302,15 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
+		<string>app/controllers/plan_trabajo_parlamentario_controller.rb</string>
+		<string>app/models/plan_trabajo_parlamentario_task.rb</string>
+		<string>app/views/plan_trabajo_parlamentario/definiendo_parametros.html.erb</string>
+		<string>config/routes.rb</string>
 		<string>app/models/plan_poblamiento_task.rb</string>
-		<string>app/controllers/plan_poblamiento_controller.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{0, 4}, {1436, 1024}}</string>
+	<string>{{244, 4}, {1436, 1024}}</string>
 </dict>
 </plist>

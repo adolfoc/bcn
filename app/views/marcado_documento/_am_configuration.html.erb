@@ -26,11 +26,15 @@
 		<fieldset>
 			<legend>Extensión</legend>
 			<div class="field">
-				<%= f.radio_button :structural_markup_extension_whole_document, true %>
+				<%= f.radio_button :structural_markup_extension_whole_document, 0 %>
+				<%= f.label :structural_markup_extension_whole_document, "Marcado mínimo" %>
+			</div>
+			<div class="field">
+				<%= f.radio_button :structural_markup_extension_whole_document, 1 %>
 				<%= f.label :structural_markup_extension_whole_document, "Documento entero" %>
 			</div>
 			<div class="field">
-				<%= f.radio_button :structural_markup_extension_whole_document, false %>
+				<%= f.radio_button :structural_markup_extension_whole_document, 2 %>
 				<%= f.label :structural_markup_extension_whole_document, "Limitar" %>
 			</div>
 			<fieldset>

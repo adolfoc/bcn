@@ -39,6 +39,8 @@ Bcn::Application.routes.draw do  resources :default_users_by_ot_types
   match "home/show_qa_analist" => "home#show_qa_analist", :as => :mostrar_analista_qa
   match "home/show_planner" => "home#show_planner", :as => :mostrar_planificador
   match "home/show_ot/:ot_id" => "home#show_ot", :as => :mostrar_ot
+  match "home/edit_ot/:ot_id" => "home#edit_ot", :as => :editar_ot
+  match "home/update_ot" => "home#update_ot", :as => :actualizar_ot, :method => :post
   match "home/show_document/:frbr_manifestation_id" => "home#show_document", :as => :mostrar_documento
   match "home/show_am_result/:am_result_id" => "home#show_am_result", :as => :mostrar_resultado_ma
   match "home/create_observation" => "home#create_observation", :as => :create_observation, :method => :post
@@ -167,6 +169,24 @@ Bcn::Application.routes.draw do  resources :default_users_by_ot_types
   match "plan_poblamiento/rechazar_parametros_event/:task_id" => "plan_poblamiento#rechazar_parametros_event", :as => :plan_poblamiento_rechazar_parametros_event
   match "plan_poblamiento/periodo_modificado_event/:task_id" => "plan_poblamiento#periodo_modificado_event", :as => :plan_poblamiento_periodo_modificado_event
   match "plan_poblamiento/ots_generadas_event/:task_id" => "plan_poblamiento#ots_generadas_event", :as => :plan_poblamiento_ots_generadas_event
+
+  ######################################################################################################################################################################
+  # Plan Trabajo Parlamentario workflow
+  # States
+  match "plan_trabajo_parlamentario/perform_work/:task_id/(:event)" => "plan_trabajo_parlamentario#perform_work", :as => :plan_trabajo_parlamentario_perform_work
+  match "plan_trabajo_parlamentario/inicial" => "plan_trabajo_parlamentario#inicial", :as => :plan_trabajo_parlamentario_inicial
+  match "plan_trabajo_parlamentario/definiendo_parametros" => "plan_trabajo_parlamentario#definiendo_parametros", :as => :plan_trabajo_parlamentario_definiendo_parametros
+  match "plan_trabajo_parlamentario/revisando_parametros" => "plan_trabajo_parlamentario#revisando_parametros", :as => :plan_trabajo_parlamentario_revisando_parametros
+  match "plan_trabajo_parlamentario/generando_modelo" => "plan_trabajo_parlamentario#generando_modelo", :as => :plan_trabajo_parlamentario_generando_modelo
+  match "plan_trabajo_parlamentario/generando_ots" => "plan_trabajo_parlamentario#generando_ots", :as => :plan_trabajo_parlamentario_generando_ots
+  # Posts
+  # Events
+  match "plan_trabajo_parlamentario/comienza_definir_event/:task_id" => "plan_trabajo_parlamentario#comienza_definir_event", :as => :plan_trabajo_parlamentario_comienza_definir_event
+  match "plan_trabajo_parlamentario/termina_definir_event/:task_id" => "plan_trabajo_parlamentario#termina_definir_event", :as => :plan_trabajo_parlamentario_termina_definir_event
+  match "plan_trabajo_parlamentario/rechaza_parametros_event/:task_id" => "plan_trabajo_parlamentario#rechaza_parametros_event", :as => :plan_trabajo_parlamentario_rechaza_parametros_event
+  match "plan_trabajo_parlamentario/acepta_parametros_event/:task_id" => "plan_trabajo_parlamentario#acepta_parametros_event", :as => :plan_trabajo_parlamentario_acepta_parametros_event
+  match "plan_trabajo_parlamentario/rechaza_modelo_event/:task_id" => "plan_trabajo_parlamentario#rechaza_modelo_event", :as => :plan_trabajo_parlamentario_rechaza_modelo_event
+  match "plan_trabajo_parlamentario/acepta_modelo_event/:task_id" => "plan_trabajo_parlamentario#acepta_modelo_event", :as => :plan_trabajo_parlamentario_acepta_modelo_event
 
   match "users/index" => "users#index", :as => :users
 

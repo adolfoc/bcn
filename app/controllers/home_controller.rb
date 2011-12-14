@@ -161,6 +161,29 @@ class HomeController < ApplicationController
     end
   end
 
+  # GET edit_ot
+  def edit_ot
+    screen_name("Editar-OT")
+
+    @ot = Ot.find(params[:ot_id])
+    @task = @ot.current_task
+  end
+
+  # POST update_ot
+  def update_ot
+    @ot = Ot.find(params[:ot][:id])
+
+    respond_to do |format|
+      if @ot.update_attributes(params[:ot])
+        format.html { redirect_to root_path, notice: 'Ot was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit_ot" }
+        format.json { render json: @ot.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show_document
     screen_name("Mostrar-Documento")
 

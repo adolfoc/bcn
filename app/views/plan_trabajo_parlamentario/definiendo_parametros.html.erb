@@ -1,0 +1,100 @@
+<%= render "shared/work_header" %>
+
+<%= form_tag('#') %>
+	<fieldset>
+		<legend>Términos de búsqueda</legend>
+		<%= check_box_tag :free_search %>&nbsp;<%= label_tag "Búsqueda libre "%>
+		<div class="field">
+			<%= label_tag :search_token, "Texto" %>
+			<%= text_area_tag 'search_token-token', nil, :size => "40x5" %>
+		</div>
+
+		<%= check_box_tag :taxonomy_search %>&nbsp;<%= label_tag "Búsqueda por taxonomía "%>
+		<div class="field">
+			<%= label_tag :taxonomy_term_category, "Categoría" %>
+			<%= select_tag :taxonomy_term_category, "<option>Categoria 1</option><option>Categoria 2</option><option>Categoria 3</option>".html_safe %>
+		</div>
+
+		<div class="field">
+			<%= label_tag :taxonomy_term, "Término" %>
+			<%= select_tag :taxonomy_term, "<option>Termino 1</option><option>Termino 2</option><option>Termino 3</option>".html_safe %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Cámara</legend>
+		<%= check_box_tag :restrict_organism %>&nbsp;<%= label_tag "Restringir por cámara "%>
+		<div class="field">
+			<%= label_tag :organism, "Organismo:" %>&nbsp;
+			<%= select_tag :organism, "<option>Senado</option><option>Cámara</option>".html_safe %>
+		</div>
+		<div class="field">
+			<%= label_tag :legislature, "Legislatura:" %>&nbsp;
+			<%= select_tag :legislature, "<option>211</option><option>212</option>".html_safe %>
+		</div>
+		<div class="field">
+			<%= label_tag :session, "Sesión:" %>&nbsp;
+			<%= select_tag :session, "<option>121</option><option>122</option>".html_safe %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Tiempo</legend>
+		<%= check_box_tag :restrict_date_range %>&nbsp;<%= label_tag "Restringir por tiempo "%>
+		<div class="field">
+			<%= label_tag :start_date, "Desde:" %>&nbsp;
+			<%= select_date Date.today, :prefix => :start_date %>
+		</div>
+		<div class="field">
+			<%= label_tag :end_date, "Hasta:" %>&nbsp;
+			<%= select_date Date.today, :prefix => :end_date %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Personas</legend>
+		<%= check_box_tag :restrict_person %>&nbsp;<%= label_tag "Restringir por persona "%>
+		<div class="field">
+			<%= label_tag :person, "Persona:" %>&nbsp;
+			<%= select_tag :person, "<option>Alberto Granados Gajardo</option><option>Enrique Contreras Coucino</option>".html_safe %>
+		</div>
+		<div class="field">
+			<%= label_tag :participation_type, "Tipo de participación:" %>&nbsp;
+			<%= select_tag :participation_type, "<option>Mensaje</option><option>Moción</option>".html_safe %>
+		</div>
+		<div class="field">
+			<%= label_tag :participation_quality, "Calidad:" %>&nbsp;
+			<%= select_tag :participation_quality, "<option>Parlamentario</option><option>Presidente de la Cámara</option>".html_safe %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Diario de Sesiones</legend>
+		<%= check_box_tag :restrict_ds_part %>&nbsp;<%= label_tag "Restringir por sección DS "%>
+		<div class="field">
+			<%= label_tag :ds_part, "Parte:" %>&nbsp;
+			<%= select_tag :ds_part, "<option>Incidentes</option><option>Documentos de la Cuenta</option>".html_safe %>
+		</div>
+		<div class="field">
+			<%= label_tag :ds_page, "Página:" %>&nbsp;
+			<%= text_field_tag :ds_page  %>
+		</div>
+		<div class="field">
+			<%= label_tag :ds_tome, "Tomo:" %>&nbsp;
+			<%= text_field_tag :ds_tome  %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Ley o proyecto</legend>
+		<%= check_box_tag :restrict_bill %>&nbsp;<%= label_tag "Restringir por ley o proyecto "%>
+		<div class="field">
+			<%= label_tag :bill, "Proyecto de ley:" %>&nbsp;
+			<%= text_field_tag :bill  %>
+		</div>
+		<div class="field">
+			<%= label_tag :law, "Ley:" %>&nbsp;
+			<%= text_field_tag :law  %>
+		</div>
+	</fieldset>
+</form>

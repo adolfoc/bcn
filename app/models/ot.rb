@@ -268,6 +268,22 @@ class Ot < ActiveRecord::Base
     first_task
   end
 
+  def create_plan_tp_pedido_task(current_user)
+    task_params = get_basic_task_params(current_user)
+    task_params[:task_type_id] = TaskType.find_by_ordinal(TaskType::TASK_TYPE_PLAN_TP_PEDIDO).id
+    task_params[:current_user_id] = current_user.id
+    plan_trabajo_parlamentario_task = PlanTrabajoParlamentarioTask.new(task_params)
+    plan_trabajo_parlamentario_task.workflow_state = plan_trabajo_parlamentario_task.initial_task
+    plan_trabajo_parlamentario_task.save
+    plan_trabajo_parlamentario_task
+  end
+
+  def create_tp_pedido_workflow(current_user)
+    first_task = create_plan_tp_pedido_task(current_user)
+
+    first_task
+  end
+
   def create_tasks(current_user)
     if ot_type_id == 1
       first_task = create_marcado_cuenta_workflow(current_user)
@@ -277,6 +293,8 @@ class Ot < ActiveRecord::Base
       first_task = create_correccion_workflow(current_user)
     elsif ot_type_id == 5
       first_task = create_poblamiento_workflow(current_user)
+    elsif ot_type_id == 7
+      first_task = create_tp_pedido_workflow(current_user)
     end
 
     begin_task_execution(first_task, first_task.initial_task.to_s) if !first_task.nil?
