@@ -1,0 +1,2 @@
+module ParticipationTypesHelper
+end

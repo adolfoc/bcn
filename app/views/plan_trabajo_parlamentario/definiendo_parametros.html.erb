@@ -55,6 +55,10 @@
 		<legend>Personas</legend>
 		<%= check_box_tag :restrict_person %>&nbsp;<%= label_tag "Restringir por persona "%>
 		<div class="field">
+			<%= label_tag :bancada, "Bancada:" %>&nbsp;
+			<%= select_tag :bancada, "<option>Partido Comunista</option><option>Partido Social Demócrata</option>".html_safe %>
+		</div>
+		<div class="field">
 			<%= label_tag :person, "Persona:" %>&nbsp;
 			<%= select_tag :person, "<option>Alberto Granados Gajardo</option><option>Enrique Contreras Coucino</option>".html_safe %>
 		</div>

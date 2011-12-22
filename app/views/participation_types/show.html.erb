@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @participation_type.name %>
+</p>
+
+<p>
+  <b>Uri:</b>
+  <%= @participation_type.uri %>
+</p>
+
+
+<%= link_to 'Edit', edit_participation_type_path(@participation_type) %> |
+<%= link_to 'Back', participation_types_path %>
