@@ -1,7 +1,6 @@
 Bcn::Application.routes.draw do  
   resources :qualities
   resources :participation_types
-  resources :parties
   resources :default_users_by_ot_types
   resources :am_module_configurations
   resources :poblamiento_generated_params
@@ -35,6 +34,16 @@ Bcn::Application.routes.draw do
   resources :ots
   resources :tasks
   devise_for :users
+
+  # ############################################################################################################
+  # RDF Parties
+  match "parties" => 'parties#create', :via => :post
+  match "parties" => 'parties#index', :as => :rdf_parties
+  match "parties/new" => 'parties#new', :as => :new_rdf_party
+  match "parties/:rdf_uri" => 'parties#update', :as => :update_rdf_party, :via => :put
+  match "parties/:rdf_uri" => 'parties#destroy', :as => :destroy_rdf_party, :via => :delete
+  match "parties/:rdf_uri" => 'parties#show', :as => :rdf_party
+  match "parties/:rdf_uri/edit" => 'parties#edit', :as => :edit_rdf_party
 
   get "home/index"
   match "home/show_empty" => "home#show_empty", :as => :mostrar_vacio

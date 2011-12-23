@@ -18,6 +18,7 @@ module Bcn
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{Rails.root}/lib/mock)
     config.autoload_paths += %W(#{Rails.root}/lib/workflow)
+    config.autoload_paths += %W(#{Rails.root}/lib/rdf)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

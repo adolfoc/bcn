@@ -1,25 +1,30 @@
 <h1>Listing parties</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Uri</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @parties.each do |party| %>
-  <tr>
-    <td><%= party.name %></td>
-    <td><%= party.uri %></td>
-    <td><%= link_to 'Show', party %></td>
-    <td><%= link_to 'Edit', edit_party_path(party) %></td>
-    <td><%= link_to 'Destroy', party, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Uri</th>
+			<th>Sequence</th>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @parties.each do |party| %>
+		<tr>
+			<td><%= party.rdf_uri %></td>
+			<td><%= party.party_id %></td>
+			<td><%= party.party_name %></td>
+			<td><%= link_to 'Show', rdf_party_path(party.id) %></td>
+			<td><%= link_to 'Edit', edit_rdf_party_path(party.id) %></td>
+			<td><%= link_to 'Destroy', destroy_rdf_party_path(party.id), confirm: 'Are you sure?' %></td>
+		</tr>
+		<% end %>
+	<tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Party', new_party_path %>
+<%= link_to 'New Party', new_rdf_party_path %>

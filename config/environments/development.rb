@@ -30,4 +30,8 @@ Bcn::Application.configure do
 
   # required by devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # Virtuoso RDF parameters
+  config.rdf_sparql_endpoint = "http://localhost:8890/sparql"
+  config.rdf_default_graph = "http://datos.bcn.cl"
 end

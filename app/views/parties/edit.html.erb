@@ -1,6 +1,6 @@
 <h1>Editing party</h1>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { :action => 'update', :method => :put } %>
 
-<%= link_to 'Show', @party %> |
-<%= link_to 'Back', parties_path %>
+<%= link_to 'Show', rdf_party_path(@party.id) %> |
+<%= link_to 'Back', rdf_parties_path %>

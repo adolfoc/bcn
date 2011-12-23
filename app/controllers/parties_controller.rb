@@ -8,7 +8,7 @@ class PartiesController < ApplicationController
   # GET /parties
   # GET /parties.json
   def index
-    @parties = Party.all
+    @parties = Party.find_all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class PartiesController < ApplicationController
   # GET /parties/1
   # GET /parties/1.json
   def show
-    @party = Party.find(params[:id])
+    @party = Party.find_by_id(params[:rdf_uri])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +30,7 @@ class PartiesController < ApplicationController
   # GET /parties/new
   # GET /parties/new.json
   def new
-    @party = Party.new
+    @party = Party.new(Party::RDF_PARTY_NEW_URI, "")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,17 +40,17 @@ class PartiesController < ApplicationController
 
   # GET /parties/1/edit
   def edit
-    @party = Party.find(params[:id])
+    @party = Party.find_by_id(params[:rdf_uri])
   end
 
   # POST /parties
   # POST /parties.json
   def create
-    @party = Party.new(params[:party])
+    @party = Party.new(params[:rdf_uri], params[:party_name])
 
     respond_to do |format|
       if @party.save
-        format.html { redirect_to @party, notice: 'Party was successfully created.' }
+        format.html { redirect_to rdf_party_path(@party.id), notice: 'Party was successfully created.' }
         format.json { render json: @party, status: :created, location: @party }
       else
         format.html { render action: "new" }
@@ -62,11 +62,11 @@ class PartiesController < ApplicationController
   # PUT /parties/1
   # PUT /parties/1.json
   def update
-    @party = Party.find(params[:id])
+    @party = Party.find_by_id(params[:rdf_uri])
 
     respond_to do |format|
-      if @party.update_attributes(params[:party])
-        format.html { redirect_to @party, notice: 'Party was successfully updated.' }
+      if @party.update_attributes(params)
+        format.html { redirect_to rdf_party_path(@party.id), notice: 'Party was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -78,7 +78,7 @@ class PartiesController < ApplicationController
   # DELETE /parties/1
   # DELETE /parties/1.json
   def destroy
-    @party = Party.find(params[:id])
+    @party = Party.find_by_id(params[:rdf_uri])
     @party.destroy
 
     respond_to do |format|
