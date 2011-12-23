@@ -8,7 +8,7 @@ class QualitiesController < ApplicationController
   # GET /qualities
   # GET /qualities.json
   def index
-    @qualities = Quality.all
+    @qualities = Quality.find_all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class QualitiesController < ApplicationController
   # GET /qualities/1
   # GET /qualities/1.json
   def show
-    @quality = Quality.find(params[:id])
+    @quality = Quality.find_by_id(params[:rdf_uri])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +30,7 @@ class QualitiesController < ApplicationController
   # GET /qualities/new
   # GET /qualities/new.json
   def new
-    @quality = Quality.new
+    @quality = Quality.new(Quality::RDF_QUALITY_NEW_URI, "")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,17 +40,17 @@ class QualitiesController < ApplicationController
 
   # GET /qualities/1/edit
   def edit
-    @quality = Quality.find(params[:id])
+    @quality = Quality.find_by_id(params[:rdf_uri])
   end
 
   # POST /qualities
   # POST /qualities.json
   def create
-    @quality = Quality.new(params[:quality])
+    @quality = Quality.new(params[:rdf_uri], params[:quality_name])
 
     respond_to do |format|
       if @quality.save
-        format.html { redirect_to @quality, notice: 'Quality was successfully created.' }
+        format.html { redirect_to rdf_quality_path(@quality.id), notice: 'Quality was successfully created.' }
         format.json { render json: @quality, status: :created, location: @quality }
       else
         format.html { render action: "new" }
@@ -62,7 +62,7 @@ class QualitiesController < ApplicationController
   # PUT /qualities/1
   # PUT /qualities/1.json
   def update
-    @quality = Quality.find(params[:id])
+    @quality = Quality.find_by_id(params[:rdf_uri])
 
     respond_to do |format|
       if @quality.update_attributes(params[:quality])
@@ -78,7 +78,7 @@ class QualitiesController < ApplicationController
   # DELETE /qualities/1
   # DELETE /qualities/1.json
   def destroy
-    @quality = Quality.find(params[:id])
+    @quality = Quality.find_by_id(params[:rdf_uri])
     @quality.destroy
 
     respond_to do |format|

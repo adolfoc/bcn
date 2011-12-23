@@ -1,25 +1,26 @@
-<%= form_for(@quality) do |f| %>
+<%= form_tag({ :controller => "qualities", :action => action }, :method => method ) do %>
   <% if @quality.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@quality.errors.count, "error") %> prohibited this quality from being saved:</h2>
-
+      <h2><%= pluralize(@quality.errors.count, "error") %> prohibited this message from being saved:</h2>
       <ul>
-      <% @quality.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+	      <% @quality.errors.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="field invisible">
+    <%= label_tag :rdf_uri, 'URI' %><br />
+    <%= text_field_tag(:rdf_uri, @quality.rdf_uri)  %>
   </div>
+
   <div class="field">
-    <%= f.label :uri %><br />
-    <%= f.text_field :uri %>
+    <%= label_tag :quality_name, 'Nombre' %><br />
+    <%= text_field_tag(:quality_name, @quality.quality_name)  %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag('Guardar') %>
   </div>
 <% end %>

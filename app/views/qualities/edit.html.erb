@@ -1,6 +1,6 @@
 <h1>Editing quality</h1>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { :action => 'update', :method => :put } %>
 
-<%= link_to 'Show', @quality %> |
+<%= link_to 'Show', rdf_quality_path(@quality.id) %> |
 <%= link_to 'Back', qualities_path %>

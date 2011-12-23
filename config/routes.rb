@@ -1,5 +1,4 @@
 Bcn::Application.routes.draw do  
-  resources :qualities
   resources :participation_types
   resources :default_users_by_ot_types
   resources :am_module_configurations
@@ -44,6 +43,16 @@ Bcn::Application.routes.draw do
   match "parties/:rdf_uri" => 'parties#destroy', :as => :destroy_rdf_party, :via => :delete
   match "parties/:rdf_uri" => 'parties#show', :as => :rdf_party
   match "parties/:rdf_uri/edit" => 'parties#edit', :as => :edit_rdf_party
+
+  # ############################################################################################################
+  # RDF Qualities
+  match "qualities" => 'qualities#create', :via => :post
+  match "qualities" => 'qualities#index', :as => :rdf_qualities
+  match "qualities/new" => 'qualities#new', :as => :new_rdf_quality
+  match "qualities/:rdf_uri" => 'qualities#update', :as => :update_rdf_quality, :via => :put
+  match "qualities/:rdf_uri" => 'qualities#destroy', :as => :destroy_rdf_quality, :via => :delete
+  match "qualities/:rdf_uri" => 'qualities#show', :as => :rdf_quality
+  match "qualities/:rdf_uri/edit" => 'qualities#edit', :as => :edit_rdf_quality
 
   get "home/index"
   match "home/show_empty" => "home#show_empty", :as => :mostrar_vacio

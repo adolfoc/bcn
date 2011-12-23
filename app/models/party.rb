@@ -177,6 +177,7 @@ class Party
     RdfQuery::count(statements)
   end
 
+
   ###############################################################################################
   # Metodos de clase que devuelven instancias especificas
   def self.find_by_id(id)
@@ -201,5 +202,4 @@ class Party
 
     return Party.new(uri, name)
   end
-
 end

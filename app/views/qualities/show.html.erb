@@ -1,15 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
-  <%= @quality.name %>
+  <%= @quality.quality_name %>
 </p>
 
 <p>
   <b>Uri:</b>
-  <%= @quality.uri %>
+  <%= @quality.rdf_uri %>
 </p>
 
 
-<%= link_to 'Edit', edit_quality_path(@quality) %> |
+<%= link_to 'Edit', edit_rdf_quality_path(@quality.id) %> |
 <%= link_to 'Back', qualities_path %>

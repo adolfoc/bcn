@@ -106,6 +106,30 @@ module RdfAccessor
   }
   end
 
+  def validate_uri(uri_value)
+    raise "Expecting RDF::URI" if uri_value.class != RDF::URI
+  end
+
+  def insert_uri_with(instance_variable, predicate)
+    Rails.logger.debug("RdfAccessor::insert_uri_with(#{instance_variable}, #{predicate})") if @@accessor_trace_on == true
+    RdfQuery::insert_uri(@rdf_uri, predicate, instance_variable)
+  end
+
+  def update_uri_with(instance_variable, predicate, new_value)
+    Rails.logger.debug("RdfAccessor::update_uri_with(#{instance_variable}, #{predicate}, #{new_value})") if @@accessor_trace_on == true
+    if new_value.to_s != instance_variable.to_s
+      Rails.logger.debug("RdfAccessor:update_uri_with #{instance_variable} != #{new_value})") if @@accessor_trace_on == true
+      instance_variable = new_value
+      RdfQuery::update_uri(@rdf_uri, predicate, instance_variable)
+    end
+  end
+
+  def delete_uri_with(predicate)
+    Rails.logger.debug("RdfAccessor::delete_uri_with(#{predicate})") if @@accessor_trace_on == true
+    instance_variable = nil
+    RdfQuery::delete_uri(@rdf_uri, predicate)
+  end
+
 
   ############################################################################
   # Para accesar colecciones de URIs
@@ -135,6 +159,16 @@ module RdfAccessor
   # Funciones que exportamos
 
   module_function :rdf_literal_accessor
+  module_function :validate_literal
+  module_function :insert_literal_with
+  module_function :update_literal_with
+  module_function :delete_literal_with
+
   module_function :rdf_uri_accessor
+  module_function :validate_uri
+  module_function :insert_uri_with
+  module_function :update_uri_with
+  module_function :delete_uri_with
+
   module_function :rdf_uri_array_accessor
 end
