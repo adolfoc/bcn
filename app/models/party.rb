@@ -22,7 +22,7 @@ class Party
   MAX_NAME_LENGTH = 100
 
   attr_accessor :rdf_uri
-  RdfAccessor::rdf_uri_array_accessor('party_type', RdfAccessor::RDF_TYPE_URI)
+  RdfAccessor::rdf_uri_accessor('party_type', RdfAccessor::RDF_TYPE_URI)
   RdfAccessor::rdf_literal_accessor('party_id', RDF_PARTY_PARTY_ID_URI)
 
   RdfAccessor::rdf_literal_accessor('party_name', RDF_PARTY_NAME_URI)
@@ -30,7 +30,6 @@ class Party
   def initialize(rdf_uri, name)
     @rdf_uri = RDF::URI.new(rdf_uri)
     @party_name = RDF::Literal.new(name)
-    @errors = Hash.new
   end
 
   ###############################################################################################
@@ -57,14 +56,14 @@ class Party
   def validate
     Rails.logger.debug('Party::validate')
     validate_name @party_name
-    !@errors.any?
+    !errors.any?
   end
 
   # Esta es la funcion que llamamos al modificar una instancia.
   def validate_update(params)
     Rails.logger.debug('Party::validate_update')
     validate_name params[:party_name]
-    !@errors.any?
+    !errors.any?
   end
 
   ###############################################################################################
@@ -97,8 +96,8 @@ class Party
     generate_new_id
 
     # Guardar los otros atributos
-    @party_type = [RDF::URI.new(RDF_PARTY_TYPE_URI)] if @party_type.nil?
-    party_type.each { |type| RdfQuery::insert_uri(@rdf_uri, RdfAccessor::RDF_TYPE_URI, type) }
+    @party_type = RDF::URI.new(RDF_PARTY_TYPE_URI) if @party_type.nil?
+    party_type_create
 
     @party_id = RDF::Literal.new("%010d" % Party.next_sequence_number) if @party_id.nil?
     party_id_create

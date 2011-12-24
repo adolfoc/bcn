@@ -1,5 +1,4 @@
 Bcn::Application.routes.draw do  
-  resources :participation_types
   resources :default_users_by_ot_types
   resources :am_module_configurations
   resources :poblamiento_generated_params
@@ -53,6 +52,16 @@ Bcn::Application.routes.draw do
   match "qualities/:rdf_uri" => 'qualities#destroy', :as => :destroy_rdf_quality, :via => :delete
   match "qualities/:rdf_uri" => 'qualities#show', :as => :rdf_quality
   match "qualities/:rdf_uri/edit" => 'qualities#edit', :as => :edit_rdf_quality
+
+  # ############################################################################################################
+  # RDF ParticipationTypes
+  match "participation_types" => 'participation_types#create', :via => :post
+  match "participation_types" => 'participation_types#index', :as => :rdf_participation_types
+  match "participation_types/new" => 'participation_types#new', :as => :new_rdf_participation_type
+  match "participation_types/:rdf_uri" => 'participation_types#update', :as => :update_rdf_participation_type, :via => :put
+  match "participation_types/:rdf_uri" => 'participation_types#destroy', :as => :destroy_rdf_participation_type, :via => :delete
+  match "participation_types/:rdf_uri" => 'participation_types#show', :as => :rdf_participation_type
+  match "participation_types/:rdf_uri/edit" => 'participation_types#edit', :as => :edit_rdf_participation_type
 
   get "home/index"
   match "home/show_empty" => "home#show_empty", :as => :mostrar_vacio

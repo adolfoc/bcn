@@ -1,25 +1,30 @@
-<h1>Listing participation_types</h1>
+<h1>Tipos de participación</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Uri</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @participation_types.each do |participation_type| %>
-  <tr>
-    <td><%= participation_type.name %></td>
-    <td><%= participation_type.uri %></td>
-    <td><%= link_to 'Show', participation_type %></td>
-    <td><%= link_to 'Edit', edit_participation_type_path(participation_type) %></td>
-    <td><%= link_to 'Destroy', participation_type, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+		<tr>
+			<th>Uri</th>
+			<th>Sequence</th>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @participation_types.each do |participation_type| %>
+		<tr>
+			<td><%= participation_type.rdf_uri %></td>
+			<td><%= participation_type.participation_type_id %></td>
+			<td><%= participation_type.participation_type_name %></td>
+			<td><%= link_to 'Show', rdf_participation_type_path(participation_type.id) %></td>
+			<td><%= link_to 'Edit', edit_rdf_participation_type_path(participation_type.id) %></td>
+			<td><%= link_to 'Destroy', destroy_rdf_participation_type_path(participation_type.id), confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Participation type', new_participation_type_path %>
+<%= link_to 'Nuevo tipo de participación', new_rdf_participation_type_path %>

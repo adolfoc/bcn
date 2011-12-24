@@ -12,7 +12,7 @@ module RdfQuery
   DEFAULT_GRAPH_URI = Rails.application.config.rdf_default_graph
   SPARQL_NS = "http://www.w3.org/2005/sparql-results#"
 
-  @@trace_on = false
+  @@trace_on = true
 
   # Aqui realizamos el query sparql.
   # Pedimos los resultados en formato JSON

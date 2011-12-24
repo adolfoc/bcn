@@ -1,15 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
-  <%= @participation_type.name %>
+  <%= @participation_type.participation_type_name %>
 </p>
 
 <p>
   <b>Uri:</b>
-  <%= @participation_type.uri %>
+  <%= @participation_type.rdf_uri %>
 </p>
 
 
-<%= link_to 'Edit', edit_participation_type_path(@participation_type) %> |
-<%= link_to 'Back', participation_types_path %>
+<%= link_to 'Edit', edit_rdf_participation_type_path(@participation_type.id) %> |
+<%= link_to 'Back', rdf_participation_types_path %>

@@ -17,18 +17,19 @@ module RdfValidator
 
   # Validamos que el atributo esté presente
   def validate_attribute_pressence(attribute_symbol, attribute_value, message)
-    add_error(attribute_symbol, message) if attribute_value.nil? || attribute_value.to_s.empty?
+    RdfValidator::add_error(attribute_symbol, message) if attribute_value.nil? || attribute_value.to_s.empty?
   end
 
   # Validamos que el atributo tenga un largo máximo
   def validate_attribute_length(attribute_symbol, attribute_value, max_chars, message)
-    add_error(attribute_symbol, message) if attribute_value.nil? || attribute_value.to_s.empty? || attribute_value.to_s.length > max_chars
+    RdfValidator::add_error(attribute_symbol, message) if attribute_value.nil? || attribute_value.to_s.empty? || attribute_value.to_s.length > max_chars
   end
 
   ############################################################################
   # Funciones que exportamos
 
   module_function :errors
+  module_function :add_error
   module_function :validate_attribute_pressence
   module_function :validate_attribute_length
 end

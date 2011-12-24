@@ -1,4 +1,4 @@
-<h1>Listing qualities</h1>
+<h1>Calidades</h1>
 
 <table>
 	<thead>
@@ -17,9 +17,9 @@
 			<td><%= quality.rdf_uri %></td>
 			<td><%= quality.quality_id %></td>
 			<td><%= quality.quality_name %></td>
-			<td><%= link_to 'Show', rdf_quality_path(quality.id) %></td>
-			<td><%= link_to 'Edit', edit_rdf_quality_path(quality.id) %></td>
-			<td><%= link_to 'Destroy', destroy_rdf_quality_path(quality.id), confirm: 'Are you sure?' %></td>
+			<td><%= link_to 'Mostrar', rdf_quality_path(quality.id) %></td>
+			<td><%= link_to 'Editar', edit_rdf_quality_path(quality.id) %></td>
+			<td><%= link_to 'Destruír', destroy_rdf_quality_path(quality.id), confirm: 'Está seguro?' %></td>
 		</tr>
 		<% end %>
 	<tbody>
@@ -27,4 +27,4 @@
 
 <br />
 
-<%= link_to 'New Quality', new_rdf_quality_path %>
+<%= link_to 'Nueva Calidad', new_rdf_quality_path %>

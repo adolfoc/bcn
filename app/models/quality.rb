@@ -22,7 +22,7 @@ class Quality
   MAX_NAME_LENGTH = 100
 
   attr_accessor :rdf_uri
-  RdfAccessor::rdf_uri_array_accessor('quality_type', RdfAccessor::RDF_TYPE_URI)
+  RdfAccessor::rdf_uri_accessor('quality_type', RdfAccessor::RDF_TYPE_URI)
   RdfAccessor::rdf_literal_accessor('quality_id', RDF_QUALITY_QUALITY_ID_URI)
 
   RdfAccessor::rdf_literal_accessor('quality_name', RDF_QUALITY_NAME_URI)
@@ -30,7 +30,6 @@ class Quality
   def initialize(rdf_uri, name)
     @rdf_uri = RDF::URI.new(rdf_uri)
     @quality_name = RDF::Literal.new(name)
-    @errors = Hash.new
   end
 
   ###############################################################################################
@@ -57,14 +56,14 @@ class Quality
   def validate
     Rails.logger.debug('Quality::validate')
     validate_name @quality_name
-    !@errors.any?
+    !errors.any?
   end
 
   # Esta es la funcion que llamamos al modificar una instancia.
   def validate_update(params)
     Rails.logger.debug('Quality::validate_update')
     validate_name params[:quality_name]
-    !@errors.any?
+    !errors.any?
   end
 
     ###############################################################################################
@@ -96,8 +95,8 @@ class Quality
       generate_new_id
 
       # Guardar los otros atributos
-      @quality_type = [RDF::URI.new(RDF_QUALITY_TYPE_URI)] if @quality_type.nil?
-      quality_type.each { |type| RdfQuery::insert_uri(@rdf_uri, RdfAccessor::RDF_TYPE_URI, type) }
+      @quality_type = RDF::URI.new(RDF_QUALITY_TYPE_URI) if @quality_type.nil?
+      quality_type_create
 
       @quality_id = RDF::Literal.new("%010d" % Quality.next_sequence_number) if @quality_id.nil?
       quality_id_create

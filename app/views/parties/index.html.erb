@@ -1,4 +1,4 @@
-<h1>Listing parties</h1>
+<h1>Partidos</h1>
 
 <table>
 	<thead>
@@ -17,9 +17,9 @@
 			<td><%= party.rdf_uri %></td>
 			<td><%= party.party_id %></td>
 			<td><%= party.party_name %></td>
-			<td><%= link_to 'Show', rdf_party_path(party.id) %></td>
-			<td><%= link_to 'Edit', edit_rdf_party_path(party.id) %></td>
-			<td><%= link_to 'Destroy', destroy_rdf_party_path(party.id), confirm: 'Are you sure?' %></td>
+			<td><%= link_to 'Mostrar', rdf_party_path(party.id) %></td>
+			<td><%= link_to 'Editar', edit_rdf_party_path(party.id) %></td>
+			<td><%= link_to 'Destruír', destroy_rdf_party_path(party.id), confirm: 'Está seguro?', :method => :delete %></td>
 		</tr>
 		<% end %>
 	<tbody>
@@ -27,4 +27,4 @@
 
 <br />
 
-<%= link_to 'New Party', new_rdf_party_path %>
+<%= link_to 'Nuevo Partido', new_rdf_party_path %>

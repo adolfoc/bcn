@@ -1,25 +1,26 @@
-<%= form_for(@participation_type) do |f| %>
+<%= form_tag({ :controller => "participation_types", :action => action }, :method => method ) do %>
   <% if @participation_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@participation_type.errors.count, "error") %> prohibited this participation_type from being saved:</h2>
-
+      <h2><%= pluralize(@participation_type.errors.count, "error") %> prohibited this message from being saved:</h2>
       <ul>
-      <% @participation_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+	      <% @participation_type.errors.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="field invisible">
+    <%= label_tag :rdf_uri, 'URI' %><br />
+    <%= text_field_tag(:rdf_uri, @participation_type.rdf_uri)  %>
   </div>
+
   <div class="field">
-    <%= f.label :uri %><br />
-    <%= f.text_field :uri %>
+    <%= label_tag :participation_type_name, 'Nombre' %><br />
+    <%= text_field_tag(:participation_type_name, @participation_type.participation_type_name)  %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag('Guardar') %>
   </div>
 <% end %>
