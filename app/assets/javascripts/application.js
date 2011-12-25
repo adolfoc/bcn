@@ -34,4 +34,25 @@ $(function() {
 		$( "#ot-filter-sent" ).toggle(selectedEffect, effect_options, 500);
 		return false;
 	})
+	$( "#restrict_person").click (function() {
+		var thisCheck = $(this);
+		if (thisCheck.is (':checked'))
+			enable_person_filter();
+		else
+			disable_person_filter();
+	})
 });
+
+function enable_person_filter() {
+	$("#parameters_bancada").removeAttr("disabled");
+	$("#parameters_person").removeAttr("disabled");
+	$("#parameters_participation_type").removeAttr("disabled");
+	$("#parameters_participation_quality").removeAttr("disabled");
+}
+
+function disable_person_filter() {
+	$("#parameters_bancada").attr("disabled", true);
+	$("#parameters_person").attr("disabled", true);
+	$("#parameters_participation_type").attr("disabled", true);
+	$("#parameters_participation_quality").attr("disabled", true);
+}

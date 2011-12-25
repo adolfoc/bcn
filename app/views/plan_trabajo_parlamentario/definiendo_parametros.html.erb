@@ -56,7 +56,7 @@
 		<%= check_box_tag :restrict_person %>&nbsp;<%= label_tag "Restringir por persona "%>
 		<div class="field">
 			<%= label_tag :bancada, "Bancada:" %>&nbsp;
-			<%= select_tag :bancada, "<option>Partido Comunista</option><option>Partido Social Demócrata</option>".html_safe %>
+			<%= collection_select(:parameters, :bancada, Party.find_all, :id, :party_name, :include_blank => true) %>
 		</div>
 		<div class="field">
 			<%= label_tag :person, "Persona:" %>&nbsp;
@@ -64,11 +64,11 @@
 		</div>
 		<div class="field">
 			<%= label_tag :participation_type, "Tipo de participación:" %>&nbsp;
-			<%= select_tag :participation_type, "<option>Mensaje</option><option>Moción</option>".html_safe %>
+			<%= collection_select(:parameters, :participation_type, ParticipationType.find_all, :id, :participation_type_name, :include_blank => true) %>
 		</div>
 		<div class="field">
 			<%= label_tag :participation_quality, "Calidad:" %>&nbsp;
-			<%= select_tag :participation_quality, "<option>Parlamentario</option><option>Presidente de la Cámara</option>".html_safe %>
+			<%= collection_select(:parameters, :participation_quality, Quality.find_all, :id, :quality_name, :include_blank => true) %>
 		</div>
 	</fieldset>
 
