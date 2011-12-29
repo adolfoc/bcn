@@ -1,0 +1,31 @@
+<h1>Listing tp_generated_params</h1>
+
+<table>
+  <tr>
+    <th>Ot</th>
+    <th>Legislature</th>
+    <th>Session</th>
+    <th>Session date</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tp_generated_params.each do |tp_generated_param| %>
+  <tr>
+    <td><%= tp_generated_param.ot_id %></td>
+    <td><%= tp_generated_param.legislature %></td>
+    <td><%= tp_generated_param.session %></td>
+    <td><%= tp_generated_param.session_date %></td>
+    <td><%= tp_generated_param.status %></td>
+    <td><%= link_to 'Show', tp_generated_param %></td>
+    <td><%= link_to 'Edit', edit_tp_generated_param_path(tp_generated_param) %></td>
+    <td><%= link_to 'Destroy', tp_generated_param, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tp generated param', new_tp_generated_param_path %>

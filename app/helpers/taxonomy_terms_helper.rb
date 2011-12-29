@@ -1,0 +1,2 @@
+module TaxonomyTermsHelper
+end

@@ -1,0 +1,26 @@
+<%= form_for(@taxonomy_term) do |f| %>
+	<% if @taxonomy_term.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@taxonomy_term.errors.count, "error") %> prohibited this taxonomy_term from being saved:</h2>
+			<ul>
+				<% @taxonomy_term.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :taxonomy_category_id %><br />
+	    <%= collection_select(:taxonomy_term, :taxonomy_category_id, TaxonomyCategory.all, :id, :name) %>
+	</div>
+
+	<div class="field">
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

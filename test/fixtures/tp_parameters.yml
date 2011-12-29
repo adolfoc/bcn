@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  restrict_chamber_enabled: false
+  organism_id: 1
+  legislature_id: 1
+  session_id: 1
+  restrict_date_enabled: false
+  from_date: 2011-12-27
+  to_date: 2011-12-27
+  restrict_person_enabled: false
+  party_id: MyString
+  person_id: MyString
+  participation_type_id: MyString
+  quality_type_id: MyString
+  free_search_enabled: false
+  free_search_text: MyString
+  taxonomy_search_enabled: false
+  taxonomy_category_id: MyString
+  taxonomy_term_id: MyString
+  restrict_ds_enabled: false
+  ds_part_id: MyString
+  ds_page: 1
+  ds_tome: 1
+  restrict_law_enabled: false
+  bill: MyString
+  law: MyString
+
+two:
+  restrict_chamber_enabled: false
+  organism_id: 1
+  legislature_id: 1
+  session_id: 1
+  restrict_date_enabled: false
+  from_date: 2011-12-27
+  to_date: 2011-12-27
+  restrict_person_enabled: false
+  party_id: MyString
+  person_id: MyString
+  participation_type_id: MyString
+  quality_type_id: MyString
+  free_search_enabled: false
+  free_search_text: MyString
+  taxonomy_search_enabled: false
+  taxonomy_category_id: MyString
+  taxonomy_term_id: MyString
+  restrict_ds_enabled: false
+  ds_part_id: MyString
+  ds_page: 1
+  ds_tome: 1
+  restrict_law_enabled: false
+  bill: MyString
+  law: MyString

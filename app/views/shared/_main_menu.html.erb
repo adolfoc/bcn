@@ -71,12 +71,16 @@
 				  <li><%= link_to(t('Parámetros generados'), poblamiento_generated_params_path) %>
 				</ul>
 			</div>
-			<h3><a href="#"><%=t 'Ontología' %></a></h3>
+			<h3><a href="#"><%=t 'Labor Parlamentaria' %></a></h3>
 			<div>
 				<ul class="menu-list">
 				  <li><%= link_to(t('Partidos'), parties_path) %>
 				  <li><%= link_to(t('Tipos de participación'), participation_types_path) %>
 				  <li><%= link_to(t('Calidades'), qualities_path) %>
+				  <li><%= link_to(t('Categorías taxonómicas'), taxonomy_categories_path) %>
+				  <li><%= link_to(t('Términos taxonómicos'), taxonomy_terms_path) %>
+				  <li><%= link_to(t('Parámetros'), tp_parameters_path) %>
+				  <li><%= link_to(t('Parámetros generados'), tp_generated_params_path) %>
 				</ul>
 			</div>
 		<% end %>

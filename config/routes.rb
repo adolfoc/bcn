@@ -1,4 +1,8 @@
 Bcn::Application.routes.draw do  
+  resources :tp_generated_params
+  resources :taxonomy_terms
+  resources :taxonomy_categories
+  resources :tp_parameters
   resources :default_users_by_ot_types
   resources :am_module_configurations
   resources :poblamiento_generated_params
@@ -211,6 +215,7 @@ Bcn::Application.routes.draw do
   match "plan_trabajo_parlamentario/generando_modelo" => "plan_trabajo_parlamentario#generando_modelo", :as => :plan_trabajo_parlamentario_generando_modelo
   match "plan_trabajo_parlamentario/generando_ots" => "plan_trabajo_parlamentario#generando_ots", :as => :plan_trabajo_parlamentario_generando_ots
   # Posts
+  match "plan_trabajo_parlamentario/create_params" => "plan_trabajo_parlamentario#create_params", :as => :plan_trabajo_parlamentario_create_params, :method => :post
   # Events
   match "plan_trabajo_parlamentario/comienza_definir_event/:task_id" => "plan_trabajo_parlamentario#comienza_definir_event", :as => :plan_trabajo_parlamentario_comienza_definir_event
   match "plan_trabajo_parlamentario/termina_definir_event/:task_id" => "plan_trabajo_parlamentario#termina_definir_event", :as => :plan_trabajo_parlamentario_termina_definir_event

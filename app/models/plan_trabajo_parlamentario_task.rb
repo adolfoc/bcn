@@ -5,9 +5,9 @@ class PlanTrabajoParlamentarioTask < Task
       event :comienza_definir, :transitions_to => :definiendo_parametros
     end
     state :definiendo_parametros do
-      event :termina_definir, :transitions_to => :revisando_parametros
+      event :termina_definir, :transitions_to => :revisando_resultados
     end
-    state :revisando_parametros do
+    state :revisando_resultados do
       event :rechaza_parametros, :transitions_to => :definiendo_parametros
       event :acepta_parametros, :transitions_to => :generando_modelo
     end
@@ -40,7 +40,7 @@ class PlanTrabajoParlamentarioTask < Task
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "definiendo_parametros"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
-    when "revisando_parametros"
+    when "revisando_resultados"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "generando_modelo"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id

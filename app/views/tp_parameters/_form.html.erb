@@ -1,6 +1,4 @@
-<%= render "shared/work_header" %>
-
-<%= form_for(@tp_parameter, :url => plan_trabajo_parlamentario_create_params_path) do |f| %>
+<%= form_for(@tp_parameter) do |f| %>
 	<% if @tp_parameter.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@tp_parameter.errors.count, "error") %> prohibited this tp_parameter from being saved:</h2>
@@ -27,7 +25,7 @@
 
 			<div class="field">
 				<%= f.label :organism_id, "Cámara:" %>&nbsp;
-			    <%= collection_select(:tp_parameter, :organism_id, FrbrEntity.all, :id, :name, :prompt => "Ambas cámaras") %>
+				<%= f.number_field :organism_id %>
 			</div>
 
 			<div class="field">
@@ -102,12 +100,12 @@
 
 			<div class="field">
 				<%= f.label :taxonomy_category_id, "Categoría:" %>&nbsp;
-			    <%= collection_select(:tp_parameter, :taxonomy_category_id, TaxonomyCategory.all, :id, :name, :prompt => "Todas las categorías") %>
+				<%= select @tp_parameter, :taxonomy_category_id, "<option>Categoria 1</option><option>Categoria 2</option><option>Categoria 3</option>".html_safe %>
 			</div>
 
 			<div class="field">
 				<%= f.label :taxonomy_term_id, "Término:" %>&nbsp;
-			    <%= collection_select(:tp_parameter, :taxonomy_term_id, TaxonomyTerm.all, :id, :name, :prompt => "Todos los términos") %>
+				<%= select @tp_parameter, :taxonomy_term_id, "<option>Término 1</option><option>Término 2</option><option>Término 3</option>".html_safe %>
 			</div>
 		</fieldset>
 	</fieldset>

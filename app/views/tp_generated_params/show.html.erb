@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ot:</b>
+  <%= @tp_generated_param.ot_id %>
+</p>
+
+<p>
+  <b>Legislature:</b>
+  <%= @tp_generated_param.legislature %>
+</p>
+
+<p>
+  <b>Session:</b>
+  <%= @tp_generated_param.session %>
+</p>
+
+<p>
+  <b>Session date:</b>
+  <%= @tp_generated_param.session_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @tp_generated_param.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_tp_generated_param_path(@tp_generated_param) %> |
+<%= link_to 'Back', tp_generated_params_path %>

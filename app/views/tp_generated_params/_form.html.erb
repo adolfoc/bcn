@@ -1,0 +1,37 @@
+<%= form_for(@tp_generated_param) do |f| %>
+  <% if @tp_generated_param.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tp_generated_param.errors.count, "error") %> prohibited this tp_generated_param from being saved:</h2>
+
+      <ul>
+      <% @tp_generated_param.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ot_id %><br />
+    <%= f.number_field :ot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :legislature %><br />
+    <%= f.number_field :legislature %>
+  </div>
+  <div class="field">
+    <%= f.label :session %><br />
+    <%= f.number_field :session %>
+  </div>
+  <div class="field">
+    <%= f.label :session_date %><br />
+    <%= f.date_select :session_date %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

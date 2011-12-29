@@ -1,0 +1,13 @@
+<p>
+  <b>Taxonomy category:</b>
+  <%= @taxonomy_term.taxonomy_category_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @taxonomy_term.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_taxonomy_term_path(@taxonomy_term) %> |
+<%= link_to 'Back', taxonomy_terms_path %>

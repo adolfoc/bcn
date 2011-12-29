@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111224150703) do
+ActiveRecord::Schema.define(:version => 20111228230539) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -310,6 +310,59 @@ ActiveRecord::Schema.define(:version => 20111224150703) do
     t.string   "xpath_section"
     t.integer  "predecessor_id"
     t.integer  "successor_id"
+  end
+
+  create_table "taxonomy_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "taxonomy_terms", :force => true do |t|
+    t.integer  "taxonomy_category_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tp_generated_params", :force => true do |t|
+    t.integer  "ot_id"
+    t.integer  "legislature"
+    t.integer  "session"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "session_date"
+  end
+
+  create_table "tp_parameters", :force => true do |t|
+    t.boolean  "restrict_chamber_enabled"
+    t.integer  "organism_id"
+    t.integer  "legislature_id"
+    t.integer  "session_id"
+    t.boolean  "restrict_date_enabled"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.boolean  "restrict_person_enabled"
+    t.string   "party_id"
+    t.string   "person_id"
+    t.string   "participation_type_id"
+    t.string   "quality_type_id"
+    t.boolean  "free_search_enabled"
+    t.string   "free_search_text"
+    t.boolean  "taxonomy_search_enabled"
+    t.string   "taxonomy_category_id"
+    t.string   "taxonomy_term_id"
+    t.boolean  "restrict_ds_enabled"
+    t.string   "ds_part_id"
+    t.integer  "ds_page"
+    t.integer  "ds_tome"
+    t.boolean  "restrict_law_enabled"
+    t.string   "bill"
+    t.string   "law"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ot_id"
   end
 
   create_table "users", :force => true do |t|

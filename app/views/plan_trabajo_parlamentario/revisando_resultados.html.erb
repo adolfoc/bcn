@@ -1,0 +1,22 @@
+<%= render "shared/work_header" %>
+
+<table border="0" cellspacing="5" cellpadding="5">
+	<thead>
+		<tr>
+			<th>Legislatura</th>
+			<th>Sesión</th>
+			<th>Fecha y hora</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @pt_generated_params.each do |tp_generated_param| %>
+		<tr>
+			<td><%= tp_generated_param.legislature %></td>
+			<td><%= tp_generated_param.session %></td>
+			<td><%= tp_generated_param.session_date %></td>
+			<td><%= tp_generated_param.status %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

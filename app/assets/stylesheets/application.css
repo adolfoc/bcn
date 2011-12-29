@@ -118,6 +118,23 @@ table, th, td {
 	float: left;
 }
 
+.inline-tp-field {
+	width: 300px;
+	margin-right: 10px;
+	float: left;
+}
+
+.inline-tp-simple-field {
+	width: 250px;
+	margin-right: 10px;
+	float: left;
+}
+
+.small-text-area {
+	background-color: yellow;
+	width: 280px;
+	height: 100px;
+}
 .ot-overdue td {
 	color: #F00;
 	font-weight: bold;

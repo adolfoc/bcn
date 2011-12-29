@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ot_id: 1
+  legislature: 1
+  session: 1
+  session_date: 2011-12-28
+  status: MyString
+
+two:
+  ot_id: 1
+  legislature: 1
+  session: 1
+  session_date: 2011-12-28
+  status: MyString

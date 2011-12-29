@@ -1,0 +1,69 @@
+<h1>Listing tp_parameters</h1>
+
+<table>
+  <tr>
+    <th>Restrict chamber enabled</th>
+    <th>Organism</th>
+    <th>Legislature</th>
+    <th>Session</th>
+    <th>Restrict date enabled</th>
+    <th>From date</th>
+    <th>To date</th>
+    <th>Restrict person enabled</th>
+    <th>Party</th>
+    <th>Person</th>
+    <th>Participation type</th>
+    <th>Quality type</th>
+    <th>Free search enabled</th>
+    <th>Free search text</th>
+    <th>Taxonomy search enabled</th>
+    <th>Taxonomy category</th>
+    <th>Taxonomy term</th>
+    <th>Restrict ds enabled</th>
+    <th>Ds part</th>
+    <th>Ds page</th>
+    <th>Ds tome</th>
+    <th>Restrict law enabled</th>
+    <th>Bill</th>
+    <th>Law</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tp_parameters.each do |tp_parameter| %>
+  <tr>
+    <td><%= tp_parameter.restrict_chamber_enabled %></td>
+    <td><%= tp_parameter.organism_id %></td>
+    <td><%= tp_parameter.legislature_id %></td>
+    <td><%= tp_parameter.session_id %></td>
+    <td><%= tp_parameter.restrict_date_enabled %></td>
+    <td><%= tp_parameter.from_date %></td>
+    <td><%= tp_parameter.to_date %></td>
+    <td><%= tp_parameter.restrict_person_enabled %></td>
+    <td><%= tp_parameter.party_id %></td>
+    <td><%= tp_parameter.person_id %></td>
+    <td><%= tp_parameter.participation_type_id %></td>
+    <td><%= tp_parameter.quality_type_id %></td>
+    <td><%= tp_parameter.free_search_enabled %></td>
+    <td><%= tp_parameter.free_search_text %></td>
+    <td><%= tp_parameter.taxonomy_search_enabled %></td>
+    <td><%= tp_parameter.taxonomy_category_id %></td>
+    <td><%= tp_parameter.taxonomy_term_id %></td>
+    <td><%= tp_parameter.restrict_ds_enabled %></td>
+    <td><%= tp_parameter.ds_part_id %></td>
+    <td><%= tp_parameter.ds_page %></td>
+    <td><%= tp_parameter.ds_tome %></td>
+    <td><%= tp_parameter.restrict_law_enabled %></td>
+    <td><%= tp_parameter.bill %></td>
+    <td><%= tp_parameter.law %></td>
+    <td><%= link_to 'Show', tp_parameter %></td>
+    <td><%= link_to 'Edit', edit_tp_parameter_path(tp_parameter) %></td>
+    <td><%= link_to 'Destroy', tp_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tp parameter', new_tp_parameter_path %>
