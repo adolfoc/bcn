@@ -291,6 +291,12 @@ class PlanTrabajoParlamentarioController < ApplicationController
   end
 
   def en_curso
+    screen_name("#{@task.class.to_s}/en_curso")
+
+    respond_to do |format|
+      format.html { render action: "en_curso" }
+      format.json { head :ok }
+    end
   end
 
   def termina_trabajo_parlamentario
