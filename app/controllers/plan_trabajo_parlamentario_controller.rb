@@ -63,7 +63,6 @@ class PlanTrabajoParlamentarioController < ApplicationController
     params[:document_updated_at] = DateTime.now
 
     frbr_manifestation = FrbrManifestation.new(params)
-    frbr_manifestation.save
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_manifestation frbr_manifestation = #{frbr_manifestation.inspect}")
 
     frbr_manifestation
@@ -78,31 +77,26 @@ class PlanTrabajoParlamentarioController < ApplicationController
     params[:language] = "es"
 
     frbr_expression = FrbrExpression.new(params)
-    frbr_expression.save
+    frbr_expression.frbr_manifestations << generate_frbr_manifestation
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_expression frbr_expression = #{frbr_expression.inspect}")
 
-    frbr_expression.frbr_manifestations << generate_frbr_manifestation
     frbr_expression
   end
 
   # TODO: Not DRY
-  def generate_source_document(tp_parameter, tp_generated_param)
-    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_source_document")
+  def generate_frbr_work(tp_parameter, tp_generated_param)
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_work")
     params = Hash.new
-    params[:frbr_bcn_type_id] = 5
-    # FIXME: Don't have this param
-#    params[:frbr_entity_id] = pp.frbr_entity_id
+    params[:frbr_bcn_type_id] = 5   # Senate's DS
+    params[:frbr_entity_id] = 1     # Senate
     params[:session] = tp_generated_param.session
     params[:legislature] = tp_generated_param.legislature
     params[:delivery_method_id] = 3
-    # FIXME: Don't have this param
-#    params[:intermediary_id] = pp.intermediary_id
     params[:event_date] = tp_generated_param.session_date
 
     frbr_work = FrbrWork.new(params)
-    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_source_document frbr_work = #{frbr_work.inspect}")
-
     frbr_work.frbr_expressions << generate_frbr_expression
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_work frbr_work = #{frbr_work.inspect}")
 
     frbr_work.save
     frbr_work.frbr_expressions[0].frbr_manifestations[0]
@@ -118,7 +112,7 @@ class PlanTrabajoParlamentarioController < ApplicationController
     params[:target_date] = DateTime.now + 2
     params[:parent_ot_id] = @ot.id
     params[:by_request_of] = @ot.by_request_of
-    params[:source_frbr_manifestation] = generate_source_document(tp_parameter, tp_generated_param)
+    params[:source_frbr_manifestation] = generate_frbr_work(tp_parameter, tp_generated_param)
 
     target_ot = Ot.new(params)
     target_ot.save
