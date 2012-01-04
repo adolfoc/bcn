@@ -7,15 +7,20 @@ class PlanTrabajoParlamentarioTask < Task
     state :definiendo_parametros do
       event :termina_definir, :transitions_to => :revisando_resultados
     end
+    state :modificando_parametros do
+      event :termina_modificar, :transitions_to => :revisando_resultados
+    end
     state :revisando_resultados do
-      event :rechaza_parametros, :transitions_to => :definiendo_parametros
-      event :acepta_parametros, :transitions_to => :generando_modelo
+      event :rechaza_parametros, :transitions_to => :modificando_parametros
+      event :acepta_parametros, :transitions_to => :generando_ots
     end
-    state :generando_modelo do
-      event :rechaza_modelo, :transitions_to => :definiendo_parametros
-      event :acepta_modelo, :transitions_to => :generando_ots
+    state :generando_ots do
+      event :ots_generadas, :transitions_to => :en_curso
     end
-    state :generando_ots
+    state :en_curso do
+      event :todas_procesadas, :transitions_to => :termina_poblamiento
+    end
+    state :termina_trabajo_parlamentario
   end
 
   def is_active?
@@ -30,7 +35,7 @@ class PlanTrabajoParlamentarioTask < Task
   end
 
   def final_task?(task)
-    return true if task.to_sym == :generando_ots
+    return true if task.to_sym == :termina_trabajo_parlamentario
     false
   end
 
@@ -40,12 +45,16 @@ class PlanTrabajoParlamentarioTask < Task
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "definiendo_parametros"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
-    when "revisando_resultados"
+    when "modificando_parametros"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
-    when "generando_modelo"
+    when "revisando_resultados"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_INICIAR).id
     when "generando_ots"
       return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "en_curso"
+      return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
+    when "termina_trabajo_parlamentario"
+      return OtState.find_by_ordinal(OtState::OT_STATE_PUBLICADA).id
     end
   end
 
@@ -64,6 +73,10 @@ class PlanTrabajoParlamentarioTask < Task
     ot.begin_task_execution(self, "termina_definir")
   end
 
+  def on_termina_modificar_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "termina_modificar")
+  end
+
   def on_rechaza_parametros_entry(prior_state, triggering_event, *event_args)
     ot.begin_task_execution(self, "rechaza_parametros")
   end
@@ -72,11 +85,11 @@ class PlanTrabajoParlamentarioTask < Task
     ot.begin_task_execution(self, "acepta_parametros")
   end
 
-  def on_rechaza_modelo_entry(prior_state, triggering_event, *event_args)
-    ot.begin_task_execution(self, "rechaza_modelo")
+  def on_ots_generadas_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "ots_generadas")
   end
 
-  def on_acepta_modelo_entry(prior_state, triggering_event, *event_args)
-    ot.begin_task_execution(self, "acepta_modelo")
+  def on_todas_procesadas_entry(prior_state, triggering_event, *event_args)
+    ot.begin_task_execution(self, "todas_procesadas")
   end
 end

@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @pt_generated_params.each do |tp_generated_param| %>
+		<% @tp_generated_params.each do |tp_generated_param| %>
 		<tr>
 			<td><%= tp_generated_param.legislature %></td>
 			<td><%= tp_generated_param.session %></td>
@@ -20,3 +20,14 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= form_tag(plan_trabajo_parlamentario_genera_ots_path) %>
+	<%= hidden_field_tag(:ot_id, @ot.id) %>
+
+	<div class="actions">
+		<%= submit_tag "Generar OTs" %>
+	</div>
+</form>
+
+|&nbsp;<%= link_to "Modificar parametros", plan_trabajo_parlamentario_rechaza_parametros_event_path(@task.id) %>&nbsp;|
+

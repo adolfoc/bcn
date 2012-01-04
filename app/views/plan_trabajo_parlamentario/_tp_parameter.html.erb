@@ -1,0 +1,156 @@
+<%= form_for(@tp_parameter, :url => action) do |f| %>
+	<% if @tp_parameter.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@tp_parameter.errors.count, "error") %> prohibited this tp_parameter from being saved:</h2>
+			<ul>
+				<% @tp_parameter.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :ot_id, "OT" %><br />
+	    <%= collection_select(:tp_parameter, :ot_id, Ot.all, :id, :name) %>
+	</div>
+
+	<fieldset>
+		<legend>Tiempo</legend>
+		<fieldset class="inline-tp-field">
+			<legend>Cámara</legend>
+			<div class="field">
+				<%= f.check_box :restrict_chamber_enabled %>&nbsp;<%= f.label :restrict_chamber_enabled, "Restringir por cámara" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :organism_id, "Cámara:" %>&nbsp;
+			    <%= collection_select(:tp_parameter, :organism_id, FrbrEntity.all, :id, :name, :prompt => "Ambas cámaras") %>
+			</div>
+
+			<div class="field">
+				<%= f.label :legislature_id, "Legislatura:" %>&nbsp;
+				<%= f.number_field :legislature_id %>
+			</div>
+
+			<div class="field">
+				<%= f.label :session_id, "Sesión:" %>&nbsp;
+				<%= f.number_field :session_id %>
+			</div>
+		</fieldset>
+		<fieldset class="inline-tp-field">
+			<legend>Fechas</legend>
+			<div class="field">
+				<%= f.check_box :restrict_date_enabled %>&nbsp;<%= f.label :restrict_date_enabled, "Restringir por fecha" %>
+			</div>
+			<div class="field">
+				<%= f.label :from_date, "Desde:" %>&nbsp;
+				<%= f.date_select :from_date %>
+			</div>
+
+			<div class="field">
+				<%= f.label :to_date, "Hasta:" %>&nbsp;
+				<%= f.date_select :to_date %>
+			</div>
+		</fieldset>
+	</fieldset>
+
+	<fieldset>
+		<legend>Personas</legend>
+		<div class="field">
+			<%= f.check_box :restrict_person_enabled %>&nbsp;<%= f.label :restrict_person_enabled, "Restringir por persona" %>
+		</div>
+
+		<div class="inline-tp-simple-field">
+			<%= f.label :party_id, "Bancada:" %>&nbsp;
+		    <%= collection_select(:tp_parameter, :party_id, Party.find_all, :id, :party_name, :prompt => "Todos los partidos") %>
+		</div>
+
+		<div class="inline-tp-simple-field">
+			<%= f.label :person_id, "Persona:" %>&nbsp;
+			<%= f.text_field :person_id %>
+		</div>
+
+		<div class="inline-tp-simple-field">
+			<%= f.label :participation_type_id, "Particip:" %>&nbsp;
+		    <%= collection_select(:tp_parameter, :participation_type_id, ParticipationType.find_all, :id, :participation_type_name, :prompt => "Todas las participaciones") %>
+		</div>
+
+		<div class="inline-tp-simple-field">
+			<%= f.label :quality_type_id, "Calidad:" %>&nbsp;
+		    <%= collection_select(:tp_parameter, :quality_type_id, Quality.find_all, :id, :quality_name, :prompt => "Todaas las calidades") %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Términos de búsqueda</legend>
+		<fieldset class="inline-tp-field">
+			<div class="field">
+				<%= f.check_box :free_search_enabled %>&nbsp;<%= f.label :free_search_enabled, "Búsqueda libre" %>
+			</div>
+
+			<div class="field">
+				<%= f.text_area :free_search_text, :class => "small-text-area" %>
+			</div>
+		</fieldset>
+		<fieldset class="inline-tp-field">
+			<div class="field">
+				<%= f.check_box :taxonomy_search_enabled %>&nbsp;<%= f.label :taxonomy_search_enabled, "Búsqueda por taxonomía" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :taxonomy_category_id, "Categoría:" %>&nbsp;
+			    <%= collection_select(:tp_parameter, :taxonomy_category_id, TaxonomyCategory.all, :id, :name, :prompt => "Todas las categorías") %>
+			</div>
+
+			<div class="field">
+				<%= f.label :taxonomy_term_id, "Término:" %>&nbsp;
+			    <%= collection_select(:tp_parameter, :taxonomy_term_id, TaxonomyTerm.all, :id, :name, :prompt => "Todos los términos") %>
+			</div>
+		</fieldset>
+	</fieldset>
+
+	<fieldset class="inline-tp-field">
+		<legend>Diario de Sesiones</legend>
+		<div class="field">
+			<%= f.check_box :restrict_ds_enabled %>&nbsp;<%= f.label :restrict_ds_enabled, "Restringir por sección DS" %>
+		</div>
+
+		<div class="field">
+			<%= f.label :ds_part_id, "Parte:" %>&nbsp;
+			<%= f.text_field :ds_part_id %>
+		</div>
+
+		<div class="field">
+			<%= f.label :ds_page, "Página:" %>&nbsp;
+			<%= f.number_field :ds_page %>
+		</div>
+
+		<div class="field">
+			<%= f.label :ds_tome, "Tomo:" %>&nbsp;
+			<%= f.number_field :ds_tome %>
+		</div>
+	</fieldset>
+
+	<fieldset class="inline-tp-field">
+		<legend>Ley o proyecto</legend>
+		<div class="field">
+			<%= f.check_box :restrict_law_enabled %>&nbsp;<%= f.label :restrict_law_enabled, "Restringir por ley o proyecto" %>
+		</div>
+
+		<div class="field">
+			<%= f.label :bill, "Proyecto:" %>&nbsp;
+			<%= f.text_field :bill %>
+		</div>
+
+		<div class="field">
+			<%= f.label :law, "Ley:" %>&nbsp;
+			<%= f.text_field :law %>
+		</div>
+	</fieldset>
+
+	<div class="clear">
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

@@ -41,6 +41,113 @@ class PlanTrabajoParlamentarioController < ApplicationController
     create_mock_params(359, 84, DateTime.parse("21/12/2011 15:00:00 -0300"), "No existe DS")
   end
 
+  # TODO: Not DRY
+  def generate_audit(ot)
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_audit")
+    params = Hash.new
+    params[:user_id] = current_user.id
+    params[:role_id] = current_user.role.id
+    params[:ot_id] = ot.id
+    params[:description] = "Creacion de nueva OT tipo #{ot.ot_type.name}"
+    log_entry = Audit.new(params)
+    log_entry.save
+  end
+
+  # TODO: Not DRY
+  def generate_frbr_manifestation
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_manifestation")
+    params = Hash.new
+    params[:document_file_name] = "dummy.doc"
+    params[:document_content_type] = "application/msword"
+    params[:document_file_size] = 205310
+    params[:document_updated_at] = DateTime.now
+
+    frbr_manifestation = FrbrManifestation.new(params)
+    frbr_manifestation.save
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_manifestation frbr_manifestation = #{frbr_manifestation.inspect}")
+
+    frbr_manifestation
+  end
+
+  # TODO: Not DRY
+  def generate_frbr_expression
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_expression")
+    params = Hash.new
+    params[:frbr_document_type_id] = 1
+    params[:version] = 1
+    params[:language] = "es"
+
+    frbr_expression = FrbrExpression.new(params)
+    frbr_expression.save
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_frbr_expression frbr_expression = #{frbr_expression.inspect}")
+
+    frbr_expression.frbr_manifestations << generate_frbr_manifestation
+    frbr_expression
+  end
+
+  # TODO: Not DRY
+  def generate_source_document(tp_parameter, tp_generated_param)
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_source_document")
+    params = Hash.new
+    params[:frbr_bcn_type_id] = 5
+    # FIXME: Don't have this param
+#    params[:frbr_entity_id] = pp.frbr_entity_id
+    params[:session] = tp_generated_param.session
+    params[:legislature] = tp_generated_param.legislature
+    params[:delivery_method_id] = 3
+    # FIXME: Don't have this param
+#    params[:intermediary_id] = pp.intermediary_id
+    params[:event_date] = tp_generated_param.session_date
+
+    frbr_work = FrbrWork.new(params)
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_source_document frbr_work = #{frbr_work.inspect}")
+
+    frbr_work.frbr_expressions << generate_frbr_expression
+
+    frbr_work.save
+    frbr_work.frbr_expressions[0].frbr_manifestations[0]
+  end
+
+  # TODO: Not DRY
+  def generate_senate_ds_for(tp_parameter, tp_generated_param)
+    params = Hash.new
+    params[:created_by] = current_user.id
+    params[:created_on] = DateTime.now
+    params[:ot_type_id] = 3
+    params[:priority_id] = 3
+    params[:target_date] = DateTime.now + 2
+    params[:parent_ot_id] = @ot.id
+    params[:by_request_of] = @ot.by_request_of
+    params[:source_frbr_manifestation] = generate_source_document(tp_parameter, tp_generated_param)
+
+    target_ot = Ot.new(params)
+    target_ot.save
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_senate_ds_for target_ot = #{target_ot.inspect}")
+
+    generate_audit(target_ot)
+    target_ot.create_tasks(current_user)
+
+    # Need to temporarily swap pointers here
+    save_ot = @ot
+    save_task = @task
+
+    @ot = target_ot
+    @task = @ot.tasks.first
+    do_perform_transition(:documentos_elegidos)
+
+    # Restore pointers
+    @ot = save_ot
+    @task = save_task
+  end
+
+  # TODO: Not DRY
+  def generate_one_ot(tp_parameter, tp_generated_param)
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_parameter = #{tp_parameter.inspect}")
+    Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_generated_param = #{tp_generated_param.inspect}")
+    generate_senate_ds_for(tp_parameter, tp_generated_param)
+  end
+
+
   ##########################################################
   # Controller interface: States
   ##########################################################
@@ -55,12 +162,16 @@ class PlanTrabajoParlamentarioController < ApplicationController
       inicial
     when "definiendo_parametros"
       definiendo_parametros
+    when "modificando_parametros"
+      modificando_parametros
     when "revisando_resultados"
       revisando_resultados
-    when "generando_modelo"
-      generando_modelo
     when "generando_ots"
       generando_ots
+    when "en_curso"
+      en_curso
+    when "termina_trabajo_parlamentario"
+      termina_trabajo_parlamentario
     end
   end
 
@@ -88,8 +199,6 @@ class PlanTrabajoParlamentarioController < ApplicationController
   def create_params
     @ot = Ot.find(params[:tp_parameter][:ot_id])
     @task = Task.find(@ot.current_task_id)
-    Rails.logger.debug("@@@@ ot = #{@ot.id}")
-    Rails.logger.debug("@@@@ task = #{@task.id}")
 
     @tp_parameter = TpParameter.new(params[:tp_parameter])
 
@@ -111,23 +220,47 @@ class PlanTrabajoParlamentarioController < ApplicationController
     end
   end
 
-  def revisando_resultados
-    screen_name("#{@task.class.to_s}/revisando_resultados")
+  def modificando_parametros
+    screen_name("#{@task.class.to_s}/modificando_parametros")
 
-    @tp_param = TpParameter.where("ot_id = #{@ot.id}").order("session")
-    @pt_generated_params = TpGeneratedParam.where("ot_id = #{@ot.id}").order("session")
+    @tp_parameter = TpParameter.find_by_ot_id(@ot.id)
 
     respond_to do |format|
-      format.html { render action: "revisando_resultados" }
+      format.html { render action: "modificando_parametros" }
       format.json { head :ok }
     end
   end
 
-  def generando_modelo
-    screen_name("#{@task.class.to_s}/generando_modelo")
+  # POST update_params
+  def update_params
+    @ot = Ot.find(params[:tp_parameter][:ot_id])
+    @task = Task.find(@ot.current_task_id)
+
+    @tp_parameter = TpParameter.find_by_ot_id(@ot.id)
 
     respond_to do |format|
-      format.html { render action: "generando_modelo" }
+      if @tp_parameter.update_attributes(params[:tp_parameter])
+        # Generate plan
+        apply_parameters
+
+        # Move on
+        do_perform_transition(:termina_modificar)
+
+        format.html { redirect_to root_path, notice: 'Los parametros del trabajo parlamentario fueron actualizados' }
+      else
+        format.html { render action 'modificando_parametros' }
+      end
+    end
+  end
+
+  def revisando_resultados
+    screen_name("#{@task.class.to_s}/revisando_resultados")
+
+    @tp_parameter = TpParameter.find_by_ot_id(@ot.id)
+    @tp_generated_params = TpGeneratedParam.where("ot_id = #{@ot.id}").order("session")
+
+    respond_to do |format|
+      format.html { render action: "revisando_resultados" }
       format.json { head :ok }
     end
   end
@@ -141,6 +274,34 @@ class PlanTrabajoParlamentarioController < ApplicationController
     end
   end
 
+  # POST create_genera_ots
+  def create_genera_ots
+    @ot = Ot.find(params[:ot_id])
+    @task = Task.find(@ot.current_task_id)
+
+    @tp_parameter = TpParameter.find_by_ot_id(@ot.id)
+    @tp_generated_params = TpGeneratedParam.where("ot_id = #{@ot.id}").order("session")
+
+    @tp_generated_params.each do | tp_generated_param |
+      if tp_generated_param.status == "Sin marcar"
+        generate_one_ot(@tp_parameter, tp_generated_param)
+      end
+    end
+
+    do_perform_transition(:acepta_parametros)
+    do_perform_transition(:ots_generadas)
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Las OTs fueron generadas con exito' }
+    end
+  end
+
+  def en_curso
+  end
+
+  def termina_trabajo_parlamentario
+  end
+
   ##########################################################
   # Controller interface: Events and transitions
   ##########################################################
@@ -150,6 +311,9 @@ class PlanTrabajoParlamentarioController < ApplicationController
     @ot = Ot.find(@task.ot_id)
 
     do_perform_transition(:comienza_definir)
+
+    @tp_parameter = TpParameter.new
+    @tp_parameter.ot_id = @ot.id
 
     respond_to do |format|
       format.html { render action: "definiendo_parametros" }
@@ -175,8 +339,10 @@ class PlanTrabajoParlamentarioController < ApplicationController
 
     do_perform_transition(:rechaza_parametros)
 
+    @tp_parameter = TpParameter.find_by_ot_id(@ot.id)
+
     respond_to do |format|
-      format.html { render action: "definiendo_parametros" }
+      format.html { render action: "modificando_parametros" }
       format.json { head :ok }
     end
   end
@@ -188,31 +354,31 @@ class PlanTrabajoParlamentarioController < ApplicationController
     do_perform_transition(:acepta_parametros)
 
     respond_to do |format|
-      format.html { render action: "generando_modelo" }
-      format.json { head :ok }
-    end
-  end
-
-  def rechaza_modelo_event
-    @task = Task.find(params[:task_id])
-    @ot = Ot.find(@task.ot_id)
-
-    do_perform_transition(:rechaza_modelo)
-
-    respond_to do |format|
-      format.html { render action: "definiendo_parametros" }
-      format.json { head :ok }
-    end
-  end
-
-  def acepta_modelo_event
-    @task = Task.find(params[:task_id])
-    @ot = Ot.find(@task.ot_id)
-
-    do_perform_transition(:acepta_modelo)
-
-    respond_to do |format|
       format.html { render action: "generando_ots" }
+      format.json { head :ok }
+    end
+  end
+
+  def ots_generadas_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:ots_generadas)
+
+    respond_to do |format|
+      format.html { render action: "en_curso" }
+      format.json { head :ok }
+    end
+  end
+
+  def todas_procesadas_event
+    @task = Task.find(params[:task_id])
+    @ot = Ot.find(@task.ot_id)
+
+    do_perform_transition(:todas_procesadas)
+
+    respond_to do |format|
+      format.html { render action: "termina_poblamiento" }
       format.json { head :ok }
     end
   end

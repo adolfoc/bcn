@@ -211,18 +211,18 @@ Bcn::Application.routes.draw do
   match "plan_trabajo_parlamentario/perform_work/:task_id/(:event)" => "plan_trabajo_parlamentario#perform_work", :as => :plan_trabajo_parlamentario_perform_work
   match "plan_trabajo_parlamentario/inicial" => "plan_trabajo_parlamentario#inicial", :as => :plan_trabajo_parlamentario_inicial
   match "plan_trabajo_parlamentario/definiendo_parametros" => "plan_trabajo_parlamentario#definiendo_parametros", :as => :plan_trabajo_parlamentario_definiendo_parametros
+  match "plan_trabajo_parlamentario/modificando_parametros" => "plan_trabajo_parlamentario#modificando_parametros", :as => :plan_trabajo_parlamentario_modificando_parametros
   match "plan_trabajo_parlamentario/revisando_parametros" => "plan_trabajo_parlamentario#revisando_parametros", :as => :plan_trabajo_parlamentario_revisando_parametros
-  match "plan_trabajo_parlamentario/generando_modelo" => "plan_trabajo_parlamentario#generando_modelo", :as => :plan_trabajo_parlamentario_generando_modelo
   match "plan_trabajo_parlamentario/generando_ots" => "plan_trabajo_parlamentario#generando_ots", :as => :plan_trabajo_parlamentario_generando_ots
   # Posts
   match "plan_trabajo_parlamentario/create_params" => "plan_trabajo_parlamentario#create_params", :as => :plan_trabajo_parlamentario_create_params, :method => :post
+  match "plan_trabajo_parlamentario/update_params" => "plan_trabajo_parlamentario#update_params", :as => :plan_trabajo_parlamentario_update_params, :method => :post
+  match "plan_trabajo_parlamentario/create_genera_ots" => "plan_trabajo_parlamentario#create_genera_ots", :as => :plan_trabajo_parlamentario_genera_ots, :method => :post
   # Events
   match "plan_trabajo_parlamentario/comienza_definir_event/:task_id" => "plan_trabajo_parlamentario#comienza_definir_event", :as => :plan_trabajo_parlamentario_comienza_definir_event
   match "plan_trabajo_parlamentario/termina_definir_event/:task_id" => "plan_trabajo_parlamentario#termina_definir_event", :as => :plan_trabajo_parlamentario_termina_definir_event
   match "plan_trabajo_parlamentario/rechaza_parametros_event/:task_id" => "plan_trabajo_parlamentario#rechaza_parametros_event", :as => :plan_trabajo_parlamentario_rechaza_parametros_event
   match "plan_trabajo_parlamentario/acepta_parametros_event/:task_id" => "plan_trabajo_parlamentario#acepta_parametros_event", :as => :plan_trabajo_parlamentario_acepta_parametros_event
-  match "plan_trabajo_parlamentario/rechaza_modelo_event/:task_id" => "plan_trabajo_parlamentario#rechaza_modelo_event", :as => :plan_trabajo_parlamentario_rechaza_modelo_event
-  match "plan_trabajo_parlamentario/acepta_modelo_event/:task_id" => "plan_trabajo_parlamentario#acepta_modelo_event", :as => :plan_trabajo_parlamentario_acepta_modelo_event
 
   match "users/index" => "users#index", :as => :users
 
