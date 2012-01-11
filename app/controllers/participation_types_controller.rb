@@ -65,8 +65,8 @@ class ParticipationTypesController < ApplicationController
     @participation_type = ParticipationType.find_by_id(params[:rdf_uri])
 
     respond_to do |format|
-      if @participation_type.update_attributes(params[:participation_type])
-        format.html { redirect_to @participation_type, notice: 'Participation type was successfully updated.' }
+      if @participation_type.update_attributes(params)
+        format.html { redirect_to rdf_participation_path(@participation_type.id), notice: 'Participation type was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

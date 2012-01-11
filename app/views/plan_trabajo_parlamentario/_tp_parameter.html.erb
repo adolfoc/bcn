@@ -68,7 +68,7 @@
 
 		<div class="inline-tp-simple-field">
 			<%= f.label :person_id, "Persona:" %>&nbsp;
-			<%= f.text_field :person_id %>
+		    <%= collection_select(:tp_parameter, :person_id, Parlamentarian.find_all, :rdf_uri, :parlamentarian_name, :prompt => "Todos los parlamentarios") %>
 		</div>
 
 		<div class="inline-tp-simple-field">

@@ -1,6 +1,6 @@
 <h1>Editing participation_type</h1>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { :action => 'update', :method => :put } %>
 
-<%= link_to 'Show', @participation_type %> |
+<%= link_to 'Show', rdf_participation_type_path(@participation_type.id) %> |
 <%= link_to 'Back', participation_types_path %>

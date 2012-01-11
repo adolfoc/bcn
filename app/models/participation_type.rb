@@ -179,11 +179,11 @@ class ParticipationType
   ###############################################################################################
   # Metodos de clase que devuelven instancias especificas
   def self.find_by_id(id)
-    Party.find(RDF_PARTICIPATION_TYPE_NS + id.to_s)
+    ParticipationType.find(RDF_PARTICIPATION_TYPE_NS + id.to_s)
   end
 
   def self.find_by_sequence_number(number)
-    Party.find(RDF_PARTICIPATION_TYPE_NS + number.to_s)
+    ParticipationType.find(RDF_PARTICIPATION_TYPE_NS + number.to_s)
   end
 
   def self.find(uri)
