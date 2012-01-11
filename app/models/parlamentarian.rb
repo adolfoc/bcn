@@ -52,5 +52,20 @@ class Parlamentarian
     RdfQuery::count(statements)
   end
 
+  ###############################################################################################
+  # Metodos de clase que devuelven instancias especificas
+  def self.find(uri)
+    Rails.logger.debug("Parlamentarian::find(#{uri})")
+    vars = Hash[:name => RDF::Literal]
+    statements = Array.[](
+                          "<#{uri}> <#{Parlamentarian::RDF_PARLAMENTARIAN_NAME_URI}> ?name ."
+                          )
 
+    results = RdfQuery::execute_select(vars, statements)
+
+    name = ''
+    results.each { |result| name = result[:name].to_s }
+
+    return Parlamentarian.new(uri, name)
+  end
 end

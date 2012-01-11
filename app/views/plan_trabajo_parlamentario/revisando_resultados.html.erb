@@ -1,5 +1,115 @@
 <%= render "shared/work_header" %>
 
+<h2>Parámetros</h2>
+
+<table>
+	<tr>
+		<th>Restingir cámara:</th>
+		<td><%= @tp_parameter.restrict_chamber_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Organismo:</th>
+		<td><%= @tp_parameter.organism_id.nil? ? "Ambas" : @tp_parameter.organism.name %></td>
+	</tr>
+	<tr>
+		<th>Legislatura:</th>
+		<td><%= @tp_parameter.legislature_id.nil? ? "Todas" : @tp_parameter.legislature_id.to_s %></td>
+	</tr>
+	<tr>
+		<th>Sesión:</th>
+		<td><%= @tp_parameter.session_id.nil? ? "Todas" : @tp_parameter.session_id.to_s %></td>
+	</tr>
+	<tr>
+		<th>Restingir fecha:</th>
+		<td><%= @tp_parameter.restrict_date_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Desde:</th>
+		<td><%= @tp_parameter.from_date.nil? ? "Ninguna fecha" : @tp_parameter.from_date %></td>
+	</tr>
+	<tr>
+		<th>Hasta:</th>
+		<td><%= @tp_parameter.to_date.nil? ? "Ninguna fecha" : @tp_parameter.to_date %></td>
+	</tr>
+	<tr>
+		<th>Restingir persona:</th>
+		<td><%= @tp_parameter.restrict_person_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Bancada:</th>
+		<td><%= @tp_parameter.party_id.nil? ? "Todas" : Party.find_by_id(@tp_parameter.party_id).party_name.to_s %></td>
+	</tr>
+	<tr>
+		<th>Persona:</th>
+		<td><%= @tp_parameter.person_id.nil? ? "Todas" : Parlamentarian.find(@tp_parameter.person_id).parlamentarian_name.to_s %></td>
+	</tr>
+	<tr>
+		<th>Tipo de participación:</th>
+		<td><%= @tp_parameter.participation_type_id.nil? ? "Todas" : ParticipationType.find_by_id(@tp_parameter.participation_type_id).participation_type_name %></td>
+	</tr>
+	<tr>
+		<th>Calidad:</th>
+		<td><%= @tp_parameter.quality_type_id.nil? ? "Todas" : Quality.find_by_id(@tp_parameter.quality_type_id).quality_name %></td>
+	</tr>
+	<tr>
+		<th>Búsqueda libre:</th>
+		<td><%= @tp_parameter.free_search_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Texto de búsqueda:</th>
+		<td><%= @tp_parameter.free_search_text %></td>
+	</tr>
+	<tr>
+		<th>Búsqueda taxonómica:</th>
+		<td><%= @tp_parameter.taxonomy_search_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Categoría:</th>
+		<td><%= @tp_parameter.taxonomy_category.nil? ? "Todas" : @tp_parameter.taxonomy_category.name %></td>
+	</tr>
+	<tr>
+		<th>Término:</th>
+		<td><%= @tp_parameter.taxonomy_term.nil? ? "Todos" : @tp_parameter.taxonomy_term.name %></td>
+	</tr>
+	<tr>
+		<th>Restingir documento:</th>
+		<td><%= @tp_parameter.restrict_ds_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Tipo de documento:</th>
+		<td><%= @tp_parameter.frbr_bcn_type.nil? ? "Todos" : @tp_parameter.frbr_bcn_type.name %></td>
+	</tr>
+	<tr>
+		<th>Tipo de debate:</th>
+		<td><%= @tp_parameter.debate_type.nil? ? "Todos" : @tp_parameter.debate_type.name %></td>
+	</tr>
+	<tr>
+		<th>Parte:</th>
+		<td><%= @tp_parameter.ds_part_id.nil? ? "Todas" : @tp_parameter.ds_part_id %></td>
+	</tr>
+	<tr>
+		<th>Página:</th>
+		<td><%= @tp_parameter.ds_page.nil? ? "Todas" : @tp_parameter.ds_page %></td>
+	</tr>
+	<tr>
+		<th>Tomo:</th>
+		<td><%= @tp_parameter.ds_tome.nil? ? "Todos" : @tp_parameter.ds_tome %></td>
+	</tr>
+	<tr>
+		<th>Restingir proyecto o ley:</th>
+		<td><%= @tp_parameter.restrict_law_enabled == true ? "Sí" : "No" %></td>
+	</tr>
+	<tr>
+		<th>Proyecto:</th>
+		<td><%= @tp_parameter.bill.nil? ? "Ninguno" : @tp_parameter.bill %></td>
+	</tr>
+	<tr>
+		<th>Ley:</th>
+		<td><%= @tp_parameter.law.nil? ? "Ninguna" : @tp_parameter.law %></td>
+	</tr>
+</table>
+
+<h2>Acciones a realizar</h2>
 <table border="0" cellspacing="5" cellpadding="5">
 	<thead>
 		<tr>
@@ -7,6 +117,7 @@
 			<th>Sesión</th>
 			<th>Fecha y hora</th>
 			<th>Status</th>
+			<th>Acción</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -16,6 +127,7 @@
 			<td><%= tp_generated_param.session %></td>
 			<td><%= tp_generated_param.session_date %></td>
 			<td><%= tp_generated_param.status %></td>
+			<td><%= tp_generated_param.action %></td>
 		</tr>
 		<% end %>
 	</tbody>

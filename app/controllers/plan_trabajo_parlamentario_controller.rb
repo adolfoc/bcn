@@ -14,7 +14,7 @@ class PlanTrabajoParlamentarioController < ApplicationController
     TpGeneratedParam.delete_all("ot_id = #{@ot.id}")
   end
 
-  def create_mock_params(legislature, session, session_date, status)
+  def create_mock_params(legislature, session, session_date, status, action)
     params = Hash.new
 
     params[:ot_id] = @ot.id
@@ -22,6 +22,7 @@ class PlanTrabajoParlamentarioController < ApplicationController
     params[:session] = session
     params[:session_date] = session_date
     params[:status] = status
+    params[:action] = action
 
     generated_param = TpGeneratedParam.new(params)
     generated_param.save
@@ -32,13 +33,13 @@ class PlanTrabajoParlamentarioController < ApplicationController
   # discovers a set of DSs that are relevant to the query.
   def apply_parameters
     clear_generated_params
-    create_mock_params(359, 77, DateTime.parse("14/12/2011 09:00:00 -0300"), "Marcada")
-    create_mock_params(359, 79, DateTime.parse("15/12/2011 09:00:00 -0300"), "Marcada")
-    create_mock_params(359, 80, DateTime.parse("15/12/2011 15:00:00 -0300"), "Marcada")
-    create_mock_params(359, 81, DateTime.parse("20/12/2011 09:00:00 -0300"), "Sin marcar")
-    create_mock_params(359, 82, DateTime.parse("20/12/2011 15:00:00 -0300"), "Sin marcar")
-    create_mock_params(359, 83, DateTime.parse("21/12/2011 09:00:00 -0300"), "No existe DS")
-    create_mock_params(359, 84, DateTime.parse("21/12/2011 15:00:00 -0300"), "No existe DS")
+    create_mock_params(359, 77, DateTime.parse("14/12/2011 09:00:00 -0300"), "Marcada", "Ninguna")
+    create_mock_params(359, 79, DateTime.parse("15/12/2011 09:00:00 -0300"), "Marcada", "Ninguna")
+    create_mock_params(359, 80, DateTime.parse("15/12/2011 15:00:00 -0300"), "Marcada", "Ninguna")
+    create_mock_params(359, 81, DateTime.parse("20/12/2011 09:00:00 -0300"), "Marcado parcialmente", "Generar OT Ingreso Parcial")
+    create_mock_params(359, 82, DateTime.parse("20/12/2011 15:00:00 -0300"), "Sin marcar", "Generar OT Ingreso Parcial")
+    create_mock_params(359, 83, DateTime.parse("21/12/2011 09:00:00 -0300"), "No existe DS", "Generar OT Ingreso Anticipado")
+    create_mock_params(359, 84, DateTime.parse("21/12/2011 15:00:00 -0300"), "No existe DS", "Generar OT Ingreso Anticipado")
   end
 
   # TODO: Not DRY

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111193211) do
+ActiveRecord::Schema.define(:version => 20120111210200) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(:version => 20120111193211) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "session_date"
+    t.string   "action"
   end
 
   create_table "tp_parameters", :force => true do |t|
