@@ -1,0 +1,28 @@
+<h1>Tipos de debate</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Ordinal</th>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @debate_types.each do |debate_type| %>
+		<tr>
+			<td><%= debate_type.ordinal %></td>
+			<td><%= debate_type.name %></td>
+			<td><%= link_to 'Show', debate_type %></td>
+			<td><%= link_to 'Edit', edit_debate_type_path(debate_type) %></td>
+			<td><%= link_to 'Destroy', debate_type, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Debate type', new_debate_type_path %>

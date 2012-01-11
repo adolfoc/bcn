@@ -172,12 +172,16 @@ function disable_taxonomy_filter() {
 }
 
 function enable_ds_filter() {
+	$("#tp_parameter_document_type_id").removeAttr("disabled");
+	$("#tp_parameter_debate_type_id").removeAttr("disabled");
 	$("#tp_parameter_ds_part_id").removeAttr("disabled");
 	$("#tp_parameter_ds_page").removeAttr("disabled");
 	$("#tp_parameter_ds_tome").removeAttr("disabled");
 }
 
 function disable_ds_filter() {
+	$("#tp_parameter_document_type_id").attr("disabled", true);
+	$("#tp_parameter_debate_type_id").attr("disabled", true);
 	$("#tp_parameter_ds_part_id").attr("disabled", true);
 	$("#tp_parameter_ds_page").attr("disabled", true);
 	$("#tp_parameter_ds_tome").attr("disabled", true);

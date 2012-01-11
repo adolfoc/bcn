@@ -78,7 +78,7 @@
 
 		<div class="inline-tp-simple-field">
 			<%= f.label :quality_type_id, "Calidad:" %>&nbsp;
-		    <%= collection_select(:tp_parameter, :quality_type_id, Quality.find_all, :id, :quality_name, :prompt => "Todaas las calidades") %>
+		    <%= collection_select(:tp_parameter, :quality_type_id, Quality.find_all, :id, :quality_name, :prompt => "Todas las calidades") %>
 		</div>
 	</fieldset>
 
@@ -111,9 +111,19 @@
 	</fieldset>
 
 	<fieldset class="inline-tp-field">
-		<legend>Diario de Sesiones</legend>
+		<legend>Documentos</legend>
 		<div class="field">
-			<%= f.check_box :restrict_ds_enabled %>&nbsp;<%= f.label :restrict_ds_enabled, "Restringir por sección DS" %>
+			<%= f.check_box :restrict_ds_enabled %>&nbsp;<%= f.label :restrict_ds_enabled, "Restringir por documento" %>
+		</div>
+
+		<div class="field">
+			<%= f.label :document_type_id, "Tipo de documento:" %>&nbsp;
+		    <%= collection_select(:tp_parameter, :document_type_id, FrbrBcnType.all, :id, :name, :prompt => "Todos los documentos") %>
+		</div>
+
+		<div class="field">
+			<%= f.label :debate_type_id, "Tipo de debate:" %>&nbsp;
+		    <%= collection_select(:tp_parameter, :debate_type_id, DebateType.all, :id, :name, :prompt => "Todos los debates") %>
 		</div>
 
 		<div class="field">
