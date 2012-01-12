@@ -70,26 +70,30 @@
 <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="ot-tabs">
 	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-tasks">Tareas</a></li>
-		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-documents">Documentos</a></li>
-		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-automatic_markup">Marcado Automático</a></li>
-		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-observations">Observaciones</a></li>
-		<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#ot-tabs-file-versions">Versionamiento</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-documents">Documentos</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-automatic_markup">Marcado Automático</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-observations">Observaciones</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-file-versions">Versionamiento</a></li>
+		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-dependents">OTs Dependientes</a></li>
 		<li class="ui-state-default ui-corner-top"><a href="#ot-tabs-log">Traza</a></li>
 	</ul>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-tasks">
-		<%= render "show_tasks", :locals => {:ot => @ot } %>
+		<%= render :partial => "show_tasks", :locals => {:ot => @ot } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-documents">
-		<%= render "show_documents", :locals => {:ot => @ot } %>
+		<%= render :partial => "show_documents", :locals => {:ot => @ot } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-automatic_markup">
-		<%= render "show_am_results", :locals => {:am_results => @am_results } %>
+		<%= render :partial => "show_am_results", :locals => {:am_results => @am_results } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-observations">
-		<%= render "show_observations", :locals => {:observations => @observations } %>
+		<%= render :partial => "show_observations", :locals => {:observations => @observations } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-file-versions">
-		<%= render "show_file_versions", :locals => {:observations => @file_versions } %>
+		<%= render :partial => "show_file_versions", :locals => {:observations => @file_versions } %>
+	</div>
+	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-dependents">
+		<%= render :partial => "show_dependents", :locals => {:dependents => @ot.children } %>
 	</div>
 	<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="ot-tabs-log">
 		<%= render "show_log" %>

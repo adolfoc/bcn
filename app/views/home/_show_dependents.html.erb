@@ -1,0 +1,32 @@
+<% if dependents.length == 0 %>
+	No tiene dependientes
+<% else %>
+	<table>
+		<thead>
+			<tr>
+				<th>Número de serie</th>
+				<th>OT</th>
+				<th>Estado</th>
+				<th>Cámara</th>
+				<th>Legislatura</th>
+				<th>Sesión</th>
+				<th>Creada</th>
+				<th>Actualizada</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% dependents.each do |ot| %>
+				<tr>
+					<td><%= link_to ot.serial_number, mostrar_ot_path(ot.id) %></td>
+					<td><%= ot.ot_type.name %></td>
+					<td><%= ot.ot_state.name unless ot.ot_state.nil? %></td>
+					<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !ot.source_frbr_manifestation.nil? %></td>
+					<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !ot.source_frbr_manifestation.nil? %></td>
+					<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.session.to_s if !ot.source_frbr_manifestation.nil? %></td>
+					<td><%= ot.created_on %></td>
+					<td><%= ot.updated_at %></td>
+				<tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

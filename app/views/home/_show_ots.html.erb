@@ -9,8 +9,8 @@
 			<th class="etUnsorted">OT</th>
 			<th>Estado</th>
 			<th>OT G/OT A</th>
-			<th>Legislatura</th>
 			<th>Cámara</th>
+			<th>Legislatura</th>
 			<th>Sesión</th>
 			<th>Prioridad</th>
 			<th>Actividad</th>
@@ -36,8 +36,8 @@
 			<td><%= ot.ot_type.name %></td>
 			<td><%= ot.ot_state.name %>
 			<td><%= ot.parent_ot.serial_number if !ot.parent_ot.nil? %></td>
-			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.frbr_entity.name if !ot.source_frbr_manifestation.nil? %>
+			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.legislature.to_s if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.source_frbr_manifestation.frbr_expression.frbr_work.session.to_s if !ot.source_frbr_manifestation.nil? %>
 			<td><%= ot.priority.name %></td>
 			<td><%= ot.current_task.name %></td>

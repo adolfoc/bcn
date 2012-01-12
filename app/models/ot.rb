@@ -31,6 +31,10 @@ class Ot < ActiveRecord::Base
     end
   end
 
+  def children
+    Ot.where("parent_ot_id = #{id}")
+  end
+
   def children_pending?
     Ot.where("parent_ot_id = #{id}").each do |ot|
       return true if ot.completed_on.nil?
@@ -285,15 +289,15 @@ class Ot < ActiveRecord::Base
   end
 
   def create_tasks(current_user)
-    if ot_type_id == 1
+    if ot_type_id == OtType::OT_TYPE_CUENTA_INPUT
       first_task = create_marcado_cuenta_workflow(current_user)
-    elsif ot_type_id == 3
+    elsif ot_type_id == OtType::OT_TYPE_DS_INPUT
       first_task = create_marcado_diario_workflow(current_user)
-    elsif ot_type_id == 4
+    elsif ot_type_id == OtType::OT_TYPE_CORRECTION
       first_task = create_correccion_workflow(current_user)
-    elsif ot_type_id == 5
+    elsif ot_type_id == OtType::OT_TYPE_HOSTORICAL_DS
       first_task = create_poblamiento_workflow(current_user)
-    elsif ot_type_id == 7
+    elsif ot_type_id == OtType::OT_TYPE_TP_ON_DEMAND
       first_task = create_tp_pedido_workflow(current_user)
     end
 

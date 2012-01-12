@@ -108,7 +108,7 @@ class PlanTrabajoParlamentarioController < ApplicationController
     params = Hash.new
     params[:created_by] = current_user.id
     params[:created_on] = DateTime.now
-    params[:ot_type_id] = 3
+    params[:ot_type_id] = OtType::OT_TYPE_DS_INPUT
     params[:priority_id] = 3
     params[:target_date] = DateTime.now + 2
     params[:parent_ot_id] = @ot.id
@@ -139,7 +139,9 @@ class PlanTrabajoParlamentarioController < ApplicationController
   def generate_one_ot(tp_parameter, tp_generated_param)
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_parameter = #{tp_parameter.inspect}")
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_generated_param = #{tp_generated_param.inspect}")
-    generate_senate_ds_for(tp_parameter, tp_generated_param)
+    if tp_generated_param.action == "Generar OT Ingreso Parcial"
+      generate_senate_ds_for(tp_parameter, tp_generated_param)
+    end
   end
 
 
