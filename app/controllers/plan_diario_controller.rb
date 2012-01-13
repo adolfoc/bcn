@@ -11,6 +11,7 @@ class PlanDiarioController < ApplicationController
   end
 
   def check_for_target_document
+    Rails.logger.debug("$$$ PlanDiarioController::check_for_target_document")
     # If we don't have an XML file, create one
     if @ot.target_frbr_manifestation_id.nil?
       target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
@@ -99,15 +100,15 @@ class PlanDiarioController < ApplicationController
     @am_configuration = AmConfiguration.new(params[:am_configuration])
     @am_configuration.save
 
-    @am_result = perform_am(@am_configuration)
+    # Need a document
+    check_for_target_document
+
+    @am_result = perform_am_ws(@am_configuration, @ot)
 
     do_perform_transition("termina_marcaje_automatico")
 
     respond_to do |format|
       format.html { 
-        # Need a document
-        check_for_target_document
-
         # Read it so we can display it
         @xml_text = get_dummy_text
 

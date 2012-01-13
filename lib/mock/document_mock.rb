@@ -18,6 +18,7 @@ module DocumentMock
 
   # If we don't have an XML file, create one
   def check_for_target_document
+    Rails.logger.debug("$$$ DocumentMock::check_for_target_document")
     if @ot.target_frbr_manifestation_id.nil?
       target_frbr = AutomaticMarkup.generate_initial_markup(@ot.source_frbr_manifestation_id)
 
