@@ -299,6 +299,10 @@ class Ot < ActiveRecord::Base
       first_task = create_poblamiento_workflow(current_user)
     elsif ot_type_id == OtType::OT_TYPE_TP_ON_DEMAND
       first_task = create_tp_pedido_workflow(current_user)
+    elsif ot_type_id == OtType::OT_TYPE_ANTICIPATED_DS
+      first_task = create_marcado_diario_workflow(current_user)
+    elsif ot_type_id == OtType::OT_TYPE_PARTIAL_DS
+      first_task = create_marcado_diario_workflow(current_user)
     end
 
     begin_task_execution(first_task, first_task.initial_task.to_s) if !first_task.nil?

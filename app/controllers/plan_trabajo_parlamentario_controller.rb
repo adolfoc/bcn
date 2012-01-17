@@ -104,11 +104,11 @@ class PlanTrabajoParlamentarioController < ApplicationController
   end
 
   # TODO: Not DRY
-  def generate_senate_ds_for(tp_parameter, tp_generated_param)
+  def generate_senate_ds_for(tp_parameter, tp_generated_param, ot_type_id)
     params = Hash.new
     params[:created_by] = current_user.id
     params[:created_on] = DateTime.now
-    params[:ot_type_id] = OtType::OT_TYPE_DS_INPUT
+    params[:ot_type_id] = ot_type_id
     params[:priority_id] = 3
     params[:target_date] = DateTime.now + 2
     params[:parent_ot_id] = @ot.id
@@ -140,7 +140,9 @@ class PlanTrabajoParlamentarioController < ApplicationController
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_parameter = #{tp_parameter.inspect}")
     Rails.logger.debug("@@@ PlanTrabajoParlamentarioController::generate_one_ot tp_generated_param = #{tp_generated_param.inspect}")
     if tp_generated_param.action == "Generar OT Ingreso Parcial"
-      generate_senate_ds_for(tp_parameter, tp_generated_param)
+      generate_senate_ds_for(tp_parameter, tp_generated_param, OtType::OT_TYPE_PARTIAL_DS)
+    elsif tp_generated_param.action == "Generar OT Ingreso Anticipado"
+      generate_senate_ds_for(tp_parameter, tp_generated_param, OtType::OT_TYPE_ANTICIPATED_DS)
     end
   end
 
@@ -281,6 +283,10 @@ class PlanTrabajoParlamentarioController < ApplicationController
 
     @tp_generated_params.each do | tp_generated_param |
       if tp_generated_param.status == "Sin marcar"
+        generate_one_ot(@tp_parameter, tp_generated_param)
+      elsif tp_generated_param.status == "Marcado parcialmente"
+        generate_one_ot(@tp_parameter, tp_generated_param)
+      elsif tp_generated_param.status == "No existe DS"
         generate_one_ot(@tp_parameter, tp_generated_param)
       end
     end

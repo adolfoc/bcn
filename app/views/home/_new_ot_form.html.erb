@@ -12,22 +12,22 @@
 
 	<div class="field">
 	    <%= f.label(:ot_type_id, 'Tipo') %><br />
-	    <%= collection_select(:ot, :ot_type_id, OtType.order("name ASC"), :id, :name) %>
+	    <%= f.select :ot_type_id, OtType.order("name ASC").map { |t| [t.name, t.id] }, :selected => @ot.ot_type_id %>
 	</div>
 
 	<div class="field invisible">
 	    <%= f.label(:ot_state_id, 'Estado') %><br />
-	    <%= collection_select(:ot, :ot_state_id, OtState.all, :id, :name) %>
+	    <%= f.select :ot_state_id, OtState.all.map { |s| [s.name, s.id] }, :selected => @ot.ot_state_id %>
 	</div>
 
 	<div class="field">
 	    <%= f.label(:priority_id, 'Prioridad') %><br />
-	    <%= collection_select(:ot, :priority_id, Priority.all, :id, :name) %>
+	    <%= f.select :priority_id, Priority.all.map { |p| [p.name, p.id] }, :selected => @ot.priority_id %>
 	</div>
 
 	<div class="field invisible">
 	    <%= f.label(:created_by, 'Creada por') %><br />
-	    <%= collection_select(:ot, :created_by, User.all, :id, :email) %>
+	    <%= f.select :created_by, User.all.map { |u| [u.email, u.id] }, :selected => @ot.created_by %>
 	</div>
 
 	<div class="field">
@@ -48,7 +48,7 @@
 
 		<div class="field">
 			<%= observation_form.label :observation_type_id, "Tipo de observación" %><br />
-		    <%= collection_select("ot[observations_attributes][0]", :observation_type_id, ObservationType.all, :id, :name) %>
+		    <%= observation_form.select :observation_type_id, ObservationType.all.map { |o| [o.name, o.id] } %>
 		</div>
 
 		<div class="field">

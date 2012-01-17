@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>lib/mock/am_mock.rb</string>
+	<string>app/views/home/_new_ot_form.html.erb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -102,12 +102,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>104</integer>
+				<integer>116</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>80</integer>
+			<integer>92</integer>
 		</dict>
 		<key>app/controllers/plan_poblamiento_controller.rb</key>
 		<dict>
@@ -169,42 +169,14 @@
 				<integer>282</integer>
 			</dict>
 		</dict>
-		<key>app/models/am_configuration.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>app/models/am_result.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>15</integer>
-				<key>line</key>
-				<integer>2</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>app/models/automatic_markup.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>42</integer>
 				<key>line</key>
-				<integer>28</integer>
+				<integer>40</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -216,14 +188,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>19</integer>
 				<key>line</key>
 				<integer>15</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>15</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>15</integer>
+			</dict>
 		</dict>
 		<key>app/models/ot.rb</key>
 		<dict>
@@ -251,36 +239,6 @@
 			<dict>
 				<key>column</key>
 				<integer>39</integer>
-				<key>line</key>
-				<integer>5</integer>
-			</dict>
-		</dict>
-		<key>app/models/ot_type.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>11</integer>
-				<key>line</key>
-				<integer>5</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>5</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>18</integer>
 				<key>line</key>
 				<integer>5</integer>
 			</dict>
@@ -314,6 +272,20 @@
 				<key>line</key>
 				<integer>51</integer>
 			</dict>
+		</dict>
+		<key>app/views/home/_new_ot_form.html.erb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>8</integer>
 		</dict>
 		<key>app/views/marcado_documento/corrigiendo_manualmente.html.erb</key>
 		<dict>
@@ -566,7 +538,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>40</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -578,9 +550,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>31</integer>
+				<integer>28</integer>
 				<key>line</key>
-				<integer>19</integer>
+				<integer>20</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -683,12 +655,10 @@
 		<string>Gemfile</string>
 		<string>app/controllers/plan_diario_controller.rb</string>
 		<string>app/models/automatic_markup.rb</string>
+		<string>app/views/home/_new_ot_form.html.erb</string>
 		<string>lib/mock/document_mock.rb</string>
 		<string>app/models/frbr_manifestation.rb</string>
 		<string>lib/mock/am_mock.rb</string>
-		<string>app/models/am_configuration.rb</string>
-		<string>app/models/am_result.rb</string>
-		<string>app/models/ot_type.rb</string>
 		<string>app/models/ot.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
