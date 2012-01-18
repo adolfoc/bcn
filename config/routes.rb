@@ -39,6 +39,16 @@ Bcn::Application.routes.draw do
   devise_for :users
 
   # ############################################################################################################
+  # RDF Interventions
+  match "rdf_interventions" => 'rdf_interventions#create', :via => :post
+  match "rdf_interventions" => 'rdf_interventions#index', :as => :rdf_interventions
+  match "rdf_interventions/new" => 'rdf_interventions#new', :as => :new_rdf_intervention
+  match "rdf_interventions/:rdf_uri" => 'rdf_interventions#update', :as => :update_rdf_intervention, :via => :put
+  match "rdf_interventions/:rdf_uri" => 'rdf_interventions#destroy', :as => :destroy_rdf_intervention, :via => :delete
+  match "rdf_interventions/:rdf_uri" => 'rdf_interventions#show', :as => :rdf_intervention
+  match "rdf_interventions/:rdf_uri/edit" => 'rdf_interventions#edit', :as => :edit_rdf_intervention
+
+  # ############################################################################################################
   # RDF Parties
   match "parties" => 'parties#create', :via => :post
   match "parties" => 'parties#index', :as => :rdf_parties

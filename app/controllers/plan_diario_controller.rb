@@ -47,6 +47,8 @@ class PlanDiarioController < ApplicationController
       notificar_qa
     when "notificar_equipos"
       notificar_equipos
+    when "publicando_diario_de_sesiones"
+      publicando_diario_de_sesiones
     end
   end
 
@@ -274,6 +276,16 @@ class PlanDiarioController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def publicando_diario_de_sesiones
+    screen_name("#{@task.class.to_s}/publicando_diario_de_sesiones")
+
+    respond_to do |format|
+      format.html { render action: "publicando_diario_de_sesiones" }
+      format.json { head :ok }
+    end
+  end
+
 
   ##########################################################
   # Controller interface: Events and transitions

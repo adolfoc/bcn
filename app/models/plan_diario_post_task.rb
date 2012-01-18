@@ -15,7 +15,10 @@ class PlanDiarioPostTask < Task
     state :asignando_tareas do
       event :tareas_asignadas, :transitions_to => :notificando_equipos
     end
-    state :publicando_diario_de_sesiones
+    state :publicando_diario_de_sesiones do
+      event :tripletas_generadas, :transitions_to => :diario_publicado
+    end
+    state :diario_publicado
     state :notificando_equipos
   end
 
@@ -24,7 +27,7 @@ class PlanDiarioPostTask < Task
   end
 
   def final_task?(task)
-    return true if task.to_sym == :publica_diario_de_sesiones || task.to_sym == :notificar_equipos
+    return true if task.to_sym == :diario_publicado || task.to_sym == :notificar_equipos
     false
   end
 
@@ -40,6 +43,8 @@ class PlanDiarioPostTask < Task
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_ASIGNAR).id
     when "publicando_diario_de_sesiones"
       return OtState.find_by_ordinal(OtState::OT_STATE_POR_PUBLICAR).id
+    when "diario_publicado"
+      return OtState.find_by_ordinal(OtState::OT_STATE_PUBLICADA).id
     when "notificando_equipos"
       return OtState.find_by_ordinal(OtState::OT_STATE_EN_PROCESO).id
     end

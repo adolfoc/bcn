@@ -1,0 +1,25 @@
+<h1>Intervención</h1>
+<table>
+	<tr>
+		<th>Cámara</th>
+		<td><%= @rdf_intervention.intervention_organism %></td>
+	</tr>
+	<tr>
+		<th>Legislatura</th>
+		<td><%= @rdf_intervention.intervention_legislature %></td>
+	</tr>
+	<tr>
+		<th>Sesión</th>
+		<td><%= @rdf_intervention.intervention_session %></td>
+	</tr>
+	<tr>
+		<th>Persona</th>
+		<td><%= @rdf_intervention.intervention_person %></td>
+	</tr>
+	<tr>
+		<th>Texto</th>
+		<td><%= @rdf_intervention.intervention_text %></td>
+	</tr>
+</table>
+
+<%= link_to('Volver', rdf_interventions_path)%>

@@ -1,0 +1,27 @@
+<h1>Intervenciones</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Cámara</th>
+			<th>Legislatura</th>
+			<th>Sesión</th>
+			<th>Persona</th>
+			<th>
+			<th>
+			<th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @rdf_interventions.each do | rdf_intervention | %>
+		<tr>
+			<td><%= rdf_intervention.intervention_organism.to_s %></td>
+			<td><%= rdf_intervention.intervention_legislature.to_s %></td>
+			<td><%= rdf_intervention.intervention_session.to_s %></td>
+			<td><%= rdf_intervention.intervention_person.to_s %></td>
+			<td><%= link_to 'Mostrar', rdf_intervention_path(rdf_intervention.id) %></td>
+			<td><%= link_to 'Editar', edit_rdf_intervention_path(rdf_intervention.id) %></td>
+			<td><%= link_to 'Destruír', destroy_rdf_intervention_path(rdf_intervention.id), confirm: 'Está seguro?', :method => :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

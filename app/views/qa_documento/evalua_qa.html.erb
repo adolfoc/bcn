@@ -24,6 +24,4 @@ also allow the QA to publish
 -->
 <% if @task.ot.is_multiple_task? && !@task.ot.get_plan_diario_post_task.nil? && @task.id < @task.ot.get_plan_diario_post_task.id %>
 	|&nbsp;<%= link_to "Aprueba Tarea", aprueba_tarea_event_path(@task.id) %>&nbsp;|
-<% else %>
-	|&nbsp;<%= link_to "Aprueba OT", aprueba_ot_event_path(@task.id) %>&nbsp;|
 <% end %>

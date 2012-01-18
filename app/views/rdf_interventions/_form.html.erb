@@ -1,0 +1,46 @@
+<%= form_tag({ :controller => "rdf_interventions", :action => action }, :method => method ) do %>
+  <% if @rdf_intervention.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rdf_intervention.errors.count, "error") %> prohibited this message from being saved:</h2>
+      <ul>
+	      <% @rdf_intervention.errors.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field invisible">
+    <%= label_tag :rdf_uri, 'URI' %><br />
+    <%= text_field_tag(:rdf_uri, @rdf_intervention.rdf_uri)  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_organism, 'Organismo' %><br />
+    <%= text_field_tag(:intervention_organism, @rdf_intervention.intervention_organism)  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_legislature, 'Legislatura' %><br />
+    <%= text_field_tag(:intervention_legislature, @rdf_intervention.intervention_legislature)  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_session, 'Sesión' %><br />
+    <%= text_field_tag(:intervention_session, @rdf_intervention.intervention_session)  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_person, 'Persona' %><br />
+    <%= text_field_tag(:intervention_person, @rdf_intervention.intervention_person, :size =>  100)  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_text, 'Texto' %><br />
+    <%= text_area_tag(:intervention_text, @rdf_intervention.intervention_text, :size => '25x4')  %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag('Guardar') %>
+  </div>
+<% end %>
