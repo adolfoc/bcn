@@ -3,8 +3,8 @@
 <table>
 	<thead>
 		<tr>
-			<th>Bulletin</th>
-			<th>Frbr manifestation</th>
+			<th>Boletín</th>
+			<th>Documento</th>
 			<th>Tramite constitucional</th>
 			<th>Tramite normativo</th>
 			<th>Comments</th>
@@ -19,10 +19,10 @@
 		<tr>
 			<td><%= bitacora.bulletin_id %></td>
 			<td><%= bitacora.frbr_manifestation_id %></td>
-			<td><%= bitacora.tramite_constitucional_id %></td>
-			<td><%= bitacora.tramite_normativo_id %></td>
+			<td><%= bitacora.tramite_constitucional.name %></td>
+			<td><%= bitacora.tramite_normativo.name %></td>
 			<td><%= bitacora.comments %></td>
-			<td><%= bitacora.user_id %></td>
+			<td><%= bitacora.user.user_name %></td>
 			<td><%= link_to 'Show', bitacora %></td>
 			<td><%= link_to 'Edit', edit_bitacora_path(bitacora) %></td>
 			<td><%= link_to 'Destroy', bitacora, confirm: 'Are you sure?', method: :delete %></td>
