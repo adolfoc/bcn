@@ -1,0 +1,28 @@
+<h1>Trámites Normativos</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Order</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tramite_normativos.each do |tramite_normativo| %>
+		<tr>
+			<td><%= tramite_normativo.name %></td>
+			<td><%= tramite_normativo.order %></td>
+			<td><%= link_to 'Show', tramite_normativo %></td>
+			<td><%= link_to 'Edit', edit_tramite_normativo_path(tramite_normativo) %></td>
+			<td><%= link_to 'Destroy', tramite_normativo, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Tramite normativo', new_tramite_normativo_path %>

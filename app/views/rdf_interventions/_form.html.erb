@@ -36,6 +36,16 @@
   </div>
 
   <div class="field">
+    <%= label_tag :intervention_participation_type, 'Tipo de participación' %><br />
+    <%= collection_select(:rdf_intervention, :intervention_participation_type, ParticipationType.find_all, :id, :participation_type_name, :prompt => "Todas las participaciones") %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :intervention_role, 'Calidad' %><br />
+    <%= collection_select(:rdf_intervention, :intervention_role, Quality.find_all, :id, :quality_name, :prompt => "Todas las calidades") %>
+  </div>
+
+  <div class="field">
     <%= label_tag :intervention_text, 'Texto' %><br />
     <%= text_area_tag(:intervention_text, @rdf_intervention.intervention_text, :size => '25x4')  %>
   </div>

@@ -6,6 +6,8 @@
 			<th>Legislatura</th>
 			<th>Sesión</th>
 			<th>Persona</th>
+			<th>Participación</th>
+			<th>Calidad</th>
 			<th>
 			<th>
 			<th>
@@ -18,6 +20,8 @@
 			<td><%= rdf_intervention.intervention_legislature.to_s %></td>
 			<td><%= rdf_intervention.intervention_session.to_s %></td>
 			<td><%= rdf_intervention.intervention_person.to_s %></td>
+			<td><%= ParticipationType.find_by_id(rdf_intervention.intervention_participation_type.to_s).participation_type_name.to_s %></td>
+			<td><%= Quality.find_by_id(rdf_intervention.intervention_role.to_s).quality_name.to_s %></td>
 			<td><%= link_to 'Mostrar', rdf_intervention_path(rdf_intervention.id) %></td>
 			<td><%= link_to 'Editar', edit_rdf_intervention_path(rdf_intervention.id) %></td>
 			<td><%= link_to 'Destruír', destroy_rdf_intervention_path(rdf_intervention.id), confirm: 'Está seguro?', :method => :delete %></td>

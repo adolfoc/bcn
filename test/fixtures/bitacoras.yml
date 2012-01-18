@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  bulletin_id: 1
+  frbr_manifestation_id: 1
+  tramite_constitucional_id: 1
+  tramite_normativo_id: 1
+  comments: MyText
+  user_id: 1
+
+two:
+  bulletin_id: 1
+  frbr_manifestation_id: 1
+  tramite_constitucional_id: 1
+  tramite_normativo_id: 1
+  comments: MyText
+  user_id: 1

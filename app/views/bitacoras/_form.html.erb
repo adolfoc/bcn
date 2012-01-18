@@ -1,0 +1,46 @@
+<%= form_for(@bitacora) do |f| %>
+	<% if @bitacora.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@bitacora.errors.count, "error") %> prohibited this bitacora from being saved:</h2>
+			<ul>
+				<% @bitacora.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :bulletin_id, "Boletín" %><br />
+		<%= f.number_field :bulletin_id %>
+	</div>
+
+	<div class="field">
+		<%= f.label :frbr_manifestation_id, "Documento" %><br />
+		<%= f.number_field :frbr_manifestation_id %>
+	</div>
+
+	<div class="field">
+		<%= f.label :tramite_constitucional_id, "Trámite Constitucional" %><br />
+		<%= f.select :tramite_constitucional_id, TramiteConstitucional.all.map { |tn| [tn.name, tn.id] }, :selected => @bitacora.tramite_constitucional_id %>
+	</div>
+
+	<div class="field">
+		<%= f.label :tramite_normativo_id, "Trámite Normativo" %><br />
+		<%= f.select :tramite_normativo_id, TramiteNormativo.all.map { |tn| [tn.name, tn.id] }, :selected => @bitacora.tramite_normativo_id %>
+	</div>
+
+	<div class="field">
+		<%= f.label :comments, "Comentarios" %><br />
+		<%= f.text_area :comments %>
+	</div>
+
+	<div class="field">
+		<%= f.label :user_id, "Usuario" %><br />
+		<%= f.select :user_id, User.all.map { |tn| [tn.user_name, tn.id] }, :selected => @bitacora.user_id %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>

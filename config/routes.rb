@@ -1,4 +1,8 @@
 Bcn::Application.routes.draw do  
+  resources :bitacoras
+  resources :tramite_normativos
+  resources :tramite_constitucionals
+
   resources :debate_types
   resources :tp_generated_params
   resources :taxonomy_terms

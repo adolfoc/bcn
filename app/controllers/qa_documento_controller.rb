@@ -18,6 +18,8 @@ class QaDocumentoController < ApplicationController
     params[:intervention_legislature] = legislature
     params[:intervention_session] = session
     params[:intervention_person] = person
+    params[:intervention_participation_type] = "0000000004"
+    params[:intervention_role] = "0000000003"
     params[:intervention_text] = text
 
     intervention = RdfIntervention.create(params)

@@ -21,6 +21,8 @@ class RdfIntervention
   RDF_INTERVENTION_LEGISLATURE_URI          = "http://datos.bcn.cl/intervention/legislature"
   RDF_INTERVENTION_SESSION_URI              = "http://datos.bcn.cl/intervention/session"
   RDF_INTERVENTION_PERSON_URI               = "http://datos.bcn.cl/intervention/person"
+  RDF_INTERVENTION_P_TYPE_URI               = "http://datos.bcn.cl/intervention/participation_type"
+  RDF_INTERVENTION_ROLE_URI                 = "http://datos.bcn.cl/intervention/role"
   RDF_INTERVENTION_TEXT_URI                 = "http://datos.bcn.cl/intervention/text"
 
   MAX_NAME_LENGTH = 100
@@ -33,6 +35,8 @@ class RdfIntervention
   RdfAccessor::rdf_literal_accessor('intervention_legislature', RDF_INTERVENTION_LEGISLATURE_URI)
   RdfAccessor::rdf_literal_accessor('intervention_session', RDF_INTERVENTION_SESSION_URI)
   RdfAccessor::rdf_uri_accessor('intervention_person', RDF_INTERVENTION_PERSON_URI)
+  RdfAccessor::rdf_uri_accessor('intervention_participation_type', RDF_INTERVENTION_P_TYPE_URI)
+  RdfAccessor::rdf_uri_accessor('intervention_role', RDF_INTERVENTION_ROLE_URI)
   RdfAccessor::rdf_literal_accessor('intervention_text', RDF_INTERVENTION_TEXT_URI)
 
   def initialize(rdf_uri)
@@ -86,6 +90,8 @@ class RdfIntervention
     @intervention_legislature = RDF::Literal.new(attributes[:intervention_legislature]) unless attributes[:intervention_legislature].empty?
     @intervention_session = RDF::Literal.new(attributes[:intervention_session]) unless attributes[:intervention_session].empty?
     @intervention_person = RDF::URI.new(attributes[:intervention_person]) unless attributes[:intervention_person].empty?
+    @intervention_participation_type = RDF::URI.new(attributes[:intervention_participation_type]) unless attributes[:intervention_participation_type].empty?
+    @intervention_role = RDF::URI.new(attributes[:intervention_role]) unless attributes[:intervention_role].empty?
     @intervention_text = RDF::Literal.new(encode_text(attributes[:intervention_text])) unless attributes[:intervention_text].empty?
   end
 
@@ -122,6 +128,8 @@ class RdfIntervention
     intervention_legislature_create
     intervention_session_create
     intervention_person_create
+    intervention_participation_type_create
+    intervention_role_create
     intervention_text_create
 
     true
@@ -162,6 +170,8 @@ class RdfIntervention
     intervention_legislature_update RDF::Literal.new(params[:intervention_legislature])
     intervention_session_update RDF::Literal.new(params[:intervention_session])
     intervention_person_update RDF::URI.new(params[:intervention_person])
+    intervention_participation_type_update RDF::URI.new(params[:intervention_participation_type])
+    intervention_participation_type_update RDF::URI.new(params[:intervention_participation_type])
     intervention_text_update RDF::Literal.new(encode_text(params[:intervention_text]))
     true
   end
@@ -175,6 +185,8 @@ class RdfIntervention
     intervention_legislature_destroy
     intervention_session_destroy
     intervention_person_destroy
+    intervention_participation_type_destroy
+    intervention_role_destroy
     intervention_text_destroy
   end
 

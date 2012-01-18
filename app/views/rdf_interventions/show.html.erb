@@ -17,6 +17,14 @@
 		<td><%= @rdf_intervention.intervention_person %></td>
 	</tr>
 	<tr>
+		<th>Tipo de participación</th>
+		<td><%= ParticipationType.find_by_id(@rdf_intervention.intervention_participation_type.to_s).participation_type_name.to_s %></td>
+	</tr>
+	<tr>
+		<th>Calidad</th>
+		<td><%= Quality.find_by_id(@rdf_intervention.intervention_role.to_s).quality_name.to_s %></td>
+	</tr>
+	<tr>
 		<th>Texto</th>
 		<td><%= @rdf_intervention.intervention_text %></td>
 	</tr>

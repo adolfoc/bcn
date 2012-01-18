@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @tramite_normativo.name %>
+</p>
+
+<p>
+  <b>Order:</b>
+  <%= @tramite_normativo.order %>
+</p>
+
+
+<%= link_to 'Edit', edit_tramite_normativo_path(@tramite_normativo) %> |
+<%= link_to 'Back', tramite_normativos_path %>

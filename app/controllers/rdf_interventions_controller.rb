@@ -2,7 +2,7 @@ class RdfInterventionsController < ApplicationController
   before_filter :set_menu_section
 
   def set_menu_section
-    @accordion_section = 7
+    @accordion_section = 6
   end
 
   # GET /rdf_interventions

@@ -1,0 +1,28 @@
+<h1>Trámites Constitucionales</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Order</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tramite_constitucionals.each do |tramite_constitucional| %>
+		<tr>
+			<td><%= tramite_constitucional.name %></td>
+			<td><%= tramite_constitucional.order %></td>
+			<td><%= link_to 'Show', tramite_constitucional %></td>
+			<td><%= link_to 'Edit', edit_tramite_constitucional_path(tramite_constitucional) %></td>
+			<td><%= link_to 'Destroy', tramite_constitucional, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Tramite constitucional', new_tramite_constitucional_path %>

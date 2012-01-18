@@ -1,0 +1,25 @@
+<%= form_for(@tramite_constitucional) do |f| %>
+  <% if @tramite_constitucional.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tramite_constitucional.errors.count, "error") %> prohibited this tramite_constitucional from being saved:</h2>
+
+      <ul>
+      <% @tramite_constitucional.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.number_field :order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

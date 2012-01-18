@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bulletin:</b>
+  <%= @bitacora.bulletin_id %>
+</p>
+
+<p>
+  <b>Frbr manifestation:</b>
+  <%= @bitacora.frbr_manifestation_id %>
+</p>
+
+<p>
+  <b>Tramite constitucional:</b>
+  <%= @bitacora.tramite_constitucional_id %>
+</p>
+
+<p>
+  <b>Tramite normativo:</b>
+  <%= @bitacora.tramite_normativo_id %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @bitacora.comments %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @bitacora.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_bitacora_path(@bitacora) %> |
+<%= link_to 'Back', bitacoras_path %>

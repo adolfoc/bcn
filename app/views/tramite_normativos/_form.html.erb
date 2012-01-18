@@ -1,0 +1,25 @@
+<%= form_for(@tramite_normativo) do |f| %>
+  <% if @tramite_normativo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tramite_normativo.errors.count, "error") %> prohibited this tramite_normativo from being saved:</h2>
+
+      <ul>
+      <% @tramite_normativo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.number_field :order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

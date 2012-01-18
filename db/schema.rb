@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111210200) do
+ActiveRecord::Schema.define(:version => 20120118200236) do
 
   create_table "am_configurations", :force => true do |t|
     t.boolean  "structural_markup_enabled"
@@ -73,6 +73,17 @@ ActiveRecord::Schema.define(:version => 20120111210200) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ot_id"
+  end
+
+  create_table "bitacoras", :force => true do |t|
+    t.integer  "bulletin_id"
+    t.integer  "frbr_manifestation_id"
+    t.integer  "tramite_constitucional_id"
+    t.integer  "tramite_normativo_id"
+    t.text     "comments"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "debate_types", :force => true do |t|
@@ -373,6 +384,20 @@ ActiveRecord::Schema.define(:version => 20120111210200) do
     t.integer  "ot_id"
     t.integer  "document_type_id"
     t.integer  "debate_type_id"
+  end
+
+  create_table "tramite_constitucionals", :force => true do |t|
+    t.string   "name"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tramite_normativos", :force => true do |t|
+    t.string   "name"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
