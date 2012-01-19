@@ -1,0 +1,22 @@
+<h1>Parlamentarios</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Profesión</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @parlamentarians.each do |parlamentarian| %>
+		<tr>
+			<td><%= link_to(parlamentarian.parlamentarian_name, parlamentarian_path(parlamentarian.id)) %></td>
+			<td><%= parlamentarian.profession unless  parlamentarian.parlamentarian_professions.nil? %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<%= will_paginate @paginated_parlamentarians %>
+

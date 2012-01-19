@@ -1,0 +1,61 @@
+<h1>Parlamentario</h1>
+
+<% unless @parlamentarian.parlamentarian_depiction.nil? %>
+	<%= image_tag @parlamentarian.parlamentarian_depiction.to_s %>
+<% end %>
+
+<table>
+	<tr>
+		<th>Nombres:</th>
+		<td><%= @parlamentarian.parlamentarian_first_name %></td>
+	</tr>
+	<tr>
+		<th>Apellidos paternos:</th>
+		<td><%= @parlamentarian.parlamentarian_father_last_name %></td>
+	</tr>
+	<tr>
+		<th>Apellidos maternos:</th>
+		<td><%= @parlamentarian.parlamentarian_mother_last_name %></td>
+	</tr>
+	<tr>
+		<th>Nombre completo:</th>
+		<td><%= @parlamentarian.parlamentarian_name %></td>
+	</tr>
+	<tr>
+		<th>Profesión:</th>
+		<td><%= @parlamentarian.profession %></td>
+	</tr>
+	<tr>
+		<th>Sitio web:</th>
+		<td><%= link_to @parlamentarian.parlamentarian_website.to_s, @parlamentarian.parlamentarian_website.to_s %></td>
+	</tr>
+	<% unless @parlamentarian.parlamentarian_social_networks.nil? %>
+		<% @parlamentarian.parlamentarian_social_networks.each do | social_network | %>
+			<tr>
+				<th>Red social:</th>
+				<td><%= link_to @parlamentarian.social_network(social_network), social_network.to_s %></td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<th>Cargo</th>
+			<th>Desde</th>
+			<th>Hasta</th>
+			<th>Partido</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @parlamentarian.terms.each do |term| %>
+		<tr>
+			<td><%= term.role unless term.role.nil? %></td>
+			<td><%= term.parlamentary_period_start_year.to_s %></td>
+			<td><%= term.parlamentary_period_end_year.to_s %></td>
+			<td><%= term.parlamentary_period_party.to_s %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

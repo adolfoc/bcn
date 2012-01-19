@@ -5,10 +5,11 @@
 		<tr>
 			<th>Boletín</th>
 			<th>Documento</th>
-			<th>Tramite constitucional</th>
-			<th>Tramite normativo</th>
-			<th>Comments</th>
-			<th>User</th>
+			<th>Trámite constitucional</th>
+			<th>Trámite normativo</th>
+			<th>Comentarios</th>
+			<th>Usuario</th>
+			<th>Fecha</th>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -23,6 +24,7 @@
 			<td><%= bitacora.tramite_normativo.name %></td>
 			<td><%= bitacora.comments %></td>
 			<td><%= bitacora.user.user_name %></td>
+			<td><%= bitacora.updated_at %></td>
 			<td><%= link_to 'Show', bitacora %></td>
 			<td><%= link_to 'Edit', edit_bitacora_path(bitacora) %></td>
 			<td><%= link_to 'Destroy', bitacora, confirm: 'Are you sure?', method: :delete %></td>

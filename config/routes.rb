@@ -2,7 +2,6 @@ Bcn::Application.routes.draw do
   resources :bitacoras
   resources :tramite_normativos
   resources :tramite_constitucionals
-
   resources :debate_types
   resources :tp_generated_params
   resources :taxonomy_terms
@@ -41,6 +40,16 @@ Bcn::Application.routes.draw do
   resources :ots
   resources :tasks
   devise_for :users
+
+  # ############################################################################################################
+  # RDF Parlamentarians
+  match "parlamentarians" => 'parlamentarians#create', :via => :post
+  match "parlamentarians" => 'parlamentarians#index', :as => :parlamentarians
+  match "parlamentarians/new" => 'parlamentarians#new', :as => :new_parlamentarian
+  match "parlamentarians/:rdf_uri" => 'parlamentarians#update', :as => :update_parlamentarian, :via => :put
+  match "parlamentarians/:rdf_uri" => 'parlamentarians#destroy', :as => :destroy_parlamentarian, :via => :delete
+  match "parlamentarians/:rdf_uri" => 'parlamentarians#show', :as => :parlamentarian
+  match "parlamentarians/:rdf_uri/edit" => 'parlamentarians#edit', :as => :edit_parlamentarian
 
   # ############################################################################################################
   # RDF Interventions

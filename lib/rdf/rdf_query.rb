@@ -337,6 +337,27 @@ module RdfQuery
   end
  
 
+  ###############################################################################################
+  # Metodos para manejar arrays de URIs
+
+  def get_uri_array(rdf_uri, predicate)
+    Rails.logger.debug("RdfQuery::get_uri_array(#{rdf_uri}, #{predicate})") if @@trace_on == true
+    vars = Hash[:uri => RDF::URI]
+    statements = Array.[](
+                          "<#{rdf_uri}> <#{predicate}> ?uri"
+                          )
+    rows = execute_select(vars, statements, nil, nil, nil)
+    Rails.logger.debug("RdfQuery::get_uri_array json_result = #{rows}") if @@trace_on == true
+
+    uri_array = Array.new
+    rows.each do |row|
+      uri_array << row[:uri]
+    end
+    Rails.logger.debug("RdfQuery::get_uri_array json_result = #{uri_array.inspect}") if @@trace_on == true
+    uri_array
+  end
+
+
   ############################################################################
   # Funciones que exportamos
 
@@ -372,4 +393,5 @@ module RdfQuery
   module_function :update_uri
   module_function :delete_uri
 
+  module_function :get_uri_array
 end
