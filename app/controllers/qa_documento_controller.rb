@@ -30,16 +30,15 @@ class QaDocumentoController < ApplicationController
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     filename = "#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}"
     doc = Nokogiri::XML(File.open(filename, 'r'))
-    doc.xpath('//Intervencion').each do |node|
-      unless node.xpath('Emisor').empty? && node.xpath('texto').empty?
-        emisor = node.xpath('Emisor')
-        emisor_uri = emisor.xpath('PER').first[:uri]
-        unless emisor_uri.nil?
-          text = node.xpath('texto').text
+    doc.xpath('//Participacion').each do |participation|
+      participation.xpath('Intervencion').each do |intervention|
+        unless intervention.xpath('Emisor/entity/body').nil?
+          unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
+            emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
+            text = intervention.xpath('texto').text
 
-          subject ="/#{camara}/#{legislatura}/#{sesion}/#{emisor_uri}"
-          Rails.logger.debug("@@@ found a Intervencion for URI #{subject}")
-          create_intervention_node(camara, legislatura, sesion, emisor_uri, text)
+            create_intervention_node(camara, legislatura, sesion, emisor_uri, text)
+          end
         end
       end
     end

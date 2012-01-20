@@ -1,4 +1,7 @@
 class RdfInterventionsController < ApplicationController
+  require 'will_paginate/array'
+  RESULTS_PER_PAGE = 20
+
   before_filter :set_menu_section
 
   def set_menu_section
@@ -8,9 +11,18 @@ class RdfInterventionsController < ApplicationController
   # GET /rdf_interventions
   # GET /rdf_interventions.json
   def index
-    limit = 20
-    offset = 0
-    @rdf_interventions = RdfIntervention.find_all(false, limit, offset)
+    page = params[:page]
+    page = 1 if page.nil? || page == 0
+    offset = (Integer(page) - 1) * RESULTS_PER_PAGE
+    offset = offset + 1 if Integer(page) > 1
+    @rdf_interventions = RdfIntervention.find_all(true, RESULTS_PER_PAGE, offset)
+    @paginated_rdf_interventions = @rdf_interventions.paginate(:page => page, :per_page => RESULTS_PER_PAGE, :total_entries => RdfIntervention.count)
+
+
+
+#    limit = 20
+#    offset = 0
+#    @rdf_interventions = RdfIntervention.find_all(false, limit, offset)
 
     respond_to do |format|
       format.html # index.html.erb

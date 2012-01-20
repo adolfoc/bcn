@@ -28,15 +28,16 @@ module AmMock
   # Actually call the AM Web Service
   def perform_am_ws(am_configuration, ot)
     client = Savon::Client.new do
-      wsdl.document = "http://172.18.21.14:18080/DemoMarcaje/services/Proceso?WSDL"
+#      wsdl.document = "http://172.18.21.14:18080/DemoMarcaje/services/Proceso?WSDL"
+      wsdl.document = "http://172.18.21.14:18080/DemoMarcajeV2/services/Proceso?wsdl"
     end
 
-    response = client.request(:ejecutarMarcaje) do
-      soap.body = { :data => ot.target_frbr_manifestation.as_text }
+    response = client.request(:ejecutarMarcajeConOntologia) do
+      soap.body = { :data => ot.target_frbr_manifestation.as_text, :year => 2006 }
     end
 
     if response.success?
-      ot.target_frbr_manifestation.update_contents(response.body[:ejecutar_marcaje_response][:ejecutar_marcaje_return][:data])
+      ot.target_frbr_manifestation.update_contents(response.body[:ejecutar_marcaje_con_ontologia_response][:ejecutar_marcaje_con_ontologia_return][:data])
     end
 
     am_result = package_am_results(am_configuration)

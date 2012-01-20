@@ -18,8 +18,6 @@ class ParlamentariansController < ApplicationController
     @parlamentarians = Parlamentarian.find_all(true, RESULTS_PER_PAGE, offset)
     @paginated_parlamentarians = @parlamentarians.paginate(:page => page, :per_page => RESULTS_PER_PAGE, :total_entries => Parlamentarian.count)
 
-#    @parlamentarians = Parlamentarian.find_all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @parlamentarians }

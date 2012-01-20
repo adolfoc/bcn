@@ -23,7 +23,7 @@
 	</tr>
 	<tr>
 		<th>Profesión:</th>
-		<td><%= @parlamentarian.profession %></td>
+		<td><%= @parlamentarian.profession unless @parlamentarian.parlamentarian_professions.nil? %></td>
 	</tr>
 	<tr>
 		<th>Sitio web:</th>
