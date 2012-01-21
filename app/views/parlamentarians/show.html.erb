@@ -54,7 +54,7 @@
 			<td><%= term.role unless term.role.nil? %></td>
 			<td><%= term.parlamentary_period_start_year.to_s %></td>
 			<td><%= term.parlamentary_period_end_year.to_s %></td>
-			<td><%= term.parlamentary_period_party.to_s %></td>
+			<td><%= link_to term.party.party_name.to_s, rdf_party_path(term.party.id) %></td>
 		</tr>
 		<% end %>
 	</tbody>

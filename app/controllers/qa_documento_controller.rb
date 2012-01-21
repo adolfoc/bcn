@@ -12,7 +12,21 @@ class QaDocumentoController < ApplicationController
     @accordion_section = 0
   end
 
+  def clear_previous_interventions(organism, legislature, session)
+    query = "DELETE FROM <http://datos.bcn.cl> { ?s ?p ?o } WHERE { 
+      ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://datos.bcn.cl/ontologies#Intervention>. 
+      ?s <http://datos.bcn.cl/intervention/organism> '#{organism}' .
+      ?s <http://datos.bcn.cl/intervention/legislature> '#{legislature}' .
+      ?s <http://datos.bcn.cl/intervention/session> '#{session}' .
+      ?s ?p ?o
+    }"
+
+    RdfQuery::sparql_query(query)
+  end
+
   def create_intervention_node(organism, legislature, session, person, text)
+    clear_previous_interventions(organism, legislature, session)
+
     params = Hash.new
     params[:intervention_organism] = organism
     params[:intervention_legislature] = legislature

@@ -12,20 +12,27 @@ class Party
   ###############################################################################################
   # URIs de atributos en la base de datos Virtuoso
 
-  RDF_PARTY_NS               = 'http://datos.bcn.cl/id/party/'
-  RDF_PARTY_NEW_URI          = 'http://datos.bcn.cl/id/party/0'
+  RDF_PARTY_NS               = 'http://historiapolitica.bcn.cl/partidos_politicos/wiki/'
 
-  RDF_PARTY_TYPE_URI         = 'http://datos.bcn.cl/ontologies#PoliticalParty'
-  RDF_PARTY_PARTY_ID_URI     = 'http://datos.bcn.cl/id/party/partyId'
-  RDF_PARTY_NAME_URI         = "http://datos.bcn.cl/foaf/0.1/name"
+  RDF_PARTY_TYPE_URI         = 'http://datos.bcn.cl/ontologies/bcn-biographies#PoliticalParty'
+  RDF_PARTY_NAME_URI         = "http://xmlns.com/foaf/0.1/name"
+  RDF_PARTY_FOUNDER_URI      = "http://datos.bcn.cl/ontologies/bcn-biographies#hasParliamentaryFounder"
+  RDF_PARTY_FOUNDATION_URI   = "http://datos.bcn.cl/ontologies/bcn-biographies#hasFoundationDate"
+  RDF_PARTY_SOCIAL_URI       = "http://xmlns.com/foaf/0.1/isPrimaryTopicOf"
+  RDF_PARTY_HOMEPAGE_URI     = "http://xmlns.com/foaf/0.1/hompage"
+  RDF_PARTY_ELECTED_URI      = "http://datos.bcn.cl/ontologies/bcn-biographies#hasParliamentaryRepresentationOf"
 
   MAX_NAME_LENGTH = 100
 
   attr_accessor :rdf_uri
   RdfAccessor::rdf_uri_accessor('party_type', RdfAccessor::RDF_TYPE_URI)
-  RdfAccessor::rdf_literal_accessor('party_id', RDF_PARTY_PARTY_ID_URI)
 
   RdfAccessor::rdf_literal_accessor('party_name', RDF_PARTY_NAME_URI)
+  RdfAccessor::rdf_uri_array_accessor('party_founders', RDF_PARTY_FOUNDER_URI)
+  RdfAccessor::rdf_literal_accessor('party_foundation_date', RDF_PARTY_FOUNDATION_URI)
+  RdfAccessor::rdf_uri_array_accessor('party_social_networks', RDF_PARTY_SOCIAL_URI)
+  RdfAccessor::rdf_uri_accessor('party_homepage', RDF_PARTY_HOMEPAGE_URI)
+  RdfAccessor::rdf_uri_array_accessor('party_elected_representatives', RDF_PARTY_ELECTED_URI)
 
   def initialize(rdf_uri, name)
     @rdf_uri = RDF::URI.new(rdf_uri)
@@ -37,6 +44,36 @@ class Party
 
   def id
     @rdf_uri.basename
+  end
+
+  def founders
+    founders = Array.new
+    unless party_founders.nil?
+      party_founders.each do | party_founder_uri |
+        founders << Parlamentarian.find(party_founder_uri)
+      end
+    end
+    founders
+  end
+
+  def elected_representatives
+    elected_representatives = Array.new
+    unless party_elected_representatives.nil?
+      party_elected_representatives.each do | elected_representatives_uri |
+        elected_representatives << Parlamentarian.find(elected_representatives_uri)
+      end
+    end
+    elected_representatives
+  end
+
+  def social_network(social_network_uri)
+    /^http:\/\/(?<host>[a-z\.]*)\//.match(social_network_uri.to_s)[:host]
+  end
+
+  def has_url?
+    return false if party_name.to_s.length == 0
+    return false if /\./.match(id)
+    true
   end
 
   ###############################################################################################

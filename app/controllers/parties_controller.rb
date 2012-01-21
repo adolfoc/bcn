@@ -1,4 +1,7 @@
 class PartiesController < ApplicationController
+  require 'will_paginate/array'
+  RESULTS_PER_PAGE = 20
+
   before_filter :set_menu_section
 
   def set_menu_section
@@ -8,7 +11,12 @@ class PartiesController < ApplicationController
   # GET /parties
   # GET /parties.json
   def index
-    @parties = Party.find_all
+    page = params[:page]
+    page = 1 if page.nil? || page == 0
+    offset = (Integer(page) - 1) * RESULTS_PER_PAGE
+    offset = offset + 1 if Integer(page) > 1
+    @parties = Party.find_all(true, RESULTS_PER_PAGE, offset)
+    @paginated_parties = @parties.paginate(:page => page, :per_page => RESULTS_PER_PAGE, :total_entries => Party.count)
 
     respond_to do |format|
       format.html # index.html.erb

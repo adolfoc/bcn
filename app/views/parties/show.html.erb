@@ -1,13 +1,49 @@
-<p>
-  <b>Name:</b>
-  <%= @party.party_name %>
-</p>
+<table>
+	<tr>
+		<th>Nombre:</th>
+		<td><%= @party.party_name %></td>
+	</tr>
+	<tr>
+		<th>Fecha de fundación:</th>
+		<td><%= @party.party_foundation_date %></td>
+	</tr>
+	<% @party.founders.each do | party_founder | %>
+		<% if party_founder.parlamentarian_name.to_s.length > 0 %>
+			<tr>
+				<th>Fundador:</th>
+				<td><%= link_to party_founder.parlamentarian_name, party_founder.id %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	<tr>
+		<th>Página web:</th>
+		<td><%= link_to @party.party_name.to_s, @party.party_homepage.to_s %></td>
+	</tr>
+	<% unless @party.party_social_networks.nil? %>
+		<% @party.party_social_networks.each do | social_network | %>
+		<tr>
+			<th><%= @party.social_network(social_network) %></th>
+			<td><%= link_to(@party.social_network(social_network), social_network.to_s) %>
+		</tr>
+		<% end %>
+	<% end %>
+</table>
 
-<p>
-  <b>Uri:</b>
-  <%= @party.party_id %>
-</p>
-
+<h2>Senadores y Diputados</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Parlamentario</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @party.elected_representatives.each do | representative | %>
+		<tr>
+			<td><%= link_to representative.parlamentarian_name.to_s, parlamentarian_path(representative.id) %>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
 
 <%= link_to 'Edit', edit_rdf_party_path(@party.id) %> |
 <%= link_to 'Back', rdf_parties_path %>

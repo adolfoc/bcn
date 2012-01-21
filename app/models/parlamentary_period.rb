@@ -47,6 +47,10 @@ class ParlamentaryPeriod
     /#(?<role>[a-z ]*)-(?<year>[0-9]*)$/.match(rdf_uri)[:role]
   end
 
+  def party
+    Party.find(parlamentary_period_party.to_s)
+  end
+
 
   ###############################################################################################
   # Metodos de clase que devuelven colecciones
