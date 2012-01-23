@@ -20,6 +20,8 @@ class RdfIntervention
   RDF_INTERVENTION_ORGANISM_URI             = "http://datos.bcn.cl/intervention/organism"
   RDF_INTERVENTION_LEGISLATURE_URI          = "http://datos.bcn.cl/intervention/legislature"
   RDF_INTERVENTION_SESSION_URI              = "http://datos.bcn.cl/intervention/session"
+  RDF_INTERVENTION_DS_SECTION_URI           = "http://datos.bcn.cl/intervention/ds_section"
+  RDF_INTERVENTION_DS_SUBSECTION_URI        = "http://datos.bcn.cl/intervention/ds_subsection"
   RDF_INTERVENTION_PERSON_URI               = "http://datos.bcn.cl/intervention/person"
   RDF_INTERVENTION_P_TYPE_URI               = "http://datos.bcn.cl/intervention/participation_type"
   RDF_INTERVENTION_ROLE_URI                 = "http://datos.bcn.cl/intervention/role"
@@ -34,6 +36,8 @@ class RdfIntervention
   RdfAccessor::rdf_literal_accessor('intervention_organism', RDF_INTERVENTION_ORGANISM_URI)
   RdfAccessor::rdf_literal_accessor('intervention_legislature', RDF_INTERVENTION_LEGISLATURE_URI)
   RdfAccessor::rdf_literal_accessor('intervention_session', RDF_INTERVENTION_SESSION_URI)
+  RdfAccessor::rdf_literal_accessor('intervention_ds_section', RDF_INTERVENTION_DS_SECTION_URI)
+  RdfAccessor::rdf_literal_accessor('intervention_ds_subsection', RDF_INTERVENTION_DS_SUBSECTION_URI)
   RdfAccessor::rdf_uri_accessor('intervention_person', RDF_INTERVENTION_PERSON_URI)
   RdfAccessor::rdf_uri_accessor('intervention_participation_type', RDF_INTERVENTION_P_TYPE_URI)
   RdfAccessor::rdf_uri_accessor('intervention_role', RDF_INTERVENTION_ROLE_URI)
@@ -59,6 +63,10 @@ class RdfIntervention
     salida = salida.gsub(/"/, "\\\\\"")
     Rails.logger.debug("RdfIntervention::encode_text salida " + salida.inspect) if !salida.nil?
     salida
+  end
+
+  def parlamentarian
+    Parlamentarian.find(intervention_person.to_s)
   end
 
 
@@ -89,6 +97,8 @@ class RdfIntervention
     @intervention_organism = RDF::Literal.new(attributes[:intervention_organism]) unless attributes[:intervention_organism].empty?
     @intervention_legislature = RDF::Literal.new(attributes[:intervention_legislature]) unless attributes[:intervention_legislature].empty?
     @intervention_session = RDF::Literal.new(attributes[:intervention_session]) unless attributes[:intervention_session].empty?
+    @intervention_ds_section = RDF::Literal.new(attributes[:intervention_ds_section]) unless attributes[:intervention_ds_section].empty?
+    @intervention_ds_subsection = RDF::Literal.new(attributes[:intervention_ds_subsection]) unless attributes[:intervention_ds_subsection].empty?
     @intervention_person = RDF::URI.new(attributes[:intervention_person]) unless attributes[:intervention_person].empty?
     @intervention_participation_type = RDF::URI.new(attributes[:intervention_participation_type]) unless attributes[:intervention_participation_type].empty?
     @intervention_role = RDF::URI.new(attributes[:intervention_role]) unless attributes[:intervention_role].empty?
@@ -127,6 +137,8 @@ class RdfIntervention
     intervention_organism_create
     intervention_legislature_create
     intervention_session_create
+    intervention_ds_section_create
+    intervention_ds_subsection_create
     intervention_person_create
     intervention_participation_type_create
     intervention_role_create
@@ -169,6 +181,8 @@ class RdfIntervention
     intervention_organism_update RDF::Literal.new(params[:intervention_organism])
     intervention_legislature_update RDF::Literal.new(params[:intervention_legislature])
     intervention_session_update RDF::Literal.new(params[:intervention_session])
+    intervention_ds_section_update RDF::Literal.new(params[:intervention_section])
+    intervention_ds_subsection_update RDF::Literal.new(params[:intervention_sub_section])
     intervention_person_update RDF::URI.new(params[:intervention_person])
     intervention_participation_type_update RDF::URI.new(params[:intervention_participation_type])
     intervention_participation_type_update RDF::URI.new(params[:intervention_participation_type])
@@ -184,6 +198,8 @@ class RdfIntervention
     intervention_organism_destroy
     intervention_legislature_destroy
     intervention_session_destroy
+    intervention_ds_section_destroy
+    intervention_ds_subsection_destroy
     intervention_person_destroy
     intervention_participation_type_destroy
     intervention_role_destroy
@@ -210,6 +226,115 @@ class RdfIntervention
   def self.count
     statements = Array.[](
                           "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> ."
+                          )
+
+    RdfQuery::count(statements)
+  end
+
+  def self.find_all_org(organism, order = false, limit = 20, offset = 0)
+    vars = Hash[:entity => RDF::URI]
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' ."
+                          )
+
+    results = RdfQuery::execute_select(vars, statements, nil, limit, offset)
+
+    rs = Array.new
+    results.each { |result| rs << RdfIntervention.new(result[:entity].to_s) }
+    rs
+  end
+
+  def self.count_org(organism)
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' ."
+                          )
+
+    RdfQuery::count(statements)
+  end
+
+  def self.find_all_org_legislature(organism, legislature, order = false, limit = 20, offset = 0)
+    vars = Hash[:entity => RDF::URI]
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' .",
+                          "?entity <#{RDF_INTERVENTION_LEGISLATURE_URI}> '#{legislature}' ."
+                          )
+
+    results = RdfQuery::execute_select(vars, statements, nil, limit, offset)
+
+    rs = Array.new
+    results.each { |result| rs << RdfIntervention.new(result[:entity].to_s) }
+    rs
+  end
+
+  def self.count_org_legislature(organism, legislature)
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' .",
+                          "?entity <#{RDF_INTERVENTION_LEGISLATURE_URI}> '#{legislature}' ."
+                          )
+
+    RdfQuery::count(statements)
+  end
+
+  def self.find_all_org_legislature_session(organism, legislature, session, order = false, limit = 20, offset = 0)
+    vars = Hash[:entity => RDF::URI]
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' .",
+                          "?entity <#{RDF_INTERVENTION_LEGISLATURE_URI}> '#{legislature}' .",
+                          "?entity <#{RDF_INTERVENTION_SESSION_URI}> '#{session}' ."
+                          )
+
+    results = RdfQuery::execute_select(vars, statements, nil, limit, offset)
+
+    rs = Array.new
+    results.each { |result| rs << RdfIntervention.new(result[:entity].to_s) }
+    rs
+  end
+
+  def self.count_org_legislature_session(organism, legislature, session)
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_ORGANISM_URI}> '#{organism}' .",
+                          "?entity <#{RDF_INTERVENTION_LEGISLATURE_URI}> '#{legislature}' .",
+                          "?entity <#{RDF_INTERVENTION_SESSION_URI}> '#{session}' ."
+                          )
+
+    RdfQuery::count(statements)
+  end
+
+  def self.find_all_person(person, limit = 20, offset = 0)
+
+    query = "select ?entity from <http://datos.bcn.cl> where { 
+      ?entity <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://datos.bcn.cl/ontologies#Intervention> .
+      ?entity <http://datos.bcn.cl/intervention/legislature> ?legislature .
+      ?entity <http://datos.bcn.cl/intervention/session> ?session .
+      ?entity <http://datos.bcn.cl/intervention/person> <#{person}> .
+    } ORDER BY ?legislature ?session LIMIT #{limit} OFFSET #{offset}"
+
+#    vars = Hash[:entity => RDF::URI]
+#    statements = Array.[](
+#                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+#                          "?entity <#{RDF_INTERVENTION_PERSON_URI}> <#{person}> ."
+#                          )
+
+#    results = RdfQuery::execute_select(vars, statements, nil, limit, offset)
+
+    json_result = RdfQuery::sparql_query(query)
+    results = RdfQuery::decode_json_results(json_result, Hash[:entity => RDF::URI])
+
+    rs = Array.new
+    results.each { |result| rs << RdfIntervention.new(result[:entity].to_s) }
+    rs
+  end
+
+  def self.count_person(person)
+    statements = Array.[](
+                          "?entity <#{RDF_TYPE_URI}> <#{RDF_INTERVENTION_TYPE_URI}> .",
+                          "?entity <#{RDF_INTERVENTION_PERSON_URI}> <#{person}> ."
                           )
 
     RdfQuery::count(statements)

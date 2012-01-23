@@ -1,0 +1,33 @@
+<%= form_tag(submit_path, :remote => true) %>
+	<div class="field">
+		<%= label_tag :bancada_id, "Bancada:" %><br />
+		<%= select_tag :bancada_id, 
+			options_from_collection_for_select(Party.find_all(true, Party.count, 0), :id, :party_name), 
+			:prompt => "Todos los partidos", :class => "tp-select-box"  %>
+	</div>
+
+	<div class="field">
+		<%= label_tag :persona_id, "Persona:" %><br />
+		<%= select_tag :persona_id, 
+			options_from_collection_for_select(Parlamentarian.find_all(true, Parlamentarian.count, 0), :id, :parlamentarian_name), 
+			:prompt => "Todos los parlamentarios", :class => "tp-select-box"  %>
+	</div>
+
+	<div class="field">
+		<%= label_tag :participation_type_id, "Participaciones:" %><br />
+		<%= select_tag :participation_type_id, 
+			options_from_collection_for_select(ParticipationType.find_all, :id, :participation_type_name), 
+			:prompt => "Todas las participaciones", :class => "tp-select-box"  %>
+	</div>
+
+	<div class="field">
+		<%= label_tag :quality_type_id, "Calidades:" %><br />
+		<%= select_tag :quality_type_id, 
+			options_from_collection_for_select(Quality.find_all, :id, :quality_name), 
+			:prompt => "Todas las calidades", :class => "tp-select-box"  %>
+	</div>
+
+	<div class="actions">
+		<%= submit_tag "Aceptar", :id => "tp-request-button" %>
+	</div>
+</form>

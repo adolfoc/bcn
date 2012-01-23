@@ -1,4 +1,7 @@
 Bcn::Application.routes.draw do  
+  match "trabajo_parlamentario/index" => "trabajo_parlamentario#index", :as => :trabajo_parlamentario
+  match "trabajo_parlamentario/create" => "trabajo_parlamentario#create", :via => :post, :as => :create_trabajo_parlamentario
+
   resources :bitacoras
   resources :tramite_normativos
   resources :tramite_constitucionals

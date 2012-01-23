@@ -121,7 +121,8 @@ table, th, td {
 .inline-tp-field {
 	width: 340px;
 	margin-right: 10px;
-	float: left;
+	float: le
+	ft;
 }
 
 .inline-tp-simple-field {
@@ -156,4 +157,20 @@ table, th, td {
 
 .action-group form {
 	float: left;
+}
+
+.tp-select-box {
+	width: 180px;
+	font-size: 12px;
+	height: 20px;
+	/*
+	background: transparent;
+	padding: 5px;
+	border: 1px solid #ccc;
+	*/
+}
+
+.intervention-emitter {
+	font-weight: bold;
+	margin-bottom: 1.2em;
 }

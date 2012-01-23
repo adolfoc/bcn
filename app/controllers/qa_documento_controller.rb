@@ -24,13 +24,13 @@ class QaDocumentoController < ApplicationController
     RdfQuery::sparql_query(query)
   end
 
-  def create_intervention_node(organism, legislature, session, person, text)
-    clear_previous_interventions(organism, legislature, session)
-
+  def create_intervention_node(organism, legislature, session, section, subsection, person, text)
     params = Hash.new
     params[:intervention_organism] = organism
     params[:intervention_legislature] = legislature
     params[:intervention_session] = session
+    params[:intervention_ds_section] = section
+    params[:intervention_ds_subsection] = subsection
     params[:intervention_person] = person
     params[:intervention_participation_type] = "0000000004"
     params[:intervention_role] = "0000000003"
@@ -41,17 +41,44 @@ class QaDocumentoController < ApplicationController
   end
 
   def publish_ds(camara, legislatura, sesion)
+    clear_previous_interventions(camara, legislatura, sesion)
+
     frbr_manifestation = FrbrManifestation.find(@ot.target_frbr_manifestation_id)
     filename = "#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}"
     doc = Nokogiri::XML(File.open(filename, 'r'))
-    doc.xpath('//Participacion').each do |participation|
-      participation.xpath('Intervencion').each do |intervention|
-        unless intervention.xpath('Emisor/entity/body').nil?
-          unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
-            emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
-            text = intervention.xpath('texto').text
 
-            create_intervention_node(camara, legislatura, sesion, emisor_uri, text)
+    # Proyectos de acuerdo
+    max = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/TituloSubseccion').count
+    (0..max - 1).each do |index|
+      subsection_title = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/TituloSubseccion')[index].text
+      proyect = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/CuerpoSubseccion')[index]
+      proyect.xpath('Participacion').each do |participation|
+        participation.xpath('Intervencion').each do |intervention|
+          unless intervention.xpath('Emisor/entity/body').nil?
+            unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
+              emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
+              text = intervention.xpath('texto').text
+
+              create_intervention_node(camara, legislatura, sesion, "Proyectos de Acuerdo",  subsection_title, emisor_uri, text)
+            end
+          end
+        end
+      end
+    end
+
+    max = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/TituloSubseccion').count
+    (0..max - 1).each do |index|
+      subsection_title = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/TituloSubseccion')[index].text
+      proyect = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/CuerpoSubseccion')[index]
+      proyect.xpath('Participacion').each do |participation|
+        participation.xpath('Intervencion').each do |intervention|
+          unless intervention.xpath('Emisor/entity/body').nil?
+            unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
+              emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
+              text = intervention.xpath('texto').text
+
+              create_intervention_node(camara, legislatura, sesion, "Incidentes",  subsection_title, emisor_uri, text)
+            end
           end
         end
       end

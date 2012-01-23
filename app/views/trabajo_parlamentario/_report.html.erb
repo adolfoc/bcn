@@ -1,0 +1,30 @@
+<h1>Informe de <%= @parlamentarian_name %></h1>
+
+<% legislature = nil %>
+<% session = nil %>
+
+<% @rdf_interventions.each do | rdf_intervention | %>
+	<% if legislature != rdf_intervention.intervention_legislature.to_s || session != rdf_intervention.intervention_session.to_s %>
+		<% legislature = rdf_intervention.intervention_legislature.to_s %>
+		<% session = rdf_intervention.intervention_session.to_s %>
+		<h2>Legislatura <%= legislature %>, sesión <%= session %></h2>
+		<% section = nil %>
+		<% sub_section = nil %>
+	<% end %>
+	<% if section != rdf_intervention.intervention_ds_section.to_s %>
+		<% section = rdf_intervention.intervention_ds_section.to_s %>
+		<h3><%= section %></h3>
+	<% end %>
+	<% if sub_section != rdf_intervention.intervention_ds_subsection.to_s %>
+		<% sub_section = rdf_intervention.intervention_ds_subsection.to_s %>
+		<h4><%= sub_section %></h4>
+	<% end %>
+	<div class="specific-intervention">
+		<div class="intervention-emitter">
+			<%= rdf_intervention.parlamentarian.parlamentarian_name.to_s %>
+		</div>
+		<div class="intervention-text">
+			<p><%= rdf_intervention.intervention_text.to_s %></p>
+		</div>
+	</div>
+<% end %>
