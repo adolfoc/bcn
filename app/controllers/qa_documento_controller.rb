@@ -3,6 +3,13 @@ require 'workflow_controller'
 class QaDocumentoController < ApplicationController
   include WorkflowController
 
+  DEBATES_BODY = "ProyectosDeAcuerdo/Cuerpo/TextoDebate"
+  DEBATES_TITLE = "Debate"
+  PROJECTS_BODY = "ProyectosDeAcuerdo/Cuerpo/ProyectoAcuerdo"
+  PROJECTS_TITLE = "Proyectos de Acuerdo"
+  INCIDENTS_BODY = "ParteIncidentes/Cuerpo/PeticionesDeOficio"
+  INCIDENTS_TITLE = "Incidentes"
+
   before_filter :set_menu_section
 
   ##########################################################
@@ -40,6 +47,22 @@ class QaDocumentoController < ApplicationController
     intervention.save
   end
 
+  def extract_section(doc, camara, legislatura, sesion, section_xpath, section_name)
+    max = doc.xpath("//#{section_xpath}").count
+    (0..max - 1).each do |index|
+      subsection_title = doc.xpath("//#{section_xpath}/Titulo")[index].text
+      body = doc.xpath("//#{section_xpath}/Cuerpo")[index]
+      body.xpath('Participacion/Intervencion').each do |intervention|
+        unless intervention.xpath('Emisor/entity/body').nil? || intervention.xpath('Emisor/entity/body').attribute('uri').nil?
+          emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
+          text = intervention.xpath('texto').text
+
+          create_intervention_node(camara, legislatura, sesion, section_name,  subsection_title, emisor_uri, text)
+        end
+      end
+    end
+  end
+
   def publish_ds(camara, legislatura, sesion)
     clear_previous_interventions(camara, legislatura, sesion)
 
@@ -47,42 +70,9 @@ class QaDocumentoController < ApplicationController
     filename = "#{Rails.root.to_s}/public/system/documents/#{frbr_manifestation.id.to_s}/original/#{frbr_manifestation.document_file_name}"
     doc = Nokogiri::XML(File.open(filename, 'r'))
 
-    # Proyectos de acuerdo
-    max = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/TituloSubseccion').count
-    (0..max - 1).each do |index|
-      subsection_title = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/TituloSubseccion')[index].text
-      proyect = doc.xpath('//PROYECTOSDEACUERDO/CuerpoPROYECTOSDEACUERDO/CuerpoSubseccion')[index]
-      proyect.xpath('Participacion').each do |participation|
-        participation.xpath('Intervencion').each do |intervention|
-          unless intervention.xpath('Emisor/entity/body').nil?
-            unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
-              emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
-              text = intervention.xpath('texto').text
-
-              create_intervention_node(camara, legislatura, sesion, "Proyectos de Acuerdo",  subsection_title, emisor_uri, text)
-            end
-          end
-        end
-      end
-    end
-
-    max = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/TituloSubseccion').count
-    (0..max - 1).each do |index|
-      subsection_title = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/TituloSubseccion')[index].text
-      proyect = doc.xpath('//INCIDENTES/CuerpoINCIDENTES/CuerpoSubseccion')[index]
-      proyect.xpath('Participacion').each do |participation|
-        participation.xpath('Intervencion').each do |intervention|
-          unless intervention.xpath('Emisor/entity/body').nil?
-            unless intervention.xpath('Emisor/entity/body').attribute('uri').nil?
-              emisor_uri = intervention.xpath('Emisor/entity/body').attribute('uri').value
-              text = intervention.xpath('texto').text
-
-              create_intervention_node(camara, legislatura, sesion, "Incidentes",  subsection_title, emisor_uri, text)
-            end
-          end
-        end
-      end
-    end
+    extract_section(doc, camara, legislatura, sesion, DEBATES_BODY, DEBATES_TITLE)
+    extract_section(doc, camara, legislatura, sesion, PROJECTS_BODY, PROJECTS_TITLE)
+    extract_section(doc, camara, legislatura, sesion, INCIDENTS_BODY, INCIDENTS_TITLE)
   end
 
   ##########################################################
