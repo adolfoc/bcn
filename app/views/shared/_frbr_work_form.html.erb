@@ -44,12 +44,12 @@
 
 	<div class="field">
 		<%= f.label :event_date, "Fecha del evento" %><br />
-		<%= f.date_select :event_date %>
+		<%= f.date_select :event_date, :start_year => 1990, :end_year => Time.now.year + 1 %>
 	</div>
 
 	<div class="field">
 		<%= f.label :publication_date, "Fecha de publicación" %><br />
-		<%= f.date_select :publication_date %>
+		<%= f.date_select :publication_date, :start_year => 1990, :end_year => Time.now.year + 1 %>
 	</div>
 
 	<%= f.fields_for :frbr_expressions do | frbr_expression_form | %>

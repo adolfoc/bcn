@@ -279,7 +279,8 @@ class QaDocumentoController < ApplicationController
     @task = Task.find(params[:task_id])
     @ot = Ot.find(@task.ot_id)
 
-    publish_ds("diputados", "332", "33")
+    frbr_work = @ot.source_frbr_manifestation.frbr_expression.frbr_work
+    publish_ds(frbr_work.frbr_entity.name, frbr_work.legislature.to_s, frbr_work.session.to_s)
 
 #    do_perform_transition(:publica_documento)
 #    @task.mark_complete
